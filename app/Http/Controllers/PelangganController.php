@@ -102,9 +102,46 @@ class PelangganController extends Controller
       
     }
 
+    public function status_service_pelanggan(Request $request)
+    {
+        $status_service= DB::table('service')->where('ID_SERVICE',$request->id)->value('STATUS_SERVICE');
+          if($status_service==1){ 
+             DB::table('service')->where('ID_SERVICE',$request->id)->update([
+                'STATUS_SERVICE' => 0,
+            ]);
+          }
+          else{
+            DB::table('service')->where('ID_SERVICE',$request->id)->update([
+                'STATUS_SERVICE' => 1,
+            ]);
+          }
+          return redirect('service-pelanggan')->with('update_service','yay');
+    }
+
  
 
     public function tampil_pesanan_pelanggan(){
-        
+        $pelanggan = DB::table('pelanggan')->get();
+        $pre_order = DB::table('catatan_pre_order_pelanggan')->get();
+        // dump($pre_order);
+        return view('pelanggan/pesanan_pelanggan',['pelanggan'=>$pelanggan,'pre_order'=>$pre_order]);
+    }
+
+    public function store_pesanan_pelanggan(Request $request){
+        DB::table('catatan_pre_order_pelanggan')->insert(['ID_PELANGGAN' => $request->nama_pelanggan,
+        'DESKRIPSI_CATATAN_PRE_ODER_PELANGGAN' => $request->deskripsi,
+        ]);
+        return redirect('/pesanan-pelanggan')->with('insert','berhasil');
+    }
+
+    public function update_pesanan_pelanggan(){
+        $pelanggan = DB::table('pelanggan')->get();
+        $pre_order = DB::table('catatan_pre_order_pelanggan')->get();
+        // dump($pre_order);
+        return view('pelanggan/pesanan_pelanggan',['pelanggan'=>$pelanggan,'pre_order'=>$pre_order]);
+    }
+
+    public function send_wa_pesanan_pelanggan(){
+      
     }
 }

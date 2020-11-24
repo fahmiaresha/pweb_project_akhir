@@ -79,7 +79,8 @@
                 <table id="myTable" class="table table-striped table-bordered">
                     <thead>
                         <tr>
-                        <!-- <th>No</th> -->
+                        <th>Status</th>
+                        <th>Tanggal</th>
                         <th>Nama Pelanggan</th>
                         <th>Sepeda</th>
                         <th>Deskripsi Service</th>
@@ -89,7 +90,27 @@
                 <tbody>
                     @foreach($service as $s)
                     <tr>
-                    <!-- <td>{{ $loop->iteration }}</td> -->
+                    <td>
+        <form class="post0" method="post" action="{{ url('/update-status-service-pelanggan') }}">
+        @csrf
+        <input type="hidden" name="id" value="{{ $s->ID_SERVICE }}">
+          @if($s->STATUS_SERVICE == 1)
+          <div class="custom-control custom-switch">
+          <input type="checkbox" checked class="custom-control-input" id="switch{{ $s->ID_SERVICE }}">
+          <label class="custom-control-label" for="switch{{ $s->ID_SERVICE }}"></label>
+          </div>
+          <span class="badge badge-success"><font size="1">Selesai</font></span>
+            
+            @else
+          <div class="custom-control custom-switch">
+          <input type="checkbox" class="custom-control-input" id="switch{{ $s->ID_SERVICE }}">
+          <label class="custom-control-label" for="switch{{ $s->ID_SERVICE }}"></label>
+          </div>
+          <span class="badge badge-danger"><font size="1">Belum Selesai</font></span>    
+         @endif 
+      </form>
+                    </td>
+                    <td>{{ $s->TANGGAL_SERVICE }}</td>
                     @foreach($pelanggan as $p)
                         @if($p->ID_PELANGGAN==$s->ID_PELANGGAN)
                         <td>{{$p->NAMA_PELANGGAN }}</td>
@@ -111,7 +132,7 @@
                             <div class="modal-dialog modal-dialog-scrollable" role="document">
                                 <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Edit Pelanggan</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Edit Service Pelanggan</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                     </button>
@@ -125,7 +146,8 @@
                                 <label for="Kategori">Pelanggan</label>
                                 <select name="nama_pelanggan" id="nama_pelanggan"  class="form-control">
                                 @foreach($pelanggan as $p)
-                                <option selected value="{{ $p->ID_PELANGGAN }}" required>{{ $p->NAMA_PELANGGAN }}</option>
+                                <option selected value="{{ $s->ID_PELANGGAN }}" required>{{ $p->NAMA_PELANGGAN }}</option>
+                              
                                 @endforeach
                                 </select>
 
@@ -156,7 +178,7 @@
                             <!-- tutup Button trigger modal edit -->
                             <a href="/data-service-pelanggan-print/{{ $s->ID_SERVICE }}">
                             <button type="button" class="btn btn-outline-success mb-1 ml-2">
-                            <i class="fa fa-print mr-1"></i></i>Nota
+                            <i class="fa fa-print mr-1"></i>Nota
                             </button>
                             </a>
                                     
@@ -177,6 +199,13 @@
 $(document).ready(function (){
     $('#myTable').DataTable();
     $('.select2-example').select2();
+
+    const x = document.getElementsByClassName('post0');
+    for(let i=0;i<x.length;i++){
+    x[i].addEventListener('click',function(){
+        x[i].submit();
+    });
+    }
 });
 </script>
 
@@ -196,9 +225,9 @@ swal("Success!","Data Service Pelanggan Berhasil Di Update","success");
 </script>
 @endif
 
-@if (session('delete'))
+@if (session('update_service'))
 <script>
-swal("Success!","Data Service Pelanggan Berhasil Di Hapus","success");
+swal("Success!","Status Service Berhasil Di Update","success");
 </script>
 @endif
 @endsection

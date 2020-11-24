@@ -49,11 +49,13 @@ Route::get('/service-pelanggan', 'PelangganController@tampil_service_pelanggan')
 Route::post('/data-service-pelanggan-store', 'PelangganController@store_service_pelanggan');
 Route::post('/data-service-pelanggan-update', 'PelangganController@update_service_pelanggan');
 Route::get('/data-service-pelanggan-print/{id}', 'PelangganController@print_service_pelanggan')->name('nota-service-pelanggan');
+Route::post('/update-status-service-pelanggan', 'PelangganController@status_service_pelanggan');
 
-
-
-
+//pre-order-pelanggan
 Route::get('/pesanan-pelanggan', 'PelangganController@tampil_pesanan_pelanggan')->name('pesanan-pelanggan');
+Route::post('/pesanan-pelanggan-store', 'PelangganController@store_pesanan_pelanggan');
+Route::post('/pesanan-pelanggan-update', 'PelangganController@update_pesanan_pelanggan');
+Route::post('/pesanan-pelanggan-send-wa', 'PelangganController@send_wa_pesanan_pelanggan');
 
 //supplier
 Route::get('/data-supplier', 'SupplierController@tampil_data_supplier')->name('data-supplier');

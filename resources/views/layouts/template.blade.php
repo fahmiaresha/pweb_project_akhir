@@ -273,7 +273,7 @@
 
             <!-- Footer -->
             <footer class="content-footer">
-                <div>© {{ date('Y') }} - Toko Bagus</div>
+                <div>© {{ date('Y') }} - Toko Bagus . All rights reserved</div>
                 <!-- <div>
                     <nav class="nav">
                         <a href="https://themeforest.net/licenses/standard" class="nav-link">Licenses</a>
