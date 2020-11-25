@@ -216,7 +216,7 @@
                             </li>
 
                             <li>
-                            <a @if(request()->segment(1) == 'order-supplier') class="active" @endif href="{{ route('order-supplier') }}">Order Supplier</a>
+                            <a @if(request()->segment(1) == 'pesan-supplier') class="active" @endif href="{{ route('pesan-supplier') }}">Pesan Supplier</a>
                             </li>
 
                             <li>

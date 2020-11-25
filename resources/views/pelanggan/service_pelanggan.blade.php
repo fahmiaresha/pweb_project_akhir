@@ -63,8 +63,7 @@
 
                         <label for="Alamat">Deskripsi</label>
                         <div class="form-group">
-                            <input type="text" class="demo-code-preview form-control mt-1" 
-                            id="deskripsi_service" placeholder="Deskripsi Service" name="deskripsi_service" value="{{ old('deskripsi_service') }}" >
+                            <textarea class="demo-code-preview form-control mt-1" placeholder="Deskripsi Service" name="deskripsi_service" id="message-text" value="{{ old('deskripsi_service') }}"></textarea>
                         </div>
                 </div>
                 <div class="modal-footer">
@@ -146,8 +145,11 @@
                                 <label for="Kategori">Pelanggan</label>
                                 <select name="nama_pelanggan" id="nama_pelanggan"  class="form-control">
                                 @foreach($pelanggan as $p)
+                                @if($s->ID_PELANGGAN==$p->ID_PELANGGAN)         
                                 <option selected value="{{ $s->ID_PELANGGAN }}" required>{{ $p->NAMA_PELANGGAN }}</option>
-                              
+                                @else
+                                <option value="{{ $p->ID_PELANGGAN }}" required>{{ $p->NAMA_PELANGGAN }}</option>
+                                @endif
                                 @endforeach
                                 </select>
 
@@ -159,8 +161,7 @@
 
                                 <label for="Alamat">Deskripsi</label>
                                 <div class="form-group">
-                                    <input type="text" class="demo-code-preview form-control mt-1" 
-                                    id="deskripsi_service" placeholder="Deskripsi Service" name="deskripsi_service" value="{{ $s->DESKRIPSI_SERVICE }}" >
+                                <textarea class="demo-code-preview form-control mt-1" placeholder="Deskripsi Service" name="deskripsi_service" id="message-text" value="{{ $s->DESKRIPSI_SERVICE }}">{{ $s->DESKRIPSI_SERVICE }}</textarea>
                                 </div>
                            
                                 

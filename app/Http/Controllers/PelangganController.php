@@ -11,6 +11,10 @@ class PelangganController extends Controller
 
     }
 
+    public function send_wa_pesanan_pelanggan(){
+      
+    }
+
     public function tampil_pelanggan(){
         $pelanggan = DB::table('pelanggan')->get();
         $kategori_pelanggan = DB::table('kategori_pelanggan')->get();
@@ -115,7 +119,7 @@ class PelangganController extends Controller
                 'STATUS_SERVICE' => 1,
             ]);
           }
-          return redirect('service-pelanggan')->with('update_service','yay');
+          return redirect('/service-pelanggan')->with('update_service','yay');
     }
 
  
@@ -134,14 +138,31 @@ class PelangganController extends Controller
         return redirect('/pesanan-pelanggan')->with('insert','berhasil');
     }
 
-    public function update_pesanan_pelanggan(){
-        $pelanggan = DB::table('pelanggan')->get();
-        $pre_order = DB::table('catatan_pre_order_pelanggan')->get();
-        // dump($pre_order);
-        return view('pelanggan/pesanan_pelanggan',['pelanggan'=>$pelanggan,'pre_order'=>$pre_order]);
+    public function update_pesanan_pelanggan(Request $request){
+        DB::table('catatan_pre_order_pelanggan')->where('ID_CATATAN_PRE_ORDER_PELANGGAN',$request->id)->update([
+            'ID_PELANGGAN' => $request->nama_pelanggan,
+            'DESKRIPSI_CATATAN_PRE_ODER_PELANGGAN' => $request->deskripsi,
+        ]);
+        return redirect('/pesanan-pelanggan')->with('update','berhasil');
     }
 
-    public function send_wa_pesanan_pelanggan(){
-      
+    
+    public function status_pesan_pelanggan(Request $request)
+    {
+        $STATUS_PRE_ORDER= DB::table('catatan_pre_order_pelanggan')->where('ID_CATATAN_PRE_ORDER_PELANGGAN',$request->id)->value('STATUS_PRE_ORDER');
+          if($STATUS_PRE_ORDER==1){ 
+             DB::table('catatan_pre_order_pelanggan')->where('ID_CATATAN_PRE_ORDER_PELANGGAN',$request->id)->update([
+                'STATUS_PRE_ORDER' => 0,
+            ]);
+          }
+          else{
+            DB::table('catatan_pre_order_pelanggan')->where('ID_CATATAN_PRE_ORDER_PELANGGAN',$request->id)->update([
+                'STATUS_PRE_ORDER' => 1,
+            ]);
+          }
+          return redirect('/pesanan-pelanggan')->with('update_pesan','yay');
     }
+
+
+   
 }

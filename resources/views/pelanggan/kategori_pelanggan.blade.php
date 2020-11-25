@@ -12,7 +12,7 @@
 
 <div class="page-header d-md-flex justify-content-between">
         <div>
-            <h3>Kategori Pelanggan</h3>
+            <h3>Pelanggan</h3>
             <nav aria-label="breadcrumb" class="d-flex align-items-start">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">

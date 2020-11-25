@@ -1,29 +1,25 @@
 @extends('layouts.template')
-@section('title','Pesanan Pelanggan')
+@section('title','Pesan Supplier')
 @section('head')
   <!-- Datatable -->
   <link rel="stylesheet" href="{{ url('vendors/dataTable/datatables.min.css') }}" type="text/css">
  <!-- select2 -->
 <link rel="stylesheet" href="../../vendors/select2/css/select2.min.css" type="text/css">
-
 @endsection
 
 @section('content')
-
-
-
 <div class="page-header d-md-flex justify-content-between">
         <div>
-            <h3>Pelanggan</h3>
+            <h3>Supplier</h3>
             <nav aria-label="breadcrumb" class="d-flex align-items-start">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
                         <a href="{{ url('/') }}">Home</a>
                     </li>
                     <li class="breadcrumb-item">
-                        <a href="#">Pelanggan</a>
+                        <a href="#">Supplier</a>
                     </li>
-                    <li class="breadcrumb-item active" aria-current="page">Pesanan Pelanggan</li>
+                    <li class="breadcrumb-item active" aria-current="page">Pesan Supplier</li>
                 </ol>
             </nav>
         </div>
@@ -34,24 +30,24 @@
             <div class="table-responsive">
             <!-- modal -->
             <button type="button" class="btn btn-primary mb-3" data-toggle="modal"  data-target="#coba">
-            <i class="fa fa-plus-circle mr-2"></i> Pesanan Pelanggan</button>
+            <i class="fa fa-plus-circle mr-2"></i> Pesan Supplier</button>
             <div class="modal fade" tabindex="-1" role="dialog" id="coba">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Data Pesanan Pelanggan</h5>
+                    <h5 class="modal-title">Data Pesan Supplier</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                <form method="post" action="{{ url('/pesanan-pelanggan-store') }}">
+                <form method="post" action="{{ url('/pesan-supplier-store') }}">
                         @csrf
-                        <label for="nama_pelanggan">Pelanggan</label>
-                        <select name="nama_pelanggan" id="nama_pelanggan" class="select2-example">
-                        <option value="-" disabled="true" selected="true">Pilih Nama Pelanggan</option>
-                        @foreach($pelanggan as $p)
-                        <option value="{{ $p->ID_PELANGGAN }}">{{ $p->NAMA_PELANGGAN }}</option>
+                        <label for="nama_supplier">Supplier</label>
+                        <select name="nama_supplier" id="nama_supplier" class="select2-example">
+                        <option value="-" disabled="true" selected="true">Pilih Nama Supplier</option>
+                        @foreach($supplier as $s)
+                        <option value="{{ $s->ID_SUPPLIER }}">{{ $s->NAMA_SUPPLIER }}</option>
                         @endforeach
                        </select>
                        
@@ -75,77 +71,77 @@
                         <tr>
                         <th>Status</th>
                         <th>Tanggal</th>
-                        <th>Nama Pelanggan</th>
+                        <th>Nama Supplier</th>
                         <th>Deskripsi Pesanan</th>
                         <th>Aksi</th>
                         </tr>
                     </thead>
                 <tbody>
-                    @foreach($pre_order as $po)
+                    @foreach($catatan_order_supplier as $co)
                     <tr>
                     <td>
-        <form class="post0" method="post" action="{{ url('/update-status-pesan-pelanggan') }}">
+        <form class="post0" method="post" action="{{ url('/update-status-pesan-supplier') }}">
         @csrf
-        <input type="hidden" name="id" value="{{ $po->ID_CATATAN_PRE_ORDER_PELANGGAN }}">
-          @if($po->STATUS_PRE_ORDER == 1)
+        <input type="hidden" name="id" value="{{ $co->ID_CATATAN_ORDER_SUPPLIER }}">
+          @if($co->STATUS_ORDER_SUPPLIER == 1)
           <div class="custom-control custom-switch">
-          <input type="checkbox" checked class="custom-control-input" id="switch{{ $po->ID_CATATAN_PRE_ORDER_PELANGGAN }}">
-          <label class="custom-control-label" for="switch{{ $po->ID_CATATAN_PRE_ORDER_PELANGGAN }}"></label>
+          <input type="checkbox" checked class="custom-control-input" id="switch{{ $co->ID_CATATAN_ORDER_SUPPLIER }}">
+          <label class="custom-control-label" for="switch{{ $co->ID_CATATAN_ORDER_SUPPLIER }}"></label>
           </div>
           <span class="badge badge-success"><font size="1">Selesai</font></span>
             
             @else
           <div class="custom-control custom-switch">
-          <input type="checkbox" class="custom-control-input" id="switch{{ $po->ID_CATATAN_PRE_ORDER_PELANGGAN }}">
-          <label class="custom-control-label" for="switch{{ $po->ID_CATATAN_PRE_ORDER_PELANGGAN }}"></label>
+          <input type="checkbox" class="custom-control-input" id="switch{{ $co->ID_CATATAN_ORDER_SUPPLIER }}">
+          <label class="custom-control-label" for="switch{{ $co->ID_CATATAN_ORDER_SUPPLIER }}"></label>
           </div>
           <span class="badge badge-danger"><font size="1">Belum Selesai</font></span>    
          @endif 
       </form>
                     </td>
-                    <td>{{ $po->TANGGAL_CATATAN_PRE_ORDER_PELANGGAN }}</td>
-                    @foreach($pelanggan as $p)
-                        @if($p->ID_PELANGGAN==$po->ID_PELANGGAN)
-                        <td>{{$p->NAMA_PELANGGAN }}</td>
+                    <td>{{ $co->TANGGAL_CATATAN_ORDER_SUPPLIER }}</td>
+                    @foreach($supplier as $s)
+                        @if($s->ID_SUPPLIER==$co->ID_SUPPLIER)
+                        <td>{{$s->NAMA_SUPPLIER }}</td>
                         @endif
                     @endforeach
-                    <td>{{$po->DESKRIPSI_CATATAN_PRE_ODER_PELANGGAN}}</td>           
+                    <td>{{$co->DESKRIPSI_CATATAN_ORDER_SUPPLIER	}}</td>           
                     <td>
                              <!-- Button trigger modal -->
-                             <button type="button" class="btn btn-outline-info mb-1" data-toggle="modal" data-target="#editModal{{ $po->ID_CATATAN_PRE_ORDER_PELANGGAN }}">
+                             <button type="button" class="btn btn-outline-info mb-1" data-toggle="modal" data-target="#editModal{{ $co->ID_CATATAN_ORDER_SUPPLIER }}">
                              <i class="fa fa-pencil mr-1"></i>Edit
                             </button>
 
                           
-                            <div class="modal fade" id="editModal{{ $po->ID_CATATAN_PRE_ORDER_PELANGGAN }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="editModal{{ $co->ID_CATATAN_ORDER_SUPPLIER }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-scrollable" role="document">
                                 <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Edit Pesanan Pelanggan</h5>
+                                    <h5 class="modal-title" id="exampleModalLabel">Edit Pesan Supplier</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
                                     
-                                <form method="post" action="{{ url('/pesanan-pelanggan-update') }}">
+                                <form method="post" action="{{ url('/pesan-supplier-update') }}">
                                 @csrf
-                                <input type="hidden" name="id" value="{{ $po->ID_CATATAN_PRE_ORDER_PELANGGAN }}">
+                                <input type="hidden" name="id" value="{{ $co->ID_CATATAN_ORDER_SUPPLIER }}">
 
-                                <label for="Kategori">Pelanggan</label>
-                                <select name="nama_pelanggan" id="nama_pelanggan"  class="form-control">
-                                @foreach($pelanggan as $p)
-                                @if($po->ID_PELANGGAN==$p->ID_PELANGGAN)         
-                                <option selected value="{{ $po->ID_PELANGGAN }}" required>{{ $p->NAMA_PELANGGAN }}</option>
+                                <label for="Kategori">Supplier</label>
+                                <select name="nama_supplier" id="nama_supplier"  class="form-control">
+                                @foreach($supplier as $s)
+                                @if($co->ID_SUPPLIER==$s->ID_SUPPLIER)         
+                                <option selected value="{{ $co->ID_SUPPLIER }}" required>{{ $s->NAMA_SUPPLIER }}</option>
                                 @else
-                                <option value="{{ $p->ID_PELANGGAN }}" required>{{ $p->NAMA_PELANGGAN }}</option>
+                                <option value="{{ $s->ID_SUPPLIER }}" required>{{ $s->NAMA_SUPPLIER }}</option>
                                 @endif
                                 @endforeach
                                 </select>
 
                                 <label for="Nama" style="margin-top:10px;">Deskripsi</label>
                                 <div class="form-group">
-                                <textarea class="demo-code-preview form-control mt-1" placeholder="Deskripsi Pesanan" name="deskripsi" id="message-text" value="{{ $po->DESKRIPSI_CATATAN_PRE_ODER_PELANGGAN }}">{{ $po->DESKRIPSI_CATATAN_PRE_ODER_PELANGGAN }}</textarea>
+                                <textarea class="demo-code-preview form-control mt-1" placeholder="Deskripsi Pesanan" name="deskripsi" id="message-text" value="{{ $co->DESKRIPSI_CATATAN_ORDER_SUPPLIER }}">{{ $co->DESKRIPSI_CATATAN_ORDER_SUPPLIER }}</textarea>
                                 </div>
                            
                                 
@@ -230,13 +226,13 @@ $(document).ready(function (){
 
 @if (session('insert'))
 <script>
-swal("Success!","Data Pesanan Pelanggan Berhasil Di Tambahkan","success");
+swal("Success!","Data Pesanan Supplier Berhasil Di Tambahkan","success");
 </script>
 @endif
 
 @if (session('update'))
 <script>
-swal("Success!","Data Pesanan Pelanggan Berhasil Di Update","success");
+swal("Success!","Data Pesanan Supplier Berhasil Di Update","success");
 </script>
 @endif
 

@@ -55,11 +55,26 @@ Route::post('/update-status-service-pelanggan', 'PelangganController@status_serv
 Route::get('/pesanan-pelanggan', 'PelangganController@tampil_pesanan_pelanggan')->name('pesanan-pelanggan');
 Route::post('/pesanan-pelanggan-store', 'PelangganController@store_pesanan_pelanggan');
 Route::post('/pesanan-pelanggan-update', 'PelangganController@update_pesanan_pelanggan');
+Route::post('/update-status-pesan-pelanggan', 'PelangganController@status_pesan_pelanggan');
 Route::post('/pesanan-pelanggan-send-wa', 'PelangganController@send_wa_pesanan_pelanggan');
 
 //supplier
-Route::get('/data-supplier', 'SupplierController@tampil_data_supplier')->name('data-supplier');
-Route::get('/order-supplier', 'SupplierController@tampil_order_supplier')->name('order-supplier');
+Route::get('/data-supplier', 'SupplierController@tampil_supplier')->name('data-supplier');
+Route::post('/data-supplier-store', 'SupplierController@store_supplier');
+Route::post('/data-supplier-update', 'SupplierController@update_supplier');
+Route::post('/data-supplier-update', 'SupplierController@update_supplier');
+Route::get('/data-supplier-delete/{id}', 'SupplierController@delete_supplier');
+
+
+//pesan-supplier
+Route::get('/pesan-supplier', 'SupplierController@tampil_pesan_supplier')->name('pesan-supplier');
+Route::post('/pesan-supplier-store', 'SupplierController@store_pesan_supplier');
+Route::post('/pesan-supplier-update', 'SupplierController@update_pesan_supplier');
+Route::post('/data-supplier-send-wa', 'SupplierController@send_wa_pesan_supplier');
+Route::post('/update-status-pesan-supplier', 'SupplierController@status_pesan_supplier');
+
+
+
 Route::get('/nota-supplier', 'SupplierController@tampil_nota_supplier')->name('nota-supplier');
 
 //produk
