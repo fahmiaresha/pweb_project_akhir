@@ -86,7 +86,7 @@
 						<input type="password" placeholder="Password" required=""/>
                     </div> -->
                     <div class="wrap-input100 validate-input" data-validate = "Username is required" >
-						<input class="input100" type="text" name="email" style="color:white;" required>
+						<input class="input100" type="email" name="email" style="color:white;" required>
 						<span class="focus-input100"></span>
 						<span class="label-input100">Email</span>
 					</div>

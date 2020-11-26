@@ -158,12 +158,12 @@
 
                             <!-- tutup Button trigger modal edit -->
                             
-            <button type="button" class="btn btn-outline-success mb-1 ml-2" data-toggle="modal" data-target="#modalwa">
+            <button type="button" class="btn btn-outline-success mb-1 ml-2" data-toggle="modal" data-target="#modalwa{{ $co->ID_CATATAN_ORDER_SUPPLIER }}">
             <i class="fa fa-whatsapp mr-1"></i>Whatsapp
             </button>
                            
                     <!-- modal wa-->
-            <div class="modal fade" id="modalwa" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal fade" id="modalwa{{ $co->ID_CATATAN_ORDER_SUPPLIER }}" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                 <div class="modal-header">

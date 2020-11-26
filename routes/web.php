@@ -73,9 +73,11 @@ Route::post('/pesan-supplier-update', 'SupplierController@update_pesan_supplier'
 Route::post('/data-supplier-send-wa', 'SupplierController@send_wa_pesan_supplier');
 Route::post('/update-status-pesan-supplier', 'SupplierController@status_pesan_supplier');
 
-
-
+//nota-supplier
 Route::get('/nota-supplier', 'SupplierController@tampil_nota_supplier')->name('nota-supplier');
+Route::post('/nota-supplier-store', 'SupplierController@store_nota_supplier');
+Route::post('/nota-supplier-update', 'SupplierController@update_nota_supplier');
+Route::post('/update-status-nota-supplier', 'SupplierController@status_nota_supplier');
 
 //produk
 Route::get('/data-produk', 'ProdukController@tampil_data_produk')->name('data-produk');
