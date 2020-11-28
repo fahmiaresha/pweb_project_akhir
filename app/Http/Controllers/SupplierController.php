@@ -4,13 +4,37 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use Redirect;
 
 class SupplierController extends Controller
 
 {
 
-    public function send_wa_pesan_supplier(){
+    public function send_wa_pesan_supplier(Request $request){
+        $nomor2 = $request->nomor_whatsapp;
+        $nomor3 = $nomor2[0];
+        $nomor = str_replace($nomor3,"62",$nomor2);
+        // echo $nomor;
+        $pesan = $request->pesan_whatsapp;
 
+        // $url_wa ='https://api.whatsapp.com/send?phone=+$nomor&text=$pesan&source=&data=';
+
+        $url2="https://api.whatsapp.com/send?phone=+";
+        $url3=$nomor;
+        $url4="&text=";
+        $url5=$pesan;
+        $url6="&source=&data=";
+
+        DB::table('catatan_order_supplier')->where('ID_CATATAN_ORDER_SUPPLIER',$request->id)
+        ->update(['STATUS_ORDER_SUPPLIER' => 1 ]);
+
+        DB::table('whatsapp')->insert(['PESAN_WHATSAPP' => $pesan,
+        'NO_WHATSAPP' => $nomor2,
+        'KATEGORI_WHATSAPP' => "Supplier",
+        ]);
+
+        $url = $url2.$url3.$url4.$url5.$url6;
+        return Redirect::to($url);
 
     }
 

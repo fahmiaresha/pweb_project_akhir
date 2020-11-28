@@ -12,7 +12,10 @@ class PelangganController extends Controller
     }
 
     public function send_wa_pesanan_pelanggan(Request $request){
-        $nomor = $request->nomor_whatsapp;
+        $nomor2 = $request->nomor_whatsapp;
+        $nomor3 = $nomor2[0];
+        $nomor = str_replace($nomor3,"62",$nomor2);
+        // echo $nomor;
         $pesan = $request->pesan_whatsapp;
 
         // $url_wa ='https://api.whatsapp.com/send?phone=+$nomor&text=$pesan&source=&data=';
@@ -23,10 +26,16 @@ class PelangganController extends Controller
         $url5=$pesan;
         $url6="&source=&data=";
 
-        // echo $url2.$url3.$url4.$url5.$url6;
+        DB::table('catatan_pre_order_pelanggan')->where('ID_CATATAN_PRE_ORDER_PELANGGAN',$request->id)
+        ->update(['STATUS_PRE_ORDER' => 1 ]);
+
+        DB::table('whatsapp')->insert(['PESAN_WHATSAPP' => $pesan,
+        'NO_WHATSAPP' => $nomor2,
+        'KATEGORI_WHATSAPP' => "Pelanggan",
+        ]);
+
         $url = $url2.$url3.$url4.$url5.$url6;
         return Redirect::to($url);
-        // return redirect('/data-pelanggan')->with('insert','berhasil');
     }
 
     public function tampil_pelanggan(){

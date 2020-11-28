@@ -245,6 +245,16 @@
                     </li>
 
                     <li>
+                        <a @if(request()->segment(1) =='whatsapp') class="active" @endif href="{{ route('whatsapp') }}" >
+                    <span class="nav-link-icon">
+                    <i class="fa fa-whatsapp"></i>
+                    </span>
+                            <span>Whatsapp</span>
+                        </a>
+                    </li>
+
+
+                    <li>
                         <a @if(request()->segment(1) =='user-manual') class="active" @endif href="{{ route('user-manual') }}" >
                     <span class="nav-link-icon">
                     <i class="fa fa-download"></i>

@@ -179,9 +179,14 @@
                 <div class="modal-body">
                     <form method="post" action="{{ url('/pesanan-pelanggan-send-wa') }}">
                     @csrf
+                    <input type="hidden" name="id" value="{{ $po->ID_CATATAN_PRE_ORDER_PELANGGAN }}">
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Nomor</label>
-                        <input type="text" class="form-control" placeholder="Nomor Whataspp" name="nomor_whatsapp" id="recipient-name" required>
+                        @foreach($pelanggan as $p)
+                                @if($po->ID_PELANGGAN==$p->ID_PELANGGAN)
+                                <input type="text" class="form-control" placeholder="Nomor Whatsapp" name="nomor_whatsapp" id="recipient-name" value="{{$p->TELP_PELANGGAN}}" required>
+                                @endif
+                        @endforeach 
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">Pesan</label>

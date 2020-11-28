@@ -173,21 +173,29 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form method="post" action="{{ url('/data-supplier-send-wa') }}">
+                    @csrf
+                    <input type="hidden" name="id" value="{{ $co->ID_CATATAN_ORDER_SUPPLIER }}">
                     <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Nomor</label>
-                        <input type="text" class="form-control" placeholder="Nomor Whataspp" name="nomor" id="recipient-name">
+                    <label for="recipient-name" class="col-form-label">Nomor</label>
+                    @foreach($supplier as $s)
+                            @if($co->ID_SUPPLIER==$s->ID_SUPPLIER) 
+                            <input type="text" class="form-control" placeholder="Nomor Whatsapp" name="nomor_whatsapp" id="recipient-name" value="{{$s->TELP_SUPPLIER}}">
+                            @endif
+                    @endforeach    
+                        
+                        
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">Pesan</label>
-                        <textarea class="form-control" placeholder="Deskripsi Pesan" name="pesan" id="message-text"></textarea>
+                        <textarea class="form-control" placeholder="Deskripsi Pesan" name="pesan_whatsapp" id="message-text"></textarea>
                         </div>
-                    </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
                     </button>
-                    <button type="button" class="btn btn-primary">Kirim Pesan</button>
+                    <button type="submit" class="btn btn-primary">Kirim Pesan</button>
+                    </form>
                 </div>
                 </div>
             </div>

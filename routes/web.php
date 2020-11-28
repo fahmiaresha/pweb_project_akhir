@@ -91,6 +91,10 @@ Route::post('/kategori-produk-store', 'ProdukController@store_kategori_produk');
 Route::post('/kategori-produk-update', 'ProdukController@update_kategori_produk');
 Route::get('/kategori-produk-delete/{id}', 'ProdukController@delete_kategori_produk');
 
+//whatsapp
+Route::get('whatsapp', 'ShowController@show_whatsapp')->name('whatsapp');
+Route::post('whatsapp-store', 'ShowController@store_whatsapp');
+
 // user-manual
 Route::get('user-manual', 'CustomerController@user_manual')->name('user-manual');
 
