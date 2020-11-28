@@ -178,13 +178,31 @@
                             </div>
                             </div> 
 
+                            @php $x=0; @endphp
+                            @foreach($service as $s)
+                                @if($s->ID_PELANGGAN==$p->ID_PELANGGAN)
+                                    @php $x=1; @endphp
+                                @endif
+                            @endforeach
+
+                            @foreach($catatan_pre_order_pelanggan as $po)
+                                @if($po->ID_PELANGGAN==$p->ID_PELANGGAN)
+                                    @php $x=1; @endphp
+                                @endif
+                            @endforeach
+
                             <!-- tutup Button trigger modal edit -->
 
+                            @if($x==0)
                                       <!-- Button trigger modal -->
                                       <button type="button" class="btn btn-outline-danger mb-1 ml-2" data-toggle="modal" 
                                         data-target="#delete1123{{ $p->ID_PELANGGAN }}">
                                         <i class="fa fa-trash mr-1"></i>Hapus</button>
-                                       
+                            @else 
+                            <button type="button" class="btn btn-outline-danger mb-1 ml-2" data-toggle="modal" 
+                                        data-target="#delete1123" onclick="tampil_cant_delete()">
+                                        <i class="fa fa-trash mr-1"></i>Hapus</button>                          
+                            @endif
 
                                     <!-- Modal -->
                                     <div class="modal fade" id="delete1123{{ $p->ID_PELANGGAN }}" tabindex="0" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -227,6 +245,11 @@ $(document).ready(function (){
     $('#myTable').DataTable();
     $('.select2-example').select2();
 });
+
+function tampil_cant_delete(){
+ swal("Oops!","Data Pelanggan Sedang Digunakan","error");
+}
+</script>
 </script>
 
 <script src="../../vendors/select2/js/select2.min.js"></script>

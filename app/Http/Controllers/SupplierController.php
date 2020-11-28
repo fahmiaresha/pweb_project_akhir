@@ -16,8 +16,11 @@ class SupplierController extends Controller
 
     public function tampil_supplier(){
         $supplier = DB::table('supplier')->get();
+        $catatan_order_supplier = DB::table('catatan_order_supplier')->get();
+        $nota_supplier = DB::table('nota_supplier')->get();
         // dump($supplier);
-        return view('supplier/data_supplier',['supplier'=>$supplier]);
+        return view('supplier/data_supplier',['supplier'=>$supplier,
+        'catatan_order_supplier'=>$catatan_order_supplier,'nota_supplier'=>$nota_supplier]);
     }
 
     public function store_supplier(Request $request){

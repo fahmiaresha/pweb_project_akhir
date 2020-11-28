@@ -7,6 +7,12 @@
 <link rel="stylesheet" href="../../vendors/select2/css/select2.min.css" type="text/css">
 
 <link rel="stylesheet" href="vendors/lightbox/magnific-popup.css" type="text/css">
+
+<style>
+.noBorder {
+    border:none !important;
+}
+</style>
 @endsection
 
 @section('content')
@@ -195,21 +201,33 @@
                 @if($ns->ID_SUPPLIER==$s->ID_SUPPLIER) 
                 <div class="coba" >
                 <center class="image-popup" href="{{ url('/data_file/'.$ns->FOTO_NOTA_SUPPLIER) }}">
-                <img data-dismiss="modal" style="height:auto; max-width:100%; cursor:zoom-in;" src="{{ url('/data_file/'.$ns->FOTO_NOTA_SUPPLIER) }}" >
+                <img data-dismiss="modal" style="height:auto; max-width:75%; cursor:zoom-in;" src="{{ url('/data_file/'.$ns->FOTO_NOTA_SUPPLIER) }}" >
                 </center>
                 </div>
-                <label for="Kategori">Nama Supplier</label>
-                <br>
-                   {{$s->NAMA_SUPPLIER}} 
                    <br>
-
-                   <label for="Kategori">Alamat Supplier</label>
-                   <br>
-                   {{$s->ALAMAT_SUPPLIER}}
-                   <br>
-                   <label for="Kategori">Telp Supplier</label>
-                   <br>
-                   {{$s->TELP_SUPPLIER}}
+                                              <table class="table">
+                                                <tbody>
+                                                <tr>
+                                                <td class=""> <strong> Nama Supplier  <strong></td>
+                                                <td class=""> {{$s->NAMA_SUPPLIER}} </td>
+                                                </tr>
+                                                <tr>
+                                                <td class="text-wrap " style="text-align:justify"><strong> Alamat Supplier </strong></td>
+                                                <td class=""> {{$s->ALAMAT_SUPPLIER}}</td>
+                                                </tr>
+                                                <tr>
+                                                <td class=""><strong>Telp Supplier <strong> </td>
+                                                <td class="text-wrap " style="text-align:justify" > {{$s->TELP_SUPPLIER}}</td>
+                                                </tr>
+                                                <tr>
+                                                <td class=""><strong>Email Supplier <strong> </td>
+                                                <td class="text-wrap " style="text-align:justify" > {{$s->EMAIL_SUPPLIER}}</td>
+                                                
+                                                </tr>
+                                                </tbody>
+                                              </table>
+                                            
+                                            
                   
                 @endif
                 @endforeach
@@ -233,6 +251,8 @@
     </div>
     </div>
 
+
+                                      
 
 @endsection
 

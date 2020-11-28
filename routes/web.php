@@ -81,7 +81,15 @@ Route::post('/update-status-nota-supplier', 'SupplierController@status_nota_supp
 
 //produk
 Route::get('/data-produk', 'ProdukController@tampil_data_produk')->name('data-produk');
+Route::post('/data-produk-store', 'ProdukController@store_produk');
+Route::post('/data-produk-update', 'ProdukController@update_produk');
+Route::get('/data-produk-delete/{id}', 'ProdukController@delete_produk');
+
+//kategori-produk
 Route::get('/kategori-produk', 'ProdukController@tampil_kategori_produk')->name('kategori-produk');
+Route::post('/kategori-produk-store', 'ProdukController@store_kategori_produk');
+Route::post('/kategori-produk-update', 'ProdukController@update_kategori_produk');
+Route::get('/kategori-produk-delete/{id}', 'ProdukController@delete_kategori_produk');
 
 // user-manual
 Route::get('user-manual', 'CustomerController@user_manual')->name('user-manual');
