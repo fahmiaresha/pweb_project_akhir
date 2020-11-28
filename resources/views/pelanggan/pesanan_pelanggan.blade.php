@@ -177,21 +177,23 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form method="post" action="{{ url('/pesanan-pelanggan-send-wa') }}">
+                    @csrf
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Nomor</label>
-                        <input type="text" class="form-control" placeholder="Nomor Whataspp" name="nomor" id="recipient-name">
+                        <input type="text" class="form-control" placeholder="Nomor Whataspp" name="nomor_whatsapp" id="recipient-name" required>
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">Pesan</label>
-                        <textarea class="form-control" placeholder="Deskripsi Pesan" name="pesan" id="message-text"></textarea>
+                        <textarea class="form-control" placeholder="Deskripsi Pesan" name="pesan_whatsapp" id="message-text" required></textarea>
                         </div>
-                    </form>
+                    
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
                     </button>
-                    <button type="button" class="btn btn-primary">Kirim Pesan</button>
+                    <button type="submit"  class="btn btn-primary">Kirim Pesan</button>
+                    </form>
                 </div>
                 </div>
             </div>

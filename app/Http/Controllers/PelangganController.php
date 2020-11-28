@@ -4,15 +4,29 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
-
+use Redirect;
 class PelangganController extends Controller
 {
     public function tampil_dashboard(){
 
     }
 
-    public function send_wa_pesanan_pelanggan(){
-      
+    public function send_wa_pesanan_pelanggan(Request $request){
+        $nomor = $request->nomor_whatsapp;
+        $pesan = $request->pesan_whatsapp;
+
+        // $url_wa ='https://api.whatsapp.com/send?phone=+$nomor&text=$pesan&source=&data=';
+
+        $url2="https://api.whatsapp.com/send?phone=+";
+        $url3=$nomor;
+        $url4="&text=";
+        $url5=$pesan;
+        $url6="&source=&data=";
+
+        // echo $url2.$url3.$url4.$url5.$url6;
+        $url = $url2.$url3.$url4.$url5.$url6;
+        return Redirect::to($url);
+        // return redirect('/data-pelanggan')->with('insert','berhasil');
     }
 
     public function tampil_pelanggan(){
