@@ -95,8 +95,14 @@ Route::get('/kategori-produk-delete/{id}', 'ProdukController@delete_kategori_pro
 Route::get('whatsapp', 'ShowController@show_whatsapp')->name('whatsapp');
 Route::post('whatsapp-store', 'ShowController@store_whatsapp');
 
+//point-of-sales
+Route::get('point-of-sales', 'PosController@show_pos')->name('point-of-sales');
+Route::post('/cari', 'PosController@loadData');
+
 // user-manual
 Route::get('user-manual', 'CustomerController@user_manual')->name('user-manual');
+
+
 
 
 

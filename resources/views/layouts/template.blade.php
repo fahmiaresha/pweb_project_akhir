@@ -245,6 +245,15 @@
                     </li>
 
                     <li>
+                        <a @if(request()->segment(1) =='point-of-sales') class="active" @endif href="{{ route('point-of-sales') }}" >
+                    <span class="nav-link-icon">
+                    <i class="fa fa-cart-plus"></i>
+                    </span>
+                            <span>Penjualan</span>
+                        </a>
+                    </li>
+
+                    <li>
                         <a @if(request()->segment(1) =='whatsapp') class="active" @endif href="{{ route('whatsapp') }}" >
                     <span class="nav-link-icon">
                     <i class="fa fa-whatsapp"></i>
