@@ -138,7 +138,7 @@
                                 <input type="hidden" name="id" value="{{ $p->ID_PELANGGAN }}">
 
                                 <label for="Kategori">Kategori</label>
-                                <select name="kategori" id="kategori"  class="form-control">
+                                <select name="kategori" id="kategori" class="form-control">
                                 @foreach($kategori_pelanggan as $kp)
                                 @if($kp->ID_KATEGORI_PELANGGAN==$p->ID_KATEGORI_PELANGGAN)  
                                 <option selected value="{{ $p->ID_KATEGORI_PELANGGAN }}" required>{{ $kp->NAMA_KATEGORI_PELANGGAN }}</option>

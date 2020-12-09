@@ -84,7 +84,7 @@
         <div class="form-group col-md-4">
         
                 <label for="customer_id">Kategori Pelanggan</label>
-                 <select name="kategori" class="form-control" id="pelanggan_kategori" onchange="kategori_pelanggan()">
+                 <select name="kategori" class="custom-select " id="pelanggan_kategori" onchange="kategori_pelanggan()">
                         <option disabled="true" selected="true"  required>Pilih Kategori</option>
                         @foreach($kategori_pelanggan as $kp)
                         <option value="{{ $kp->ID_KATEGORI_PELANGGAN }}" required>{{ $kp->NAMA_KATEGORI_PELANGGAN }}</option>
@@ -110,7 +110,7 @@
 
                   <div class="form-group col-md-4"> 
                   <label for="customer_id">Pelanggan</label>
-                <input type="text" class="form-control" 
+                <input type="text" class="form-control reset" 
           id="nota_date" placeholder="Nama Pelanggan" name="nama_pelanggan" 
           value="" required>
 
@@ -192,19 +192,34 @@
                 </div>
             </div>
             </div>
-            <div class="table-responsive" id="tabel_cart">
-            <!-- <center>
-               <h5 style="color:#e3bcba">Anda Belum menambahkan produk</h5>
-            </center> -->
+            <div class="table-responsive mt-2" id="tabel_cart">
+            <div id="keranjang_kosong">
+            <center>
+           
+               <h5 style="color:#e3bcba">Keranjang Kosong , Silahkan Tambahkan Produk...</h5>
+               <br>
+            </center>
             </div>
-                         
+            </div>
+
+
+            <div class="form-row">
+             
+                
+                  </div>
+
+                  <div class="form-group col-md-4">
+                  </div>
+
+                  
+
+                  <div class="form-group col-md-4"> 
+                  </div>
+              </div>
             
-        <div class="input-group mt-2">
-        <div class="input-group-prepend">
-          <div class="input-group-text">Rp. </div>
-        </div>
-        <input type="hidden" name="subtotal" id="subtotal">
-        <input type="text" class="form-control" id="subtotal-val" placeholder="Total Bayar" readonly>
+                                       
+            
+        
 
                            <!-- <input type="hidden" id="subtotal">
                           <p style="">Total : Rp. <span id="subtotal-val" ></span></p> -->
@@ -216,24 +231,71 @@
 
      
       <!-- <label class="sr-only" for="inlineFormInputGroupUsername">Username</label> -->
-      <div class="input-group mt-2">
-        <div class="input-group-prepend">
-          <div class="input-group-text">Rp. </div>
-        </div>
-        <!-- <input type="hidden" class="form-control" name="cash" id="cash" > -->
-        <input type="text" class="form-control" id="cash" placeholder="Cash">
-     
-     
-      <!-- <label class="sr-only" for="inlineFormInputGroupUsername">Username</label> -->
-      <div class="input-group mt-2">
-        <div class="input-group-prepend">
-          <div class="input-group-text">Rp. </div>
-        </div>
-        <input type="hidden" name="change" id="change">
-        <input class="form-control" id="change-val" placeholder="Change" readonly>
+       <!-- <label class="sr-only" for="inlineFormInputGroupUsername">Username</label> -->
       
+      <div class="form-row">
+      <div class="form-group col-md-3">
+      <label for="exampleFormControlTextarea1"><strong>Total Bayar</strong></label>
+       <div class="input-group">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">Rp. </div>
+                  </div>
+                <input type="hidden" name="subtotal" id="subtotal">
+                <input type="text" class="form-control readonly reset" id="subtotal-val" placeholder="Harga Keseluruhan">
+       </div>
+       </div>
 
-                          
+       <div class="form-group col-md-1"> 
+      </div>
+
+       <div class="form-group col-md-3">
+       <div class="form-row">
+       
+       <label for="exampleFormControlTextarea1"> <strong>Cash</strong></label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text">Rp. </div>
+          </div>
+          <!-- <input type="hidden" class="form-control" name="cash" id="cash" > -->
+          <input type="text" class="form-control reset" id="cash" placeholder="Cash Pelanggan..." required>
+        </div>
+
+
+      
+      
+        <label for="exampleFormControlTextarea1" class="mt-3"> <strong>Change  </strong></label>
+        <div class="input-group mt">
+          <div class="input-group-prepend">
+            <div class="input-group-text">Rp. </div>
+          </div>
+          <input type="hidden" name="change" id="change">
+          <input class="form-control readonly reset" id="change-val" placeholder="Change" required>
+          </div>
+        
+
+        </div>
+      </div>
+
+      <div class="form-group col-md-1">
+      </div> 
+     
+      <div class="form-group col-md-4">
+       
+      <div class="form-group">
+        <label for="exampleFormControlTextarea1"><strong>Catatan</strong></label>
+        <textarea class="form-control reset" id="exampleFormControlTextarea1" rows="3" placeholder="Catatan...."></textarea>
+      </div>
+
+      </div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 text-right">
+            <button type="button" onclick="klik_reset()" class="btn btn-danger mr-1">Reset</button>
+            <button type="submit" class="btn btn-warning">Simpan Transaksi</button>
+        </div>
+    </div>
+</div>
                             
             </form>
             </div>
@@ -248,6 +310,13 @@
 var total_penjualan;
 var harga_produk_penjualan;
 var pilih_kategori_pelanggan;
+var pelanggan_kategori;
+
+$(".readonly").keydown(function(e){
+        e.preventDefault();
+});
+
+
 
 $(document).ready(function (){
     $('.mydatatable').DataTable();
@@ -280,7 +349,7 @@ jQuery( function( $ ) {
                                     <tbody>\
                                     </tbody>\
                                 </table>';
-                                $("#gambar").hide(); 
+                                $("#keranjang_kosong").hide(); 
                                 $("#tabel_cart").append(tambah_tabel); 
         angka=1;
       }
@@ -315,13 +384,32 @@ jQuery( function( $ ) {
         });
 });
 
+function klik_reset(){
+  $("#cart").remove();
+  angka=0;
+  // $('form :input').val('');
+  $('.reset').val('');
+  $("#keranjang_kosong").show();
+  $('#pelanggan_kategori').attr('disabled', false);
+  
+  if(pelanggan_kategori==2){
+    $('#tabelproduk .th_harga_reseller').show();
+    $('#tabelproduk .td_harga_reseller').show();
+  }
+  if(pelanggan_kategori==1){
+    $('#tabelproduk .th_harga_pelanggan').show();
+    $('#tabelproduk .td_harga_pelanggan').show();
+  }
+}
+
+
 function kategori_pelanggan(){
   console.log('masuk kategori pelanggan');
-  var x = document.getElementById("pelanggan_kategori").value;
+  pelanggan_kategori = document.getElementById("pelanggan_kategori").value;
   // console.log(x);
   // 1=reseller
   // 2=non reseller
-  if(x==1){
+  if(pelanggan_kategori==1){
     harga_produk_penjualan=1;
     $('#pelanggan_kategori').attr('disabled', 'disabled');
     $('#tabelproduk .th_harga_pelanggan').hide();
@@ -329,7 +417,7 @@ function kategori_pelanggan(){
     pilih_kategori_pelanggan=1;
     // console.log(pilih_kategori_pelanggan);
   }
-  if(x==2){
+  if(pelanggan_kategori==2){
     harga_produk_penjualan=2;
     $('#pelanggan_kategori').attr('disabled', 'disabled');
     $('#tabelproduk .th_harga_reseller').hide();
