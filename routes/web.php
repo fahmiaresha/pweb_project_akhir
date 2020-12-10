@@ -92,12 +92,16 @@ Route::post('/kategori-produk-update', 'ProdukController@update_kategori_produk'
 Route::get('/kategori-produk-delete/{id}', 'ProdukController@delete_kategori_produk');
 
 //whatsapp
-Route::get('whatsapp', 'ShowController@show_whatsapp')->name('whatsapp');
-Route::post('whatsapp-store', 'ShowController@store_whatsapp');
+Route::get('/whatsapp', 'ShowController@show_whatsapp')->name('whatsapp');
+Route::post('/whatsapp-store', 'ShowController@store_whatsapp');
 
 //point-of-sales
-Route::get('point-of-sales', 'PosController@show_pos')->name('point-of-sales');
-Route::post('/cari', 'PosController@loadData');
+Route::get('/point-of-sales', 'PosController@show_pos')->name('point-of-sales');
+Route::post('/point-of-sales/store', 'PosController@store_pos');
+
+//penjualan
+Route::get('/data-penjualan', 'PosController@show_data_penjualan')->name('data-penjualan');
+Route::get('/invoice-penjualan/{id}', 'PosController@invoice_penjualan');
 
 // user-manual
 Route::get('user-manual', 'CustomerController@user_manual')->name('user-manual');

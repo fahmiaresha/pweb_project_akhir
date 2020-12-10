@@ -99,7 +99,10 @@
          @endif 
       </form>
                     </td>
-                    <td>{{ $co->TANGGAL_CATATAN_ORDER_SUPPLIER }}</td>
+                    <td>
+                    {{date('d-m-Y H:i:s', strtotime($co->TANGGAL_CATATAN_ORDER_SUPPLIER)) }}
+                   
+                    </td>
                     @foreach($supplier as $s)
                         @if($s->ID_SUPPLIER==$co->ID_SUPPLIER)
                         <td>{{$s->NAMA_SUPPLIER }}</td>

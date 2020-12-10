@@ -7,6 +7,20 @@ use DB;
 
 class PosController extends Controller
 {
+
+    public function show_data_penjualan(){
+        $penjualan = DB::table('penjualan')->get();
+        $product = DB::table('produk')->get();
+        $pelanggan = DB::table('pelanggan')->get();
+        $users = DB::table('users')->get();
+        $kategori_pelanggan = DB::table('kategori_pelanggan')->get();
+        $detail_penjualan = DB::table('detail_penjualan')->get();
+        $kategori_produk = DB::table('kategori_produk')->get();
+        return view('penjualan/data_penjualan',['penjualan'=>$penjualan
+        ,'product'=>$product,'pelanggan'=>$pelanggan,'users'=>$users,'detail_penjualan'=>$detail_penjualan
+        ,'kategori_pelanggan'=>$kategori_pelanggan,'kategori_produk'=>$kategori_produk]);
+
+    }
     public function show_pos(){
         $penjualan = DB::table('penjualan')->get();
         $product = DB::table('produk')->get();
@@ -20,56 +34,50 @@ class PosController extends Controller
         ,'kategori_pelanggan'=>$kategori_pelanggan,'kategori_produk'=>$kategori_produk]);
     }
 
-    public function loadData(Request $request)
-    {
-       $product=DB::table('produk')->where('NAMA_PRODUK','like','%'.$request->key.'%')->get();
-       return response()->json(['product'=>$product]);
+    // public function loadData(Request $request)
+    // {
+    //    $product=DB::table('produk')->where('NAMA_PRODUK','like','%'.$request->key.'%')->get();
+    //    return response()->json(['product'=>$product]);
       
-    }
+    // }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'customer_id' => 'required',
-            'user_id' => 'required' ,
-            'nota_date' => 'required' ,
-            'total_payment' => 'required|numeric'
-          ]);
-
+    public function store_pos(Request $request)
+    {     
+        // dd(request()->all());
           try{
-            DB::beginTransaction();
+            DB::beginTransaction();     
+        $rp_string = $request->cash;
+        $cash_fix = str_replace(".","",$rp_string);
 
-            DB::table('sales')->insert([
-                'customer_id' => $request->customer_id ,
-                'user_id' => $request->user_id ,
-                'nota_date' => $request->nota_date ,
-                'total_payment' => $request->total_payment 
+            DB::table('penjualan')->insert([
+                // 'ID_USER' => $request->nama_kasir ,
+                // 'TANGGAL_PENJUALAN' => $request->tanggal_penjualan ,
+                //sementara
+                'ID_PELANGGAN' => $request->nama_pelanggan ,
+                'ID_USER' => 1 ,
+                'TOTAL_PENJUALAN' => $request->subtotal ,
+                'KATEGORI_PELANGGAN_PENJUALAN' => $request->isi_kategori_pelanggan ,
+                'CASH_PELANGGAN' => $cash_fix ,
+                'CHANGE_PELANGGAN' => $request->change ,
+                'CATATAN_PENJUALAN' => $request->catatan_penjualan 
             ]);          
     
-                foreach($request['product_id'] as $pr){
-                    DB::table('sales_detail')->insert([
-                        'nota_id' => $request->nota_id ,
-                        'product_id' => $pr ,
-                        'quantity' => $request['jumlah'][$pr] ,
-                        'selling_price' => $request['selling_price'][$pr] ,
-                        'discount' => $request['discount'][$pr] ,
-                        'total_price' => $request['total'][$pr]
+                foreach($request['ID_PRODUK'] as $pr){
+                    DB::table('detail_penjualan')->insert([
+                        'ID_PENJUALAN' => $request->nota_id ,
+                        'ID_PRODUK' => $pr ,
+                        'JUMLAH_PRODUK' => $request['jumlah'][$pr] ,
+                        'HARGA_PRODUK' => $request['selling_price'][$pr] ,
+                        'TOTAL_HARGA_PRODUK' => $request['total'][$pr]
                     ]);     
                 }
-                // $error = \Illuminate\Validation\ValidationException::withMessages([
-                //     'field_name_1' => ['Validation Message #1'],
-                //     'field_name_2' => ['Validation Message #2'],
-                //  ]);
-                // throw $error;
                 DB::commit();
-                return redirect('/sales_detail/create')->with('insert','data berhasil di tambah');
+                return redirect('/point-of-sales')->with('insert','berhasil');
           }
           catch(Exception $exception){
-            //   $eror = $exception;
               DB::rollBack();
-              return redirect('/sales_detail/create');
-            //   return redirect('/sales_detail/create',['eror'=>$eror]);
-          } 
+              return redirect('/point-of-sales')->with('gagal','gagal');
            
+          } 
     }
 }

@@ -86,7 +86,7 @@
                 <tbody>
                     @foreach($whatsapp as $w)
                     <tr>
-                    <td>{{$w->TANGGAL_WHATSAPP}}</td>
+                    <td>{{date('d-m-Y H:i:s', strtotime($w->TANGGAL_WHATSAPP)) }}</td>
                     <td>{{$w->KATEGORI_WHATSAPP}}</td>           
                     <td>{{$w->NO_WHATSAPP}}</td>
                     <td>{{$w->PESAN_WHATSAPP}}</td>

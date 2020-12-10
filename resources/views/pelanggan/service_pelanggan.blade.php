@@ -109,7 +109,13 @@
          @endif 
       </form>
                     </td>
-                    <td>{{ $s->TANGGAL_SERVICE }}</td>
+                    
+                    <td>
+                    {{date('d-m-Y H:i:s', strtotime($s->TANGGAL_SERVICE)) }}
+                   
+                    </td>
+                   
+
                     @foreach($pelanggan as $p)
                         @if($p->ID_PELANGGAN==$s->ID_PELANGGAN)
                         <td>{{$p->NAMA_PELANGGAN }}</td>

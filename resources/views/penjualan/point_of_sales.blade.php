@@ -1,5 +1,5 @@
 @extends('layouts.template')
-@section('title','Penjualan')
+@section('title','Point Of Sales')
 @section('head')
   <!-- Datatable -->
   <link rel="stylesheet" href="{{ url('vendors/dataTable/datatables.min.css') }}" type="text/css">
@@ -16,10 +16,10 @@
                     <li class="breadcrumb-item">
                         <a href="{{ url('/') }}">Home</a>
                     </li>
-                    <!-- <li class="breadcrumb-item">
-                        <a href="#">Pelanggan</a>
-                    </li> -->
-                    <li class="breadcrumb-item active" aria-current="page">Penjualan</li>
+                    <li class="breadcrumb-item">
+                        <a href="#">Penjualan</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">Poinf Of Sales</li>
                 </ol>
             </nav>
         </div>
@@ -28,7 +28,7 @@
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
-            <form method="post" action="{{ url('/pos/store') }}">
+            <form method="post" action="{{ url('/point-of-sales/store') }}">
                 @csrf
               
               @if($id_penjualan==null)
@@ -70,7 +70,7 @@
       <div class="form-group col-md-4">
           <label for="nota_date">Tanggal</label>
           <input type="text" class="form-control @error('nota_date') is-invalid @enderror" 
-          id="nota_date" placeholder=" nota_date " name="nota_date" 
+          id="nota_date" name="tanggal_penjualan" 
           value="@php date_default_timezone_set('Asia/Jakarta'); echo date('d-m-Y H:i:s'); @endphp" readonly>
           @error('nota_date')
         <div class="invalid-feedback"></div>
@@ -84,12 +84,14 @@
         <div class="form-group col-md-4">
         
                 <label for="customer_id">Kategori Pelanggan</label>
-                 <select name="kategori" class="custom-select " id="pelanggan_kategori" onchange="kategori_pelanggan()">
-                        <option disabled="true" selected="true"  required>Pilih Kategori</option>
+                 <select name="kategori11" class="custom-select" id="pelanggan_kategori" onchange="kategori_pelanggan()">
+                        <option disabled="true" selected="true" required>Pilih Kategori</option>
                         @foreach($kategori_pelanggan as $kp)
                         <option value="{{ $kp->ID_KATEGORI_PELANGGAN }}" required>{{ $kp->NAMA_KATEGORI_PELANGGAN }}</option>
                         @endforeach
                 </select>
+
+                
         </div>
 
       </div>
@@ -98,7 +100,7 @@
               <div class="form-group col-md-4">
                   <label for="kasir">Kasir</label>
                   <input type="text" class="form-control @error('nota_date') is-invalid @enderror" 
-          id="" placeholder="  " name=""  value="Fahmi Aresha" readonly>
+          id="" placeholder="  " name="nama_kasir"  value="Fahmi Aresha" readonly>
                      
                   
                   </div>
@@ -110,16 +112,16 @@
 
                   <div class="form-group col-md-4"> 
                   <label for="customer_id">Pelanggan</label>
-                <input type="text" class="form-control reset" 
+                <!-- <input type="text" class="form-control reset" 
           id="nota_date" placeholder="Nama Pelanggan" name="nama_pelanggan" 
-          value="" required>
+          value="" required> -->
 
-                 <!-- <select name="kategori" class="form-control">
-                        <option disabled="true" selected="true" value="Umum" required>Umum</option>
+                 <select name="nama_pelanggan" class="custom-select">
+                        <option selected="true" value="" required>Umum</option>
                         @foreach($pelanggan as $p)
                         <option value="{{ $p->ID_PELANGGAN }}" required>{{ $p->NAMA_PELANGGAN }}</option>
                         @endforeach
-                </select> -->
+                </select>
 
                   
                   </div>
@@ -241,7 +243,7 @@
                     <div class="input-group-text">Rp. </div>
                   </div>
                 <input type="hidden" name="subtotal" id="subtotal">
-                <input type="text" class="form-control readonly reset" id="subtotal-val" placeholder="Harga Keseluruhan">
+                <input type="text" class="form-control readonly reset" id="subtotal-val" placeholder="Harga Keseluruhan" required>
        </div>
        </div>
 
@@ -257,7 +259,7 @@
             <div class="input-group-text">Rp. </div>
           </div>
           <!-- <input type="hidden" class="form-control" name="cash" id="cash" > -->
-          <input type="text" class="form-control reset" id="cash" placeholder="Cash Pelanggan..." required>
+          <input type="text" name="cash" class="form-control reset" id="cash" placeholder="Cash Pelanggan..." required>
         </div>
 
 
@@ -283,10 +285,12 @@
        
       <div class="form-group">
         <label for="exampleFormControlTextarea1"><strong>Catatan</strong></label>
-        <textarea class="form-control reset" id="exampleFormControlTextarea1" rows="3" placeholder="Catatan...."></textarea>
+        <textarea class="form-control reset" name="catatan_penjualan" id="exampleFormControlTextarea1" rows="3" placeholder="Catatan...."></textarea>
       </div>
 
       </div>
+
+      <input type="hidden" class="coba" name="isi_kategori_pelanggan" id="isi_kategori_pelanggan">
 
 <div class="container">
     <div class="row">
@@ -296,6 +300,8 @@
         </div>
     </div>
 </div>
+
+
                             
             </form>
             </div>
@@ -318,6 +324,8 @@ $(".readonly").keydown(function(e){
 
 
 
+
+
 $(document).ready(function (){
     $('.mydatatable').DataTable();
     $('.select2-example').select2();
@@ -336,7 +344,7 @@ var angka=0;
 jQuery( function( $ ) {
     $("#save").click(function(){
       if(angka==0){
-        var tambah_tabel= '\<table class="table table-bordered table-hover" id="cart"></font>\
+        var tambah_tabel= '\<table class="table table-bordered table-hover table-active" id="cart"></font>\
                                   <thead>\
                                   <tr>\
                                   <th style="font-weight:bold; text-align:center;">Nama Produk</th>\
@@ -406,7 +414,12 @@ function klik_reset(){
 function kategori_pelanggan(){
   console.log('masuk kategori pelanggan');
   pelanggan_kategori = document.getElementById("pelanggan_kategori").value;
-  // console.log(x);
+
+  document.getElementById('isi_kategori_pelanggan').value = pelanggan_kategori;
+                
+
+  
+  // console.log(pelanggan_kategori);
   // 1=reseller
   // 2=non reseller
   if(pelanggan_kategori==1){
@@ -415,6 +428,7 @@ function kategori_pelanggan(){
     $('#tabelproduk .th_harga_pelanggan').hide();
     $('#tabelproduk .td_harga_pelanggan').hide();
     pilih_kategori_pelanggan=1;
+   
     // console.log(pilih_kategori_pelanggan);
   }
   if(pelanggan_kategori==2){
@@ -423,7 +437,8 @@ function kategori_pelanggan(){
     $('#tabelproduk .th_harga_reseller').hide();
     $('#tabelproduk .td_harga_reseller').hide();
     pilih_kategori_pelanggan=1;
-    // console.log(pilih_kategori_pelanggan);
+   
+    // console.log(pilih_kategori_pelanggan); 
   }
 }
 
@@ -702,6 +717,16 @@ function recount(id) {
 
 </script>
 
+@if (session('insert'))
+<script>
+swal("Success!","Data Penjualan Berhasil Di Tambahkan","success");
+</script>
+@endif
 
+@if (session('gagal'))
+<script>
+swal("Oops!","Data Penjualan Gagal Di Tambahkan","error");
+</script>
+@endif
 
 @endsection

@@ -103,7 +103,9 @@
          @endif 
       </form>
                     </td>
-                    <td>{{ $po->TANGGAL_CATATAN_PRE_ORDER_PELANGGAN }}</td>
+                    <td>
+                    {{date('d-m-Y H:i:s', strtotime($po->TANGGAL_CATATAN_PRE_ORDER_PELANGGAN)) }}
+                    </td>
                     @foreach($pelanggan as $p)
                         @if($p->ID_PELANGGAN==$po->ID_PELANGGAN)
                         <td>{{$p->NAMA_PELANGGAN }}</td>

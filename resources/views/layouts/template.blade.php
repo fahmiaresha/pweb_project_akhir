@@ -246,13 +246,27 @@
                     </li>
 
                     <li>
-                        <a @if(request()->segment(1) =='point-of-sales') class="active" @endif href="{{ route('point-of-sales') }}" >
-                    <span class="nav-link-icon">
+                        <a href="#">
+                        <span class="nav-link-icon">
                     <i class="fa fa-cart-plus"></i>
                     </span>
-                            <span>Penjualan</span>
+                            <span >Penjualan</span>
                         </a>
+                        <ul>
+                            <li>
+                            <a @if(request()->segment(1) == 'data-penjualan') class="active" @endif href="{{ route('data-penjualan') }}">Data Penjualan</a>
+                            </li>
+
+                             <li>
+                            <a @if(request()->segment(1) == 'point-of-sales') class="active" @endif href="{{ route('point-of-sales') }}">Point Of Sales</a>
+                            </li>
+
+                           
+
+                        </ul>
                     </li>
+
+
 
                     <li>
                         <a @if(request()->segment(1) =='whatsapp') class="active" @endif href="{{ route('whatsapp') }}" >
