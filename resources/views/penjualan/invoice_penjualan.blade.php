@@ -133,11 +133,12 @@
                                                 @endforeach
                                                 </tbody>
                         </table>
-                        
+                        <div class="yay" style="font-size: 3pt;"> © {{ date('Y') }} - Toko Bagus . All rights reserved</div>
 <center>
     <div class="terimakasih" style="margin-top:35px;">
-    <div class="yay" style="margin-bottom:2px;" ><strong>TERIMA KASIH</strong></div>
-    <div class="yay">*Barang yang sudah dibeli tidak dapat ditukar/dikembalikan.</div>
+    <div class="yay" style="margin-bottom:1px;" ><strong>TERIMA KASIH</strong></div>
+    <div class="yay" style="margin-bottom:1px;">*Barang yang sudah dibeli tidak dapat ditukar/dikembalikan.</div>
+    
     </div>
 </center>
     

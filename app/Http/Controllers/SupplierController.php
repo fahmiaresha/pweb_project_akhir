@@ -49,6 +49,7 @@ class SupplierController extends Controller
 
     public function store_supplier(Request $request){
         DB::table('supplier')->insert(['NAMA_SUPPLIER' => $request->nama_supplier,
+        'NAMA_PEMASOK_BARANG' => $request->pemasok_barang,
         'ALAMAT_SUPPLIER' => $request->alamat_supplier,
         'TELP_SUPPLIER' => $request->telepon_supplier,
         'EMAIL_SUPPLIER'=> $request->email_supplier,
@@ -59,6 +60,7 @@ class SupplierController extends Controller
     public function update_supplier(Request $request){
         DB::table('supplier')->where('ID_SUPPLIER',$request->id)->update([
             'NAMA_SUPPLIER' => $request->nama_supplier,
+            'NAMA_PEMASOK_BARANG' => $request->pemasok_barang,
             'ALAMAT_SUPPLIER' => $request->alamat_supplier,
             'TELP_SUPPLIER' => $request->telepon_supplier,
             'EMAIL_SUPPLIER'=> $request->email_supplier,
@@ -142,6 +144,7 @@ class SupplierController extends Controller
 
         DB::table('nota_supplier')->insert([
         'ID_SUPPLIER' => $request->nama_supplier,
+        'TANGGAL_NOTA_DATANG'=> $request->daterangepicker,
         'TOTAL_BAYAR_NOTA_SUPPLIER' =>$total_bayar,
         'FOTO_NOTA_SUPPLIER' => $nama_file
         ]);

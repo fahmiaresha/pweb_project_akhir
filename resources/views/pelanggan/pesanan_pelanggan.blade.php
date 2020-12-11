@@ -51,7 +51,7 @@
                         <select name="nama_pelanggan" id="nama_pelanggan" class="select2-example">
                         <option value="-" disabled="true" selected="true">Pilih Nama Pelanggan</option>
                         @foreach($pelanggan as $p)
-                        <option value="{{ $p->ID_PELANGGAN }}">{{ $p->NAMA_PELANGGAN }}</option>
+                        <option value="{{ $p->ID_PELANGGAN }}">{{ $p->NAMA_PELANGGAN }} - {{ $p->ALAMAT_PELANGGAN }}</option>
                         @endforeach
                        </select>
                        
@@ -108,7 +108,7 @@
                     </td>
                     @foreach($pelanggan as $p)
                         @if($p->ID_PELANGGAN==$po->ID_PELANGGAN)
-                        <td>{{$p->NAMA_PELANGGAN }}</td>
+                        <td>{{$p->NAMA_PELANGGAN }} - {{ $p->ALAMAT_PELANGGAN }}</td>
                         @endif
                     @endforeach
                     <td>{{$po->DESKRIPSI_CATATAN_PRE_ODER_PELANGGAN}}</td>           
@@ -138,9 +138,9 @@
                                 <select name="nama_pelanggan" id="nama_pelanggan"  class="form-control">
                                 @foreach($pelanggan as $p)
                                 @if($po->ID_PELANGGAN==$p->ID_PELANGGAN)         
-                                <option selected value="{{ $po->ID_PELANGGAN }}" required>{{ $p->NAMA_PELANGGAN }}</option>
+                                <option selected value="{{ $po->ID_PELANGGAN }}" required>{{ $p->NAMA_PELANGGAN }} - {{ $p->ALAMAT_PELANGGAN }}</option>
                                 @else
-                                <option value="{{ $p->ID_PELANGGAN }}" required>{{ $p->NAMA_PELANGGAN }}</option>
+                                <option value="{{ $p->ID_PELANGGAN }}" required>{{ $p->NAMA_PELANGGAN }} - {{ $p->ALAMAT_PELANGGAN }}</option>
                                 @endif
                                 @endforeach
                                 </select>
@@ -192,7 +192,7 @@
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">Pesan</label>
-                        <textarea class="form-control" placeholder="Deskripsi Pesan" name="pesan_whatsapp" id="message-text" required></textarea>
+                        <textarea class="form-control" placeholder="Deskripsi Pesan" name="pesan_whatsapp" id="message-text" required>{{$po->DESKRIPSI_CATATAN_PRE_ODER_PELANGGAN}}</textarea>
                         </div>
                     
                 </div>

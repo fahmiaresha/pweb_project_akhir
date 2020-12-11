@@ -51,7 +51,7 @@
                         <select name="nama_pelanggan" id="nama_pelanggan" class="select2-example">
                         <option value="-" disabled="true" selected="true">Pilih Nama Pelanggan</option>
                         @foreach($pelanggan as $p)
-                        <option value="{{ $p->ID_PELANGGAN }}">{{ $p->NAMA_PELANGGAN }}</option>
+                        <option value="{{ $p->ID_PELANGGAN }}">{{ $p->NAMA_PELANGGAN }} - {{ $p->ALAMAT_PELANGGAN }}</option>
                         @endforeach
                        </select>
                        
@@ -118,7 +118,7 @@
 
                     @foreach($pelanggan as $p)
                         @if($p->ID_PELANGGAN==$s->ID_PELANGGAN)
-                        <td>{{$p->NAMA_PELANGGAN }}</td>
+                        <td>{{$p->NAMA_PELANGGAN }} - {{ $p->ALAMAT_PELANGGAN }}</td>
                         @endif
                     @endforeach
                     <td>{{$s->NAMA_SEPEDA_SERVICE}}</td>
@@ -152,9 +152,9 @@
                                 <select name="nama_pelanggan" id="nama_pelanggan"  class="form-control">
                                 @foreach($pelanggan as $p)
                                 @if($s->ID_PELANGGAN==$p->ID_PELANGGAN)         
-                                <option selected value="{{ $s->ID_PELANGGAN }}" required>{{ $p->NAMA_PELANGGAN }}</option>
+                                <option selected value="{{ $s->ID_PELANGGAN }}" required>{{ $p->NAMA_PELANGGAN }} - {{ $p->ALAMAT_PELANGGAN }}</option>
                                 @else
-                                <option value="{{ $p->ID_PELANGGAN }}" required>{{ $p->NAMA_PELANGGAN }}</option>
+                                <option value="{{ $p->ID_PELANGGAN }}" required>{{ $p->NAMA_PELANGGAN }} - {{ $p->ALAMAT_PELANGGAN }}</option>
                                 @endif
                                 @endforeach
                                 </select>

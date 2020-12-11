@@ -49,7 +49,13 @@
                         <label for="Nama" style="margin-top:10px;">Nama</label>
                         <div class="form-group">
                             <input type="text" class="demo-code-preview form-control mt-1" 
-                            id="nama" placeholder="Nama Supplier" name="nama_supplier" value="{{ old('nama') }}" required>
+                            id="nama" placeholder="Nama Supplier" name="nama_supplier" value="{{ old('nama_supplier') }}" required>
+                        </div>
+
+                        <label for="Nama" style="margin-top:10px;">Pemasok Barang</label>
+                        <div class="form-group">
+                            <input type="text" class="demo-code-preview form-control mt-1" 
+                            id="nama" placeholder="Nama Barang" name="pemasok_barang" value="{{ old('pemasok_barang') }}" required>
                         </div>
 
                         <label for="Alamat">Alamat</label>
@@ -84,6 +90,7 @@
                         <tr>
                         <!-- <th>No</th> -->
                         <th>Nama</th>
+                        <th>Pemasok Barang</th>
                         <th>Alamat</th>
                         <th>Telp</th>
                         <th>Email</th>
@@ -96,6 +103,7 @@
                     <!-- <td>{{ $loop->iteration }}</td> -->
                    
                     <td>{{$sp->NAMA_SUPPLIER}}</td>
+                    <td>{{$sp->NAMA_PEMASOK_BARANG}}</td>
                     <td>{{$sp->ALAMAT_SUPPLIER}}</td>
                     <td>{{$sp->TELP_SUPPLIER}}</td>           
                     <td>{{$sp->EMAIL_SUPPLIER}}</td>
@@ -107,7 +115,7 @@
 
                           
                             <div class="modal fade" id="editModal{{$sp->ID_SUPPLIER}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                            <div class="modal-dialog " role="document">
                                 <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Edit Supplier</h5>
@@ -125,6 +133,12 @@
                         <div class="form-group">
                             <input type="text" class="demo-code-preview form-control mt-1" 
                             id="nama" placeholder="Nama Supplier" name="nama_supplier" value="{{$sp->NAMA_SUPPLIER}}" required>
+                        </div>
+
+                        <label for="Nama" style="margin-top:10px;">Pemasok Barang</label>
+                        <div class="form-group">
+                            <input type="text" class="demo-code-preview form-control mt-1" 
+                            id="nama" placeholder="Nama Barang" name="pemasok_barang" value="{{$sp->NAMA_PEMASOK_BARANG}}" required>
                         </div>
 
                         <label for="Alamat">Alamat</label>

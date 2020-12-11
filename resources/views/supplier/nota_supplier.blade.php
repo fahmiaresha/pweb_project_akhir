@@ -8,6 +8,9 @@
 
 <link rel="stylesheet" href="vendors/lightbox/magnific-popup.css" type="text/css">
 
+<!-- rangepicker -->
+<link rel="stylesheet" href="vendors/datepicker/daterangepicker.css" type="text/css">
+
 <style>
 .noBorder {
     border:none !important;
@@ -39,6 +42,16 @@
             <!-- modal -->
             <button type="button" class="btn btn-primary mb-3" data-toggle="modal"  data-target="#coba">
             <i class="fa fa-plus-circle mr-2"></i> Nota Supplier</button>
+
+            @foreach ($errors->all() as $error)
+            <div class="alert alert-danger alert-dismissible" role="alert">
+            <i class="fa fa-warning"></i> {{ $error }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+             <i class="ti-close"></i>
+            </button>
+            </div>
+            @endforeach
+            
             <div class="modal fade" tabindex="-1" role="dialog" id="coba">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -56,9 +69,14 @@
                         <select name="nama_supplier" id="nama_supplier" class="select2-example">
                         <option value="-" disabled="true" selected="true">Pilih Nama Supplier</option>
                         @foreach($supplier as $s)
-                        <option value="{{ $s->ID_SUPPLIER }}">{{ $s->NAMA_SUPPLIER }}</option>
+                        <option value="{{ $s->ID_SUPPLIER }}">{{ $s->NAMA_SUPPLIER }} - {{ $s->ALAMAT_SUPPLIER }}</option>
                         @endforeach
                        </select>
+
+                       <label for="Nama" style="margin-top:10px;">Tanggal Nota</label>
+                        <div class="form-group">
+                        <input type="text" name="daterangepicker" class="form-control" class="demo-code-preview form-control mt-1" placeholder="Tanggal Nota" name="daterangepicker" id="daterangepicker" value="{{ old('daterangepicker') }}">
+                        </div>
                        
                         <label for="Nama" style="margin-top:10px;">Total</label>
                         <div class="form-group">
@@ -70,6 +88,8 @@
                         <input type="file" class="custom-file-input" name="file" required>
                             <label class="custom-file-label" for="customFile" >Choose file</label>
                         </div>
+
+                       
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -85,6 +105,7 @@
                         <tr>
                         <th>Status</th>
                         <th>Tanggal</th>
+                        <th>Tanggal Nota</th>
                         <th>Nama Supplier</th>
                         <th>Total Bayar</th>
                         <!-- <th>Foto</th> -->
@@ -117,9 +138,12 @@
                     <td>
                     {{date('d-m-Y H:i:s', strtotime($ns->TANGGAL_NOTA_SUPPLIER)) }}
                     </td>
+                    <td>
+                        {{$ns->TANGGAL_NOTA_DATANG}}
+                    </td>
                     @foreach($supplier as $s)
                         @if($s->ID_SUPPLIER==$ns->ID_SUPPLIER)
-                        <td>{{$s->NAMA_SUPPLIER }}</td>
+                        <td>{{$s->NAMA_SUPPLIER }} - {{ $s->ALAMAT_SUPPLIER }}</td>
                         @endif
                     @endforeach
                     <td>Rp. {{ number_format($ns->TOTAL_BAYAR_NOTA_SUPPLIER)}}</td> 
@@ -207,7 +231,7 @@
                 </center>
                 </div>
                    <br>
-                                              <table class="table">
+                                              <table class="table table-active table-hover">
                                                 <tbody>
                                                 <tr>
                                                 <td class=""> <strong> Nama Supplier  <strong></td>
@@ -235,11 +259,11 @@
                 @endforeach
 
                 </div>
-                <div class="modal-footer">
+                <!-- <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
-                    </button>
+                    </button> -->
                     <!-- <button type="button" class="btn btn-primary">Kirim Pesan</button> -->
-                </div>
+                <!-- </div> -->
                 </div>
             </div>
             </div>
@@ -263,8 +287,10 @@
 <script src="{{ url('vendors/dataTable/datatables.min.js') }}"></script>
 <script src="{{ url('assets/js/examples/pages/user-list.js') }}"></script>
 <script src="vendors/lightbox/jquery.magnific-popup.min.js"></script>
+<script src="vendors/datepicker/daterangepicker.js"></script>
 
 <script>
+
 
 $(document).ready(function (){
     $('#myTable').DataTable();
@@ -289,6 +315,15 @@ $(document).ready(function (){
             return openerElement.is('img') ? openerElement : openerElement.find('img');
         }
     }  
+});
+
+$('input[name="daterangepicker"]').daterangepicker({
+  timePicker: true,
+  singleDatePicker: true,
+  showDropdowns: true,
+  locale: {
+      format: 'DD-M-YY hh:mm A'
+    }
 });
 
 });

@@ -47,7 +47,7 @@
                         <select name="nama_supplier" id="nama_supplier" class="select2-example">
                         <option value="-" disabled="true" selected="true">Pilih Nama Supplier</option>
                         @foreach($supplier as $s)
-                        <option value="{{ $s->ID_SUPPLIER }}">{{ $s->NAMA_SUPPLIER }}</option>
+                        <option value="{{ $s->ID_SUPPLIER }}">{{ $s->NAMA_SUPPLIER }} - {{ $s->ALAMAT_SUPPLIER }}</option>
                         @endforeach
                        </select>
                        
@@ -105,7 +105,7 @@
                     </td>
                     @foreach($supplier as $s)
                         @if($s->ID_SUPPLIER==$co->ID_SUPPLIER)
-                        <td>{{$s->NAMA_SUPPLIER }}</td>
+                        <td>{{$s->NAMA_SUPPLIER }} - {{ $s->ALAMAT_SUPPLIER }}</td>
                         @endif
                     @endforeach
                     <td>{{$co->DESKRIPSI_CATATAN_ORDER_SUPPLIER	}}</td>           
@@ -135,9 +135,9 @@
                                 <select name="nama_supplier" id="nama_supplier"  class="form-control">
                                 @foreach($supplier as $s)
                                 @if($co->ID_SUPPLIER==$s->ID_SUPPLIER)         
-                                <option selected value="{{ $co->ID_SUPPLIER }}" required>{{ $s->NAMA_SUPPLIER }}</option>
+                                <option selected value="{{ $co->ID_SUPPLIER }}" required>{{ $s->NAMA_SUPPLIER }} - {{ $s->ALAMAT_SUPPLIER }}</option>
                                 @else
-                                <option value="{{ $s->ID_SUPPLIER }}" required>{{ $s->NAMA_SUPPLIER }}</option>
+                                <option value="{{ $s->ID_SUPPLIER }}" required>{{ $s->NAMA_SUPPLIER }} - {{ $s->ALAMAT_SUPPLIER }}</option>
                                 @endif
                                 @endforeach
                                 </select>
@@ -191,7 +191,7 @@
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">Pesan</label>
-                        <textarea class="form-control" placeholder="Deskripsi Pesan" name="pesan_whatsapp" id="message-text"></textarea>
+                        <textarea class="form-control" placeholder="Deskripsi Pesan" name="pesan_whatsapp" id="message-text">{{$co->DESKRIPSI_CATATAN_ORDER_SUPPLIER}}</textarea>
                         </div>
                 </div>
                 <div class="modal-footer">

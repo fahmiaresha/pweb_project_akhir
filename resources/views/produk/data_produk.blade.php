@@ -5,6 +5,8 @@
   <link rel="stylesheet" href="{{ url('vendors/dataTable/datatables.min.css') }}" type="text/css">
  <!-- select2 -->
 <link rel="stylesheet" href="../../vendors/select2/css/select2.min.css" type="text/css">
+<!-- rangepicker -->
+<link rel="stylesheet" href="vendors/datepicker/daterangepicker.css" type="text/css">
 
 @endsection
 
@@ -61,6 +63,11 @@
                         <option value="{{ $sp->ID_SUPPLIER }}" required>{{ $sp->NAMA_SUPPLIER }}</option>
                         @endforeach
                        </select>
+
+                       <label for="Nama" style="margin-top:10px;">Tanggal Pembelian</label>
+                        <div class="form-group">
+                        <input type="text" name="daterangepicker" class="form-control" class="demo-code-preview form-control mt-1" placeholder="Tanggal Pembelian" name="daterangepicker" id="daterangepicker" value="{{ old('daterangepicker') }}">
+                        </div>
                        
                         <label for="Nama" style="margin-top:10px;">Nama</label>
                         <div class="form-group">
@@ -111,6 +118,7 @@
                     <thead>
                         <tr>
                         <!-- <th>No</th> -->
+                        <th>Tanggal Pembelian</th>
                         <th>Kategori</th>
                         <th>Supplier</th>     
                         <th>Nama</th>
@@ -127,6 +135,7 @@
                 <tbody>
                     @foreach($produk as $p)
                     <tr>
+                    <td>{{ $p->TANGGAL_PEMBELIAN_PRODUK }}</td>
                     @foreach($kategori_produk as $kp)
                         @if($kp->ID_KATEGORI_PRODUK==$p->ID_KATEGORI_PRODUK)
                         <td>{{ $kp->NAMA_KATEGORI_PRODUK }}</td>
@@ -191,6 +200,11 @@
                                 @endif
                                 @endforeach
                                 </select>
+
+                                <label for="Nama" style="margin-top:10px;">Tanggal Pembelian</label>
+                                <div class="form-group">
+                                <input type="text" name="daterangepicker" class="form-control" class="demo-code-preview form-control mt-1" placeholder="Tanggal Pembelian" name="daterangepicker" id="daterangepicker" value="{{$p->TANGGAL_PEMBELIAN_PRODUK}}">
+                                </div>
 
                         <label for="Nama" style="margin-top:10px;">Nama</label>
                         <div class="form-group">
@@ -284,11 +298,22 @@
 
 @section('script')
 <script src="../../vendors/select2/js/select2.min.js"></script>
+<script src="vendors/datepicker/daterangepicker.js"></script>
 <script>
 $(document).ready(function (){
     $('#myTable').DataTable();
     $('.select2-example').select2();
     $('#select2').select2();
+
+    $('input[name="daterangepicker"]').daterangepicker({
+  timePicker: true,
+  singleDatePicker: true,
+  showDropdowns: true,
+  locale: {
+      format: 'DD-M-YY hh:mm A'
+    }
+});
+
 });
 
 var harga_beli = document.getElementById('harga_beli');

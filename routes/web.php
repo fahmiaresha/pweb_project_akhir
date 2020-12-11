@@ -62,7 +62,6 @@ Route::post('/pesanan-pelanggan-send-wa', 'PelangganController@send_wa_pesanan_p
 Route::get('/data-supplier', 'SupplierController@tampil_supplier')->name('data-supplier');
 Route::post('/data-supplier-store', 'SupplierController@store_supplier');
 Route::post('/data-supplier-update', 'SupplierController@update_supplier');
-Route::post('/data-supplier-update', 'SupplierController@update_supplier');
 Route::get('/data-supplier-delete/{id}', 'SupplierController@delete_supplier');
 
 
