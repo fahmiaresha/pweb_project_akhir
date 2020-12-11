@@ -4,9 +4,37 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use PDF;
 
 class PosController extends Controller
 {
+    public function invoice_penjualan($id){
+        $id_invoice=$id;
+        $penjualan = DB::table('penjualan')->get();
+        $product = DB::table('produk')->get();
+        $pelanggan = DB::table('pelanggan')->get();
+        $users = DB::table('users')->get();
+        $kategori_pelanggan = DB::table('kategori_pelanggan')->get();
+        $detail_penjualan = DB::table('detail_penjualan')->get();
+        $kategori_produk = DB::table('kategori_produk')->get();
+        // return view('penjualan/invoice_penjualan',['id_invoice'=>$id_invoice,'penjualan'=>$penjualan
+        // ,'product'=>$product,'pelanggan'=>$pelanggan,'users'=>$users,'detail_penjualan'=>$detail_penjualan
+        // ,'kategori_pelanggan'=>$kategori_pelanggan,'kategori_produk'=>$kategori_produk]);
+        $pdf = PDF::loadview('penjualan/invoice_penjualan',['id_invoice'=>$id_invoice,'penjualan'=>$penjualan
+        ,'product'=>$product,'pelanggan'=>$pelanggan,'users'=>$users,'detail_penjualan'=>$detail_penjualan
+        ,'kategori_pelanggan'=>$kategori_pelanggan,'kategori_produk'=>$kategori_produk]);
+        return $pdf->stream();
+        //ukuran 57 mm x 47 mm
+        // 161,575
+        // 133,228
+        
+        // 142,5
+        // 117,5
+        // $paper = array(0, 0,100,575,100,228   );
+        // $pdf->setPaper($paper);
+        // $pdf->setPaper($paper,'landscape');
+        
+    }
 
     public function show_data_penjualan(){
         $penjualan = DB::table('penjualan')->get();
@@ -19,8 +47,8 @@ class PosController extends Controller
         return view('penjualan/data_penjualan',['penjualan'=>$penjualan
         ,'product'=>$product,'pelanggan'=>$pelanggan,'users'=>$users,'detail_penjualan'=>$detail_penjualan
         ,'kategori_pelanggan'=>$kategori_pelanggan,'kategori_produk'=>$kategori_produk]);
-
     }
+
     public function show_pos(){
         $penjualan = DB::table('penjualan')->get();
         $product = DB::table('produk')->get();
@@ -46,8 +74,8 @@ class PosController extends Controller
         // dd(request()->all());
           try{
             DB::beginTransaction();     
-        $rp_string = $request->cash;
-        $cash_fix = str_replace(".","",$rp_string);
+            $rp_string = $request->cash;
+            $cash_fix = str_replace(".","",$rp_string);
 
             DB::table('penjualan')->insert([
                 // 'ID_USER' => $request->nama_kasir ,

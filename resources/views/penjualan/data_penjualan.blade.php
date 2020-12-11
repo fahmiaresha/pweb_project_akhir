@@ -247,7 +247,7 @@
                     </div>
                                     
 
-                    <a href="/invoice-penjualan/{{$p->ID_PENJUALAN}}">
+                    <a href="/invoice-penjualan/{{$p->ID_PENJUALAN}}" target="_blank">
                             <button type="button" class="btn btn-outline-success mb-1 ml-2">
                             <i class="fa fa-print mr-1"></i>Invoice
                             </button>
