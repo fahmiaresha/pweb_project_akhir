@@ -100,12 +100,12 @@ class PosController extends Controller
                     ]);     
                 }
                 DB::commit();
-                return redirect('/point-of-sales')->with('insert','berhasil');
+                $id_penjualan=$request->nota_id;
+                return redirect('/point-of-sales')->with('insert',$id_penjualan);
           }
-          catch(Exception $exception){
+          catch(\Exception $exception){
               DB::rollBack();
               return redirect('/point-of-sales')->with('gagal','gagal');
-           
           } 
     }
 }

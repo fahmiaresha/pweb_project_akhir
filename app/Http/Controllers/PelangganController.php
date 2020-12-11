@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Redirect;
+use PDF;
+
 class PelangganController extends Controller
 {
     public function tampil_dashboard(){
@@ -127,9 +129,13 @@ class PelangganController extends Controller
         $pelanggan = DB::table('pelanggan')->get();
         $kategori_pelanggan = DB::table('kategori_pelanggan')->get();
         $service = DB::table('service')->get();
-        $id_nota=$id;
-        return view('pelanggan/nota_service',['pelanggan'=>$pelanggan,'kategori_pelanggan'=>$kategori_pelanggan
-        ,'id_nota'=>$id_nota,'service'=>$service]);
+        $id_invoice=$id;
+        // return view('pelanggan/invoice_service',['pelanggan'=>$pelanggan,'kategori_pelanggan'=>$kategori_pelanggan
+        // ,'id_invoice'=>$id_invoice,'service'=>$service]);
+
+        $pdf = PDF::loadview('pelanggan/invoice_service',['pelanggan'=>$pelanggan,'kategori_pelanggan'=>$kategori_pelanggan
+        ,'id_invoice'=>$id_invoice,'service'=>$service]);
+        return $pdf->stream();
       
     }
 

@@ -32,7 +32,7 @@
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">           
-                <table id="myTable" class="table table-striped table-bordered">
+                <table id="myTable" class="table table-striped table-bordered table-hover">
                     <thead>
                         <tr>
                         <th>Invoice</th>
@@ -63,7 +63,7 @@
                     @else
                         @foreach($pelanggan as $pl)
                              @if($p->ID_PELANGGAN==$pl->ID_PELANGGAN)
-                                {{$pl->NAMA_PELANGGAN}}
+                                {{$pl->NAMA_PELANGGAN}} - {{$pl->ALAMAT_PELANGGAN}}
                              @endif
                         @endforeach
                     @endif  

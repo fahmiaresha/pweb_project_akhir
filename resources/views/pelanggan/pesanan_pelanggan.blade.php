@@ -70,7 +70,7 @@
             </div>
             </div>
              <!-- tutup modal -->
-                <table id="myTable" class="table table-striped table-bordered">
+                <table id="myTable" class="table table-striped table-bordered table-hover">
                     <thead>
                         <tr>
                         <th>Status</th>

@@ -117,9 +117,8 @@
           value="" required> -->
 
                  <select name="nama_pelanggan" class="custom-select">
-                        <option selected="true" value="" required>Umum</option>
                         @foreach($pelanggan as $p)
-                        <option value="{{ $p->ID_PELANGGAN }}" required>{{ $p->NAMA_PELANGGAN }}</option>
+                        <option value="{{ $p->ID_PELANGGAN }}" required>{{ $p->NAMA_PELANGGAN }} - {{ $p->ALAMAT_PELANGGAN }}</option>
                         @endforeach
                 </select>
 
@@ -142,7 +141,7 @@
                 </div>
                 <div class="modal-body">
                 <div class="table-responsive">
-                <table class="table table-striped table-bordered mydatatable" id="tabelproduk">
+                <table class="table table-striped table-bordered mydatatable table-hover" id="tabelproduk">
                       <thead>
                         <tr>
                           <th width=1px scope="col">#</th>
@@ -308,6 +307,30 @@
         </div>
     </div>
 
+    @if (session('insert'))
+        <div class="modal fade" id="print_invoice" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle">Cetak INV-{{$id_penjualan}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <i class="ti-close"></i>
+            </button>
+          </div>
+          <div class="modal-body">
+            Apakah anda ingin mencetak INV-{{$id_penjualan}} ?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Back
+            </button>
+            <a href="/invoice-penjualan/{{$id_penjualan}}" target="_blank">
+            <button type="button" class="btn btn-primary">Yes</button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    @endif
 @endsection
 
 @section('script')
@@ -720,6 +743,7 @@ function recount(id) {
 @if (session('insert'))
 <script>
 swal("Success!","Data Penjualan Berhasil Di Tambahkan","success");
+$('#print_invoice').modal('show');
 </script>
 @endif
 

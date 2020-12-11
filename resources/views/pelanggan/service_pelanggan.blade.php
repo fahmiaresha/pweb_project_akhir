@@ -75,7 +75,7 @@
             </div>
             </div>
              <!-- tutup modal -->
-                <table id="myTable" class="table table-striped table-bordered">
+                <table id="myTable" class="table table-striped table-bordered table-hover">
                     <thead>
                         <tr>
                         <th>Status</th>
@@ -183,7 +183,7 @@
                             </div> 
 
                             <!-- tutup Button trigger modal edit -->
-                            <a href="/data-service-pelanggan-print/{{ $s->ID_SERVICE }}">
+                            <a href="/data-service-pelanggan-print/{{ $s->ID_SERVICE }}" target="_blank">
                             <button type="button" class="btn btn-outline-success mb-1 ml-2">
                             <i class="fa fa-print mr-1"></i>Nota
                             </button>

@@ -89,7 +89,7 @@
             </div>
             </div>
              <!-- tutup modal -->
-                <table id="myTable" class="table table-striped table-bordered">
+                <table id="myTable" class="table table-striped table-bordered table-hover">
                     <thead>
                         <tr>
                         <!-- <th>No</th> -->
@@ -110,8 +110,20 @@
                         @endif
                     @endforeach
                     <td>{{$p->NAMA_PELANGGAN}}</td>
-                    <td>{{$p->ALAMAT_PELANGGAN}}</td>           
-                    <td>{{$p->TELP_PELANGGAN}}</td>
+                    <td>
+                    @if($p->ALAMAT_PELANGGAN==null)
+                    -
+                    @else
+                    {{$p->ALAMAT_PELANGGAN}}
+                    @endif
+                    </td>           
+                    <td>
+                    @if($p->TELP_PELANGGAN==null)
+                    -
+                    @else
+                    {{$p->TELP_PELANGGAN}}
+                    @endif
+                    </td>  
                     <td>
                         
                             

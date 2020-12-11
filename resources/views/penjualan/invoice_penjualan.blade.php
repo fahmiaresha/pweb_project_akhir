@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>#INV-{{$id_invoice}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penjualan #INV-{{$id_invoice}}</title>
     <style>
   @page {
     size: 5.7cm 5cm;
