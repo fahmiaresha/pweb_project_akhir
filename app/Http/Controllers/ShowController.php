@@ -8,6 +8,11 @@ use Redirect;
 
 class ShowController extends Controller
 {
+
+    public function user_manual(){
+
+    }
+
     public function show_whatsapp(){
         $whatsapp = DB::table('whatsapp')->get();
         return view('whatsapp',['whatsapp'=>$whatsapp]);

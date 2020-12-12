@@ -139,7 +139,7 @@
                     {{date('d-m-Y H:i:s', strtotime($ns->TANGGAL_NOTA_SUPPLIER)) }}
                     </td>
                     <td>
-                        {{$ns->TANGGAL_NOTA_DATANG}}
+                    {{date('d-m-Y', strtotime($ns->TANGGAL_NOTA_DATANG)) }}
                     </td>
                     @foreach($supplier as $s)
                         @if($s->ID_SUPPLIER==$ns->ID_SUPPLIER)
@@ -318,11 +318,10 @@ $(document).ready(function (){
 });
 
 $('input[name="daterangepicker"]').daterangepicker({
-  timePicker: true,
   singleDatePicker: true,
   showDropdowns: true,
   locale: {
-      format: 'DD-M-YY hh:mm A'
+      format: 'YYYY-MM-DD'
     }
 });
 

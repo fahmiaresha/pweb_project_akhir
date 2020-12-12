@@ -44,12 +44,10 @@
                                                         <td><strong>Tanggal</strong></td>
                                                         <td>: {{date('d-m-Y H:i:s', strtotime($p->TANGGAL_PENJUALAN)) }}</td>
                                                         </tr>
-                                                        @if($p->ID_PELANGGAN==null)
                                                         <tr>
                                                         <td><strong>Pelanggan <strong> </td>
                                                         <td>: 
-                                                                    Umum
-                                                                    @else
+                                                                    
                                                                         @foreach($pelanggan as $pl)
                                                                             @if($p->ID_PELANGGAN==$pl->ID_PELANGGAN)
                                                                                 {{$pl->NAMA_PELANGGAN}}
@@ -57,7 +55,7 @@
                                                                         @endforeach
                                                         </td>
                                                         </tr> 
-                                                        @endif 
+                                                         
                                                         @endif
                                                     @endforeach
                                                     <tr>

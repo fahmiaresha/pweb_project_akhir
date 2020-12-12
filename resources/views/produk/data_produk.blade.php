@@ -144,7 +144,7 @@
 
                     @foreach($supplier as $s)
                         @if($p->ID_SUPPLIER==$s->ID_SUPPLIER)
-                        <td>{{$s->NAMA_SUPPLIER}}</td>
+                        <td>{{$s->NAMA_SUPPLIER}} - {{$s->ALAMAT_SUPPLIER}}</td>
                         @endif
                     @endforeach
                     <td>{{$p->NAMA_PRODUK}}</td>

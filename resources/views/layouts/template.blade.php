@@ -10,7 +10,8 @@
 
     <!-- Main css -->
     <link rel="stylesheet" href="{{ url('vendors/bundle.css') }}" type="text/css">
-
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
@@ -167,12 +168,14 @@
                         <a @if(request()->segment(1) =='dashboard') class="active" @endif href="{{ route('dashboard') }}" >
                    
                     <span class="nav-link-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-pie-chart"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg>
+                    <i class="fa fa-tachometer"></i>
                     </span>
                     
-                            <span style="margin-left:-5px">Dashboard</span>
+                            <span>Dashboard</span>
                         </a>
                     </li>
+
+                   
       
 
                     <li>
@@ -260,12 +263,29 @@
                              <li>
                             <a @if(request()->segment(1) == 'point-of-sales') class="active" @endif href="{{ route('point-of-sales') }}">Point Of Sales</a>
                             </li>
-
-                           
-
                         </ul>
                     </li>
 
+                   
+
+
+                    <li>
+                        <a href="#">
+                        <span class="nav-link-icon">
+                    <i class="fa fa-bar-chart"></i>
+                    </span>
+                            <span >Laporan</span>
+                        </a>
+                        <ul>
+                            <li>
+                            <a @if(request()->segment(1) == 'laporan-penjualan') class="active" @endif href="{{ route('laporan-penjualan') }}">Laporan Penjualan</a>
+                            </li>
+
+                             <li>
+                            <a @if(request()->segment(1) == 'laporan-nota-supplier') class="active" @endif href="{{ route('laporan-nota-supplier') }}">Laporan Nota Supplier</a>
+                            </li>
+                        </ul>
+                    </li>
 
 
                     <li>
