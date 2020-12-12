@@ -73,9 +73,14 @@
                         @endforeach
                        </select>
 
+                       <label for="Nama" style="margin-top:10px;">Nomor</label>
+                        <div class="form-group">
+                        <input type="text" name="nomor_nota" class="demo-code-preview form-control mt-1" placeholder="Nomor Nota" value="{{ old('nomor_nota') }}">
+                        </div>
+
                        <label for="Nama" style="margin-top:10px;">Tanggal Nota</label>
                         <div class="form-group">
-                        <input type="text" name="daterangepicker" class="form-control" class="demo-code-preview form-control mt-1" placeholder="Tanggal Nota" name="daterangepicker" id="daterangepicker" value="{{ old('daterangepicker') }}">
+                        <input type="text" name="daterangepicker" class="demo-code-preview form-control mt-1" placeholder="Tanggal Nota" id="daterangepicker" value="{{ old('daterangepicker') }}">
                         </div>
                        
                         <label for="Nama" style="margin-top:10px;">Total</label>
@@ -104,7 +109,7 @@
                     <thead>
                         <tr>
                         <th>Status</th>
-                        <th>Tanggal</th>
+                        <th>Nomor Nota</th>
                         <th>Tanggal Nota</th>
                         <th>Nama Supplier</th>
                         <th>Total Bayar</th>
@@ -136,7 +141,7 @@
       </form>
                     </td>
                     <td>
-                    {{date('d-m-Y H:i:s', strtotime($ns->TANGGAL_NOTA_SUPPLIER)) }}
+                    {{$ns->NOMOR_NOTA_SUPPLIER}}
                     </td>
                     <td>
                     {{date('d-m-Y', strtotime($ns->TANGGAL_NOTA_DATANG)) }}

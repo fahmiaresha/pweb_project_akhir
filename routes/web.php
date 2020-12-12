@@ -102,10 +102,13 @@ Route::post('/point-of-sales/store', 'PosController@store_pos');
 Route::get('/data-penjualan', 'PosController@show_data_penjualan')->name('data-penjualan');
 Route::get('/invoice-penjualan/{id}', 'PosController@invoice_penjualan');
 
-//laporan
+//laporan-penjualan
 Route::get('/laporan-penjualan', 'LaporanController@laporan_penjualan')->name('laporan-penjualan');
+
+//laporan-nota-supplier
 Route::get('/laporan-nota-supplier', 'LaporanController@laporan_nota_supplier')->name('laporan-nota-supplier');
 Route::post('/search-nota-supplier', 'LaporanController@search_nota_supplier');
+Route::get('/pdf-nota-supplier/{result}/{fromdate}/{todate}', 'LaporanController@pdf_nota_supplier');
 
 // user-manual
 Route::get('user-manual', 'ShowController@user_manual')->name('user-manual');

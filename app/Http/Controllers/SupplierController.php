@@ -146,6 +146,7 @@ class SupplierController extends Controller
         'ID_SUPPLIER' => $request->nama_supplier,
         'TANGGAL_NOTA_DATANG'=> $request->daterangepicker,
         'TOTAL_BAYAR_NOTA_SUPPLIER' =>$total_bayar,
+        'NOMOR_NOTA_SUPPLIER' =>$request->nomor_nota,
         'FOTO_NOTA_SUPPLIER' => $nama_file
         ]);
         return redirect('/nota-supplier')->with('insert','berhasil');

@@ -9,6 +9,7 @@ use PdfReport;
 use ExcelReport;
 use CSVReport;
 use App\nota_supplier;
+use Redirect;
 
 class LaporanController extends Controller
 {
@@ -19,8 +20,6 @@ class LaporanController extends Controller
     }
 
     public function search_nota_supplier(Request $request){
-        $supplier = DB::table('supplier')->get();
-        $nota_supplier = DB::table('nota_supplier')->get();
         $date = $request->input('daterangepicker');
         // 2020-12-12-2020-12-13
         $y=str_replace(" ","",$date); //hilangkan space
@@ -35,20 +34,26 @@ class LaporanController extends Controller
     
         // $sortBy = $request->input('sort_by');
 
-        $query = nota_supplier::select(['STATUS_NOTA_SUPPLIER','TANGGAL_NoTA_DATANG','ID_SUPPLIER', 'TOTAL_BAYAR_NOTA_SUPPLIER']) // Do some querying..
+        $result=nota_supplier::select(['STATUS_NOTA_SUPPLIER','NOMOR_NOTA_SUPPLIER','TANGGAL_NOTA_DATANG','ID_SUPPLIER', 'TOTAL_BAYAR_NOTA_SUPPLIER']) // Do some querying..
                         ->whereBetween('TANGGAL_NOTA_DATANG', [$fromDate, $toDate])
                         ->orderBy('STATUS_NOTA_SUPPLIER', 'ASC')
                         ->get();
-                        // ->orderBy($sortBy);
-        // dump($query);
-        // return view('laporan/laporan_nota_supplier',['supplier'=>$supplier,'nota_supplier'=>$nota_supplier,'query'=>$query]);
-        return redirect('/laporan-nota-supplier')->with('search_sukses',$query,$supplier,$nota_supplier);
-        // if($query!=null){
-        // }
-        // else{
-        //     return redirect('/laporan-nota-supplier')->with('search_kosong');
-        // }
-        
+       
+        if($result=='[]'){
+            return Redirect::back()->with('search_kosong','yay');
+        }
+        else{
+            return Redirect::back()->with(['fromDate'=>$fromDate,'toDate'=>$toDate,'sukses'=>$result]);
+        }         
+    }
+
+
+    public function pdf_nota_supplier($result,$fromdate,$todate){
+        $supplier = DB::table('supplier')->get();
+        $nota_supplier = DB::table('nota_supplier')->get();
+        $pdf = PDF::loadview('laporan/pdf_nota_supplier',
+        ['supplier'=>$supplier,'nota_supplier'=>$nota_supplier,'result'=>$result,'fromdate'=>$fromdate,'todate'=>$todate]); 
+        return $pdf->stream();
     }
 
 
@@ -63,6 +68,8 @@ class LaporanController extends Controller
         return view('laporan/laporan_penjualan',['penjualan'=>$penjualan
         ,'product'=>$product,'pelanggan'=>$pelanggan,'users'=>$users,'detail_penjualan'=>$detail_penjualan
         ,'kategori_pelanggan'=>$kategori_pelanggan,'kategori_produk'=>$kategori_produk]);
+
+        // return view('laporan/laporan_penjualan');
     }
 
 
