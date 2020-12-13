@@ -33,16 +33,19 @@
         <div class="card-body">
                 <form method="post" action="{{ url('/search-nota-supplier') }}" id="form_cari">
                     @csrf
-                    <label for="Nama">Tanggal</label>
-                    <div class="form-row">
-                    <div class="form-group col-md-5">
+                    <label for="Nama">Tanggal Nota</label>
                     <input type="text" name="daterangepicker" class="demo-code-preview form-control mt-1" placeholder="Tanggal Nota" name="daterangepicker" id="daterangepicker" value="{{ old('daterangepicker') }}">
-                    </div>
-                    <div class="form-group col-md-3 col-sm-12 ml-1 mt-2">
-                    <button  type="submit" class="btn btn-primary ">Tampil</button>
-                    <!-- btn-rounded -->
-                    </div>
-                    </div>
+                    <p style="color:#e3bcba;" class="mt-2">*Pilih range tanggal laporan</p>
+
+                    <label for="Kategori">Supplier</label>
+                        <select name="supplier" id="supplier" class="select2-example">
+                        <option selected="true" value="">All</option>
+                        @foreach($supplier as $sp)
+                        <option value="{{ $sp->ID_SUPPLIER }}" required>{{ $sp->NAMA_SUPPLIER }}</option>
+                        @endforeach
+                       </select>
+                       <p style="color:#e3bcba;" class="mt-2">*Kosongkan jika ingin menampilkan keseluruhan</p>
+                    <button  type="submit" class="btn btn-primary mt-3">Cari</button>
                 </form>
 
                 <!-- <div class="container" id="keranjang_kosong">
@@ -51,56 +54,51 @@
                <br>
                 </center>
                 </div> -->
+        </div>
+    </div>
         @if (session('sukses'))
             @php $x=session('sukses'); @endphp
             @php 
                 $fromdate=session('fromDate'); 
                 $todate=session('toDate'); 
+                $input_supplier=session('input_supplier');
+                if($input_supplier==null){
+                    $input_supplier='kosong';  
+                }
             @endphp
-            <div class="row">
-                <div class="col-md-12 text-right">
-                <a href="/pdf-nota-supplier/{{$x}}/{{$fromdate}}/{{$todate}}" target="_blank" class="btn btn-outline-success ml-2"> <i class="fa fa-download mr-2"></i>Laporan</a>
-                </div>
-            </div>
+    <div class="card">
+        <div class="card-body">
+    <center>
+    <div class="coba mb-5"><strong> <h4>Laporan Nota Supplier</h4></strong></div>
+    </strong>
+    </center>
 
-            <div class="form-row">
-                <div class="form-group col-md-2">
-                <label for="Nama"><strong>Dari Tanggal</strong> </label>
-                </div>
+                <div class="form-row">
 
-                <div class="form-group col-md-1">
-                :
+                <div class="form-group col-md-4">
+                        <strong>
+                <p>Tanggal : {{date('d-m-Y', strtotime($fromdate)) }} s/d
+                    {{date('d-m-Y', strtotime($todate)) }}</p>  </strong>
                 </div>
-
-                <div class="form-group col-md-3">
-                <label for="Nama" style="margin-left:-50px;">{{date('d-m-Y', strtotime($fromdate)) }} </label>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="form-group col-md-2">
-                <label for="Nama"><strong>Sampai Tanggal</strong> </label>
-                </div>
-                <div class="form-group col-md-1">
-                :
+                <div class="form-group col-md-8 text-right">
+                <a href="/pdf-nota-supplier/{{$fromdate}}/{{$todate}}/{{$input_supplier}}" target="_blank" class="btn btn-outline-success ml-2"> <i class="fa fa-download mr-2"></i>Laporan</a>
                 </div>
 
-                <div class="form-group col-md-3">
-                <label for="Nama" style="margin-left:-50px;">{{date('d-m-Y', strtotime($todate)) }} </label>
                 </div>
-            </div>
+           
+               
+             
             
-            <!-- <label for="Nama">DARI TANGGAL : {{date('d-m-Y', strtotime($fromdate)) }} </label>
-            <label for="Nama">SAMPAI TANGGAL : {{date('d-m-Y', strtotime($todate)) }}</label> -->
+        
             <div class="table-responsive">
             <table id="myTable" class="table table-striped table-bordered table-hover">
                     <thead>
                         <tr>
-                        <!-- <th style="width:10px">#</th> -->
-                        <th>Nomor Nota</th>
-                        <th>Status</th>
-                        <th>Tanggal Nota</th>
+                      
                         <th>Supplier</th>
+                        <th>Status</th>
+                        <th>Nomor Nota</th> 
+                        <th>Tanggal Nota</th>
                         <th>Total Bayar</th>
                         </tr>
                     </thead>
@@ -111,22 +109,23 @@
             @endphp
                 @foreach($x as $y)
                         <tr>
-                        <!-- <td>{{$loop->iteration}}</td> -->
-                        <td> {{$y->NOMOR_NOTA_SUPPLIER}}  </td>
-                        <td>
-                        @if($y->STATUS_NOTA_SUPPLIER==1)
-                         Sudah dibayar
-                        @else
-                         Belum dibayar
-                        @endif
-                        </td>
-                        
-                        <td>  {{date('d-m-Y', strtotime($y->TANGGAL_NOTA_DATANG)) }}  </td>
-                    @foreach($supplier as $s)
+                        @foreach($supplier as $s)
                         @if($s->ID_SUPPLIER==$y->ID_SUPPLIER)
                         <td> {{$s->NAMA_SUPPLIER}} - {{$s->ALAMAT_SUPPLIER}}                </td>
                         @endif
                     @endforeach
+                       
+                        <td>
+                        @if($y->STATUS_NOTA_SUPPLIER==1)
+                         Lunas
+                        @else
+                         Belum Lunas
+                        @endif
+                        </td>
+                        <td> {{$y->NOMOR_NOTA_SUPPLIER}}  </td>
+                        
+                        <td>  {{date('d-m-Y', strtotime($y->TANGGAL_NOTA_DATANG)) }}  </td>
+                   
                         <td> Rp. {{ number_format($y->TOTAL_BAYAR_NOTA_SUPPLIER)}}    </td>
                         </tr>
                     @if($y->STATUS_NOTA_SUPPLIER==1)
@@ -137,23 +136,23 @@
                 @endforeach
                        
                 </tbody>
+               
                          <tr>
                          <td  colspan="1" class="alert alert-danger" style="text-align:left; border: none;"><strong><i class="ti-alert mr-2"></i>Nota Belum Lunas</strong></td>
                             <td  colspan="2" class="alert alert-danger" style="text-align:right; border: none;">Rp. {{ number_format($status_belum_dibayar)}} </td>
 
                             <td colspan="1"class="alert alert-success" style="text-align:left; border: none;"><strong><i class="ti-check mr-2"></i>Nota Lunas</strong></td>
                             <td  colspan="2" class="alert alert-success" style="text-align:right; border: none;">Rp. {{ number_format($status_sudah_dibayar)}} </td>        
-                        </tr>  
+                        </tr> 
                 </table>
-                </div>   
-        @endif
-        </div>
+                </div>
+
+              
+            </div>
+            </div>
     </div>
-
-    
-
-
-
+    </div>
+        @endif
 @endsection
 
 @section('script')
@@ -161,7 +160,7 @@
 <script>
 $(document).ready(function (){
     $('#myTable').DataTable(); 
-
+    $('.select2-example').select2();
     $('input[name="daterangepicker"]').daterangepicker({
     opens: 'left',
     locale: {
@@ -182,7 +181,7 @@ $(document).ready(function (){
 @if (session('sukses'))
 <script>
 swal("Success!","Laporan Berhasil Dibuat!","success");
-$('#form_cari').hide();
+// $('#form_cari').hide();
 </script>
 @endif
 

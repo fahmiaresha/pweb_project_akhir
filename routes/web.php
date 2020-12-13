@@ -108,7 +108,7 @@ Route::get('/laporan-penjualan', 'LaporanController@laporan_penjualan')->name('l
 //laporan-nota-supplier
 Route::get('/laporan-nota-supplier', 'LaporanController@laporan_nota_supplier')->name('laporan-nota-supplier');
 Route::post('/search-nota-supplier', 'LaporanController@search_nota_supplier');
-Route::get('/pdf-nota-supplier/{result}/{fromdate}/{todate}', 'LaporanController@pdf_nota_supplier');
+Route::get('/pdf-nota-supplier/{fromdate}/{todate}/{input_supplier}', 'LaporanController@pdf_nota_supplier');
 
 // user-manual
 Route::get('user-manual', 'ShowController@user_manual')->name('user-manual');
