@@ -51,6 +51,19 @@
     </center>
     <strong><p>Tanggal Laporan :   {{date('d-m-Y', strtotime($fromdate)) }} s/d
                {{date('d-m-Y', strtotime($todate)) }}</p> </strong> 
+
+               <p style="margin-top:-10px;"> <strong> Sort by :    
+                @if($input_supplier=='kosong')
+                    All
+                @else
+                    @foreach($supplier as $s)
+                            @if($s->ID_SUPPLIER==$input_supplier)
+                                {{$s->NAMA_SUPPLIER}} - {{$s->ALAMAT_SUPPLIER}}
+                            @endif
+                    @endforeach
+                @endif
+                </strong> 
+                 </p>             
     <table style="width:100%;" id="customers">
                         <thead>
                         

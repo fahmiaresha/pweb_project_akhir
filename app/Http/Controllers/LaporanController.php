@@ -26,11 +26,14 @@ class LaporanController extends Controller
         $y=str_replace(" ","",$date); //hilangkan space
         
         // "2020-12-12"
-        $fromDate=substr($y,0,10); 
+        
+        $fd=substr($y,0,10); 
+        $fromDate=date("Y-m-d", strtotime($fd));
         // dump($fromDate);
 
         // "2020-12-13"
-        $toDate=substr($y,11,21);
+        $td=substr($y,11,21);
+        $toDate=date("Y-m-d", strtotime($td));
         // dump($toDate); 
 
         if($input_supplier==null){
@@ -77,7 +80,7 @@ class LaporanController extends Controller
         }
 
         $pdf = PDF::loadview('laporan/pdf_nota_supplier',
-        ['supplier'=>$supplier,'nota_supplier'=>$nota_supplier,'result'=>$result,'fromdate'=>$fromdate,'todate'=>$todate]); 
+        ['supplier'=>$supplier,'nota_supplier'=>$nota_supplier,'result'=>$result,'fromdate'=>$fromdate,'todate'=>$todate,'input_supplier'=>$input_supplier]); 
         return $pdf->stream();
 
 

@@ -141,10 +141,10 @@ class SupplierController extends Controller
         $rp_string = $request->total_bayar;
         $x = str_replace("Rp.","",$rp_string);
         $total_bayar = str_replace(".","",$x);
-
+        $tanggal_nota_datang=date("Y-m-d", strtotime($request->daterangepicker));
         DB::table('nota_supplier')->insert([
         'ID_SUPPLIER' => $request->nama_supplier,
-        'TANGGAL_NOTA_DATANG'=> $request->daterangepicker,
+        'TANGGAL_NOTA_DATANG'=>  $tanggal_nota_datang,
         'TOTAL_BAYAR_NOTA_SUPPLIER' =>$total_bayar,
         'NOMOR_NOTA_SUPPLIER' =>$request->nomor_nota,
         'FOTO_NOTA_SUPPLIER' => $nama_file
