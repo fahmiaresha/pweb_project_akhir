@@ -48,7 +48,7 @@
                 <tbody>
                     @foreach($penjualan as $p)
                     <tr>
-                    <td>{{$p->ID_PENJUALAN}}</td>
+                    <td>INV-{{$p->ID_PENJUALAN}}</td>
                     <td> {{date('d-m-Y H:i:s', strtotime($p->TANGGAL_PENJUALAN)) }}</td>           
                     <td>
                         @foreach($kategori_pelanggan as $kp)
@@ -106,7 +106,7 @@
                             <div class="form-group">
                             <label for="exampleFormControlTextarea1"><strong>No. Invoice</strong></label>
                             <div class="coba">
-                            {{$p->ID_PENJUALAN}}
+                            INV-{{$p->ID_PENJUALAN}}
                             </div>
                             </div>
                         </div>

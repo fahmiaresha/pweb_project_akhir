@@ -9,6 +9,7 @@ use PdfReport;
 use ExcelReport;
 use CSVReport;
 use App\nota_supplier;
+use App\penjualan;
 use Redirect;
 
 class LaporanController extends Controller
@@ -98,8 +99,54 @@ class LaporanController extends Controller
         return view('laporan/laporan_penjualan',['penjualan'=>$penjualan
         ,'product'=>$product,'pelanggan'=>$pelanggan,'users'=>$users,'detail_penjualan'=>$detail_penjualan
         ,'kategori_pelanggan'=>$kategori_pelanggan,'kategori_produk'=>$kategori_produk]);
+    }
 
-        // return view('laporan/laporan_penjualan');
+    public function search_laporan_penjualan(Request $request){
+        $date = $request->input('daterangepicker');
+
+        $y=str_replace(" ","",$date); //hilangkan space
+
+        $fd=substr($y,0,10); 
+        $fromDate=date("Y-m-d", strtotime($fd));
+        // dump($fromDate);
+
+        // "2020-12-13"
+        $td=substr($y,11,21);
+        $toDate=date("Y-m-d", strtotime($td));
+
+
+        $result=penjualan::select(['ID_PENJUALAN','TANGGAL_PENJUALAN','TOTAL_PENJUALAN','KATEGORI_PELANGGAN_PENJUALAN', 'ID_USER']) // Do some querying..
+        ->whereBetween('TANGGAL_PENJUALAN_ASLI', [$fromDate, $toDate])
+        ->orderBy('ID_PENJUALAN', 'ASC')
+        ->get();
+
+        if($result=='[]'){
+            return Redirect::back()->with('search_kosong','yay');
+        }
+        else{
+            return Redirect::back()->with(['fromDate'=>$fromDate,'toDate'=>$toDate,'sukses'=>$result]);
+        }  
+    }
+
+    public function pdf_penjualan($fromdate,$todate){
+        $penjualan = DB::table('penjualan')->get();
+        $product = DB::table('produk')->get();
+        $pelanggan = DB::table('pelanggan')->get();
+        $users = DB::table('users')->get();
+        $kategori_pelanggan = DB::table('kategori_pelanggan')->get();
+        $detail_penjualan = DB::table('detail_penjualan')->get();
+        $kategori_produk = DB::table('kategori_produk')->get();
+
+        $result=penjualan::select(['ID_PENJUALAN','TANGGAL_PENJUALAN','TOTAL_PENJUALAN','KATEGORI_PELANGGAN_PENJUALAN', 'ID_USER']) // Do some querying..
+        ->whereBetween('TANGGAL_PENJUALAN_ASLI', [$fromdate, $todate])
+        ->orderBy('ID_PENJUALAN', 'ASC')
+        ->get();
+
+        
+       $pdf = PDF::loadview('laporan/pdf_penjualan',['penjualan'=>$penjualan
+        ,'product'=>$product,'pelanggan'=>$pelanggan,'users'=>$users,'detail_penjualan'=>$detail_penjualan
+        ,'kategori_pelanggan'=>$kategori_pelanggan,'kategori_produk'=>$kategori_produk,'result'=>$result,'fromdate'=>$fromdate,'todate'=>$todate,]);
+        return $pdf->stream();
     }
 
 

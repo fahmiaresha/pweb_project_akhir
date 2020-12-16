@@ -178,25 +178,27 @@
 	            </div>
                 </center>
               
-               
-                <!-- @foreach($x as $ns) 
-                                @foreach($supplier as $s)
-                                        @php 
-                                        $lunas=0;
-                                        $blm_lunas=0;
-                                        @endphp
-                                    @if($ns->ID_SUPPLIER==$s->ID_SUPPLIER)
+                <!-- @php $id_supp=0; @endphp
+                @foreach($supplier as $s)
+                                @foreach($x as $ns)
+                                    @if($id_supp!=$ns->ID_SUPPLIER)
+                                        @php $lunas=0; $blm_lunas=0; @endphp
+                                    @else
+                                        @if($id_supp!=0)
+                                            @php echo $lunas; @endphp
+                                            @php echo $blm_lunas; @endphp
+                                        @endif
+                                    @endif
+
+                                    @if($s->ID_SUPPLIER==$ns->ID_SUPPLIER)
                                             @if($ns->STATUS_NOTA_SUPPLIER==1)
-                                                    lunas
-                                                    {{$s->NAMA_SUPPLIER}}
-                                                    @php echo $lunas = $lunas + $ns->TOTAL_BAYAR_NOTA_SUPPLIER; @endphp
+                                                    @php $lunas = $lunas + $ns->TOTAL_BAYAR_NOTA_SUPPLIER; @endphp
                                             @else
-                                                blm lunas
-                                                {{$s->NAMA_SUPPLIER}}
-                                                @php echo $blm_lunas = $blm_lunas + $ns->TOTAL_BAYAR_NOTA_SUPPLIER; @endphp
+                                                    @php $blm_lunas = $blm_lunas + $ns->TOTAL_BAYAR_NOTA_SUPPLIER; @endphp
                                             @endif
+                                        @php $id_supp=$s->ID_SUPPLIER; @endphp
                                     @endif 
-                                @endforeach
+                                @endforeach        
                 @endforeach -->
             </div>
             </div>
