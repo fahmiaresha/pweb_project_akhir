@@ -57,7 +57,6 @@
 
                 </form>
                
-                
         </div>
     </div>
         @if (session('sukses'))
@@ -107,9 +106,6 @@
                     @endforeach
                 @endif
                  </p> 
-                
-               
-
                 </div>
                 
                

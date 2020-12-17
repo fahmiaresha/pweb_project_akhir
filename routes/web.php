@@ -105,7 +105,7 @@ Route::get('/invoice-penjualan/{id}', 'PosController@invoice_penjualan');
 //laporan-penjualan
 Route::get('/laporan-penjualan', 'LaporanController@laporan_penjualan')->name('laporan-penjualan');
 Route::post('/search-laporan-penjualan', 'LaporanController@search_laporan_penjualan');
-Route::get('/pdf-laporan-penjualan/{fromdate}/{todate}', 'LaporanController@pdf_penjualan');
+Route::get('/pdf-laporan-penjualan/{fromdate}/{todate}/{input_produk}', 'LaporanController@pdf_penjualan');
 
 //laporan-nota-supplier
 Route::get('/laporan-nota-supplier', 'LaporanController@laporan_nota_supplier')->name('laporan-nota-supplier');

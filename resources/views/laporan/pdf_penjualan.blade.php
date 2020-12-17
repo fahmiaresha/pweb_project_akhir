@@ -52,6 +52,23 @@
     <strong><p>Tanggal Laporan :   {{date('d-m-Y', strtotime($fromdate)) }} s/d
                {{date('d-m-Y', strtotime($todate)) }}</p> </strong> 
     
+               <p style="margin-top:-10px;"> <strong> Sort by :    
+                @if($input_produk=='kosong')
+                    All
+                @else
+                    @foreach($product as $p)
+                        @foreach($kategori_produk as $kp)
+                            @if($input_produk==$p->ID_PRODUK)
+                                @if($p->ID_KATEGORI_PRODUK==$kp->ID_KATEGORI_PRODUK)
+                                    {{$kp->NAMA_KATEGORI_PRODUK}} - {{$p->NAMA_PRODUK}} 
+                                @endif 
+                            @endif
+                        @endforeach     
+                    @endforeach
+                @endif
+                </strong> 
+                 </p>     
+    
     <table style="width:100%;" id="customers">
                         <thead>
                         
@@ -97,14 +114,27 @@
                     @endif  
                     </td>
                     <td>Fahmi Aresha</td>
+                    @if($input_produk=='kosong')
                     <td>Rp. {{ number_format($p->TOTAL_PENJUALAN)}}</td>
+                    @else
+                    <td>Rp. {{ number_format($p->TOTAL_HARGA_PRODUK)}}</td>
+                    @endif
                     </tr>
+                        @if($input_produk=='kosong')
                             @if($p->KATEGORI_PELANGGAN_PENJUALAN==1)
                                 @php $total_penjualan_reseller += $p->TOTAL_PENJUALAN; @endphp
                             @endif
                             @if($p->KATEGORI_PELANGGAN_PENJUALAN==2)
                                 @php $total_penjualan_umum += $p->TOTAL_PENJUALAN; @endphp
                             @endif
+                        @else
+                            @if($p->KATEGORI_PELANGGAN_PENJUALAN==1)
+                                @php $total_penjualan_reseller += $p->TOTAL_HARGA_PRODUK; @endphp
+                            @endif
+                            @if($p->KATEGORI_PELANGGAN_PENJUALAN==2)
+                                @php $total_penjualan_umum += $p->TOTAL_HARGA_PRODUK; @endphp
+                            @endif
+                        @endif
                     @endforeach
 
                     @php $total_penjualan_fix=$total_penjualan_reseller + $total_penjualan_umum; @endphp

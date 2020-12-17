@@ -37,7 +37,18 @@
                     <input type="text" name="daterangepicker" class="demo-code-preview form-control mt-1" placeholder="Tanggal Nota" name="daterangepicker" id="daterangepicker" value="{{ old('daterangepicker') }}">
                     <p style="color:#e3bcba;" class="mt-2">*Pilih range tanggal laporan</p>
 
-                   
+                    <label for="Kategori">Produk</label>
+                        <select name="produk" id="produk" class="select2-example ">
+                        <option selected="true" value="">All</option>
+                        @foreach($produk as $p)
+                          @foreach($kategori_produk as $kp)
+                            @if($p->ID_KATEGORI_PRODUK==$kp->ID_KATEGORI_PRODUK)
+                            <option value="{{ $p->ID_PRODUK }}" required>{{$kp->NAMA_KATEGORI_PRODUK}} - {{ $p->NAMA_PRODUK }}</option>
+                            @endif
+                          @endforeach
+                        @endforeach
+                       </select>
+                    <p style="color:#e3bcba;" class="mt-2">*Kosongkan jika ingin menampilkan keseluruhan</p>
                    
                                        
                         <div class="row">
@@ -50,11 +61,18 @@
         </div>
     </div>
 
+
     @if (session('sukses'))
             @php $x=session('sukses'); @endphp
             @php 
                 $fromdate=session('fromDate'); 
                 $todate=session('toDate'); 
+                $produk_penjualan=session('produk_penjualan');
+                $produk=session('product');
+                $input_produk=session('input_produk');
+                if($input_produk==null){
+                    $input_produk='kosong';  
+                }
             @endphp
     <div class="card">
         <div class="card-body">
@@ -70,11 +88,29 @@
                     {{date('d-m-Y', strtotime($todate)) }}</p>  
                 </div>
                 <div class="form-group col-md-8 text-right">
-                <a href="/pdf-laporan-penjualan/{{$fromdate}}/{{$todate}}" target="_blank" class="btn btn-outline-success ml-2"> <i class="fa fa-download mr-2"></i>Laporan</a>
+                <a href="/pdf-laporan-penjualan/{{$fromdate}}/{{$todate}}/{{$input_produk}}" target="_blank" class="btn btn-outline-success ml-2"> <i class="fa fa-download mr-2"></i>Laporan</a>
                 </div>
 
                 </div>
 
+                <div class="coba" style="margin-top:-15px;">
+               
+                <p>  <strong> Sort by :   </strong>     
+                @if($input_produk=='kosong')
+                    All
+                @else
+                    @foreach($produk as $p)
+                        @foreach($kategori_produk as $kp)
+                            @if($input_produk==$p->ID_PRODUK)
+                                @if($p->ID_KATEGORI_PRODUK==$kp->ID_KATEGORI_PRODUK)
+                                    {{$kp->NAMA_KATEGORI_PRODUK}} - {{$p->NAMA_PRODUK}} 
+                                @endif 
+                            @endif
+                        @endforeach     
+                    @endforeach
+                @endif
+                 </p> 
+                </div>
                 
                
 
@@ -119,14 +155,27 @@
                     @endif  
                     </td>
                     <td>Fahmi Aresha</td>
+                    @if($input_produk=='kosong')
                     <td>Rp. {{ number_format($p->TOTAL_PENJUALAN)}}</td>
+                    @else
+                    <td>Rp. {{ number_format($p->TOTAL_HARGA_PRODUK)}}</td>
+                    @endif
                     </tr>
+                        @if($input_produk=='kosong')
                             @if($p->KATEGORI_PELANGGAN_PENJUALAN==1)
                                 @php $total_penjualan_reseller += $p->TOTAL_PENJUALAN; @endphp
                             @endif
                             @if($p->KATEGORI_PELANGGAN_PENJUALAN==2)
                                 @php $total_penjualan_umum += $p->TOTAL_PENJUALAN; @endphp
                             @endif
+                        @else
+                            @if($p->KATEGORI_PELANGGAN_PENJUALAN==1)
+                                @php $total_penjualan_reseller += $p->TOTAL_HARGA_PRODUK; @endphp
+                            @endif
+                            @if($p->KATEGORI_PELANGGAN_PENJUALAN==2)
+                                @php $total_penjualan_umum += $p->TOTAL_HARGA_PRODUK; @endphp
+                            @endif
+                        @endif
                 @endforeach
 
                     @php $total_penjualan_fix=$total_penjualan_reseller + $total_penjualan_umum; @endphp
@@ -149,11 +198,11 @@
                 
 
                 <br>
-                <!-- <center>
+                <center>
                 <div style="height:auto; max-width:100%; cursor:pointer;">
 		        <canvas id="myChart"></canvas>
 	            </div>
-                </center> -->
+                </center>
               
                
             </div>
@@ -184,7 +233,7 @@ $(document).ready(function (){
     });
 });
 
-
+                      
 </script>
 
 <script src="../../vendors/select2/js/select2.min.js"></script>
@@ -195,6 +244,59 @@ $(document).ready(function (){
 @if (session('sukses'))
 <script>
 swal("Success!","Laporan Berhasil Dibuat!","success");
+var ctx = document.getElementById("myChart").getContext('2d');
+		var myChart = new Chart(ctx, {
+			type: 'bar',
+			data: {
+				    labels: [<?php
+                        foreach ($produk_penjualan as $pp) {
+                            foreach ($produk as $p){
+                                if($pp->ID_PRODUK==$p->ID_PRODUK){
+                                    echo " ' ";
+                                    echo  $p->NAMA_PRODUK;
+                                    echo " ' ";
+                                    echo ',';
+                                }
+                            }
+                         }    
+                        ?>],
+				datasets: [{
+					label: 'Produk Terlaris',
+					data: [  <?php
+                        foreach ($produk_penjualan as $pp) {
+                            echo $pp->TOTAL_PRODUK_DIJUAL;
+                            echo ',';
+                        }       
+                        ?>],
+					backgroundColor: [
+					'rgba(255, 99, 132, 0.2)',
+					'rgba(54, 162, 235, 0.2)',
+					'rgba(255, 206, 86, 0.2)',
+					'rgba(75, 192, 192, 0.2)',
+					'rgba(153, 102, 255, 0.2)',
+					'rgba(255, 159, 64, 0.2)'
+					],
+					borderColor: [
+					'rgba(255,99,132,1)',
+					'rgba(54, 162, 235, 1)',
+					'rgba(255, 206, 86, 1)',
+					'rgba(75, 192, 192, 1)',
+					'rgba(153, 102, 255, 1)',
+					'rgba(255, 159, 64, 1)'
+					],
+					borderWidth: 1
+				}]
+			},
+			options: {
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero:true
+						}
+					}]
+				}
+			}
+		});
 </script>
 @endif
 
