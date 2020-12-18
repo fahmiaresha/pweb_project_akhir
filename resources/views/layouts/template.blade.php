@@ -274,7 +274,7 @@
                         <span class="nav-link-icon">
                     <i class="fa fa-bar-chart"></i>
                     </span>
-                            <span >Laporan</span>
+                            <span style="margin-left:-3px;">Laporan</span>
                         </a>
                         <ul>
                             <li>
@@ -288,15 +288,47 @@
                     </li>
 
 
-                    <li>
+                    <!-- <li>
                         <a @if(request()->segment(1) =='whatsapp') class="active" @endif href="{{ route('whatsapp') }}" >
                     <span class="nav-link-icon">
                     <i class="fa fa-whatsapp"></i>
                     </span>
                             <span>Whatsapp</span>
                         </a>
-                    </li>
+                    </li> -->
 
+
+                    
+                    
+
+                    <li>
+                        <a href="#">
+                        <span class="nav-link-icon">
+                        <i class="fa fa-cog"></i>
+                        <!-- <i class="fa fa-user-cog"></i> -->
+                    </span>
+                            <span >Settings</span>
+                        </a>
+                        <ul>
+
+                            <li>
+                            <a @if(request()->segment(1) == 'register') class="active" @endif href="{{ route('register') }}">Data Pegawai</a>
+                            </li>
+
+                            <li>
+                            <a @if(request()->segment(1) == 'profile') class="active" @endif href="{{ route('profile') }}">Profile</a>
+                            </li>
+
+
+                            <li>
+                            <a @if(request()->segment(1) == 'logout') class="active" @endif href="{{ route('logout') }}">Logout</a>
+                            </li>
+
+                            
+
+                            
+                        </ul>
+                    </li>
 
                     <li>
                         <a @if(request()->segment(1) =='user-manual') class="active" @endif href="{{ route('user-manual') }}" >
@@ -306,7 +338,6 @@
                             <span>User Manual</span>
                         </a>
                     </li>
-
 
                   
                 </ul>

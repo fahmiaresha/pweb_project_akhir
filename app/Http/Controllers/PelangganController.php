@@ -9,9 +9,7 @@ use PDF;
 
 class PelangganController extends Controller
 {
-    public function tampil_dashboard(){
-
-    }
+    
 
     public function send_wa_pesanan_pelanggan(Request $request){
         $nomor2 = $request->nomor_whatsapp;

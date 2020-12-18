@@ -30,7 +30,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 // Route::get('/lupapassword', 'UserController@tampil_lupapassword');
 
 //dashboard
-Route::get('/dashboard', 'PelangganController@tampil_dashboard')->name('dashboard');
+Route::get('/dashboard', 'ShowController@tampil_dashboard')->name('dashboard');
 
 //pelanggan
 Route::get('/data-pelanggan', 'PelangganController@tampil_pelanggan')->name('data-pelanggan');
@@ -111,6 +111,11 @@ Route::get('/pdf-laporan-penjualan/{fromdate}/{todate}/{input_produk}', 'Laporan
 Route::get('/laporan-nota-supplier', 'LaporanController@laporan_nota_supplier')->name('laporan-nota-supplier');
 Route::post('/search-nota-supplier', 'LaporanController@search_nota_supplier');
 Route::get('/pdf-nota-supplier/{fromdate}/{todate}/{input_supplier}', 'LaporanController@pdf_nota_supplier');
+
+//settings
+Route::get('profile', 'ShowController@profile')->name('profile');
+Route::get('logout', 'ShowController@logout')->name('logout');
+Route::get('register', 'ShowController@register')->name('register');
 
 // user-manual
 Route::get('user-manual', 'ShowController@user_manual')->name('user-manual');
