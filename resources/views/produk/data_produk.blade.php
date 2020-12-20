@@ -8,6 +8,8 @@
 <!-- rangepicker -->
 <link rel="stylesheet" href="vendors/datepicker/daterangepicker.css" type="text/css">
 
+<link rel="stylesheet" href="vendors/lightbox/magnific-popup.css" type="text/css">
+
 @endsection
 
 @section('content')
@@ -44,7 +46,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                <form method="post" action="{{ url('/data-produk-store') }}">
+                <form method="post" action="{{ url('/data-produk-store') }}" enctype="multipart/form-data">
                         @csrf
                         <label for="Kategori">Kategori</label>
                         <select name="kategori" id="select2" class="select2-example">
@@ -99,6 +101,21 @@
                             id="nama" placeholder="Harga Jual" name="harga_jual" value="{{ old('harga_jual') }}" required>
                         </div>
 
+                        <label for="Nama" style="margin-top:10px;">Foto</label>
+                        <div class="form-group">
+                        <div class="custom-file">
+                        <input type="file" class="custom-file-input" name="file" required>
+                            <label class="custom-file-label" for="customFile" >Choose file</label>
+                        </div>
+                        @if(count($errors) > 0)
+                        <div class="alert alert-danger mt-2">
+                            @foreach ($errors->all() as $error)
+                                {{ $error }}
+                            @endforeach
+                        </div>
+                        @endif
+                        </div>
+
                         <label for="Nama" style="margin-top:10px;">Deskripsi</label>
                         <div class="form-group">
                         <textarea class="demo-code-preview form-control mt-1"
@@ -127,7 +144,7 @@
                             <th>Harga Beli</th>
                             <th>Harga Reseller</th>
                             <th>Harga Jual</th>
-                        
+                        <th>Foto</th>
                         <th>Deksripsi</th>
                         <th>Aksi</th>
                         </tr>
@@ -152,6 +169,42 @@
                     <td>Rp. {{number_format($p->HARGA_BELI_PRODUK)}}</td>
                     <td>Rp. {{number_format($p->HARGA_JUAL_RESELLER_PRODUK)}}</td>
                     <td>Rp. {{number_format($p->HARGA_JUAL_PELANGGAN_PRODUK)}}</td>
+                    
+                    <td>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-outline-info mb-1" data-toggle="modal" data-target="#lihatfoto{{ $p->ID_PRODUK }}">
+                    <i class="fa fa-image mr-1"></i>Lihat
+                            </button>
+
+                            <div class="modal fade" id="lihatfoto{{ $p->ID_PRODUK }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">{{$p->NAMA_PRODUK}}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+
+                                <div class="coba" >
+                                <center class="image-popup" href="{{ url('/foto_produk/'.$p->FOTO_PRODUK) }}">
+                                <img data-dismiss="modal" style="height:auto; max-width:100%; cursor:zoom-in;" src="{{ url('/foto_produk/'.$p->FOTO_PRODUK) }}" >
+                                </center>
+                                </div>
+                                
+                                
+                                </div>
+                                <!-- <div class="modal-footer"> -->
+                                <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Back</button>
+                                <button type="submit" class="btn btn-primary">Update</button> -->
+                               
+                        
+                                </div>
+                                </div>
+                            </div>
+                            </div> 
+                    </td>
                     <td>{{$p->DESKRIPSI_PRODUK}}</td>
                     <td>
                              <!-- Button trigger modal -->
@@ -171,7 +224,7 @@
                                 </div>
                                 <div class="modal-body">
                                     
-                                <form method="post" action="{{ url('/data-produk-update') }}">
+                                <form method="post" action="{{ url('/data-produk-update') }}" enctype="multipart/form-data">
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $p->ID_PRODUK }}">
 
@@ -234,6 +287,15 @@
                         <div class="form-group">
                             <input type="text" class="demo-code-preview form-control mt-1 update_harga_jual" 
                             id="nama" placeholder="Harga Jual" name="harga_jual" value="{{$p->HARGA_JUAL_PELANGGAN_PRODUK}}" required>
+                        </div>
+
+                        <label for="Nama" style="margin-top:10px;">Foto</label>
+                        <div class="form-group">
+                        <div class="custom-file">
+                        <input type="file" class="custom-file-input" name="file">
+                            <label class="custom-file-label" for="customFile" >Choose file</label>
+                        </div>
+                        <p style="color:#e3bcba;" class="mt-2">*Kosongkan jika tidak ingin mengubah foto produk</p>
                         </div>
 
                         <label for="Nama" style="margin-top:10px;">Deskripsi</label>
@@ -299,6 +361,7 @@
 @section('script')
 <script src="../../vendors/select2/js/select2.min.js"></script>
 <script src="vendors/datepicker/daterangepicker.js"></script>
+<script src="vendors/lightbox/jquery.magnific-popup.min.js"></script>
 <script>
 $(document).ready(function (){
     $('#myTable').DataTable();
@@ -313,6 +376,19 @@ $(document).ready(function (){
       format: 'DD-M-YY hh:mm A'
     }
 });
+
+$('.image-popup').magnificPopup({
+    type: 'image',
+    zoom: {
+        enabled: true,
+        duration: 300,
+        easing: 'ease-in-out',
+        opener: function(openerElement) {
+            return openerElement.is('img') ? openerElement : openerElement.find('img');
+        }
+    }  
+});
+
 
 });
 

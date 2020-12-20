@@ -7,6 +7,7 @@ use DB;
 use Redirect;
 use App\nota_supplier;
 use App\penjualan;
+use PDF;
 
 class ShowController extends Controller
 {
@@ -14,6 +15,10 @@ class ShowController extends Controller
     public function user_manual(){
 
     }
+
+   
+
+
 
     public function tampil_dashboard(){
         $total_produk = DB::table('produk')->count();
@@ -25,7 +30,6 @@ class ShowController extends Controller
         $pelanggan = DB::table('pelanggan')->get();
         $users = DB::table('users')->get();
         $kategori_pelanggan = DB::table('kategori_pelanggan')->get();
-        $id_penjualan= DB::table('penjualan')->max('ID_PENJUALAN');
         $kategori_produk = DB::table('kategori_produk')->get();
 
         //laporan-tahunan
@@ -223,7 +227,7 @@ class ShowController extends Controller
             ->get();
 
         return view('dashboard',['penjualan'=>$penjualan
-        ,'produk'=>$produk,'pelanggan'=>$pelanggan,'users'=>$users,'id_penjualan'=>$id_penjualan
+        ,'produk'=>$produk,'pelanggan'=>$pelanggan,'users'=>$users
         ,'kategori_pelanggan'=>$kategori_pelanggan,'kategori_produk'=>$kategori_produk,'produk_penjualan'=>$produk_penjualan
         ,'total_produk'=>$total_produk,'total_kategori_produk'=>$total_kategori_produk,'total_service'=>$total_service
         ,'total_penjualan'=>$total_penjualan,'nota_supplier'=>$nota_supplier,'laporan_penjualan_perhari'=>$laporan_penjualan_perhari
@@ -232,7 +236,8 @@ class ShowController extends Controller
         ,'laporan_penjualan_maret'=>$laporan_penjualan_maret,'laporan_penjualan_april'=>$laporan_penjualan_april,'laporan_penjualan_mei'=>$laporan_penjualan_mei
         ,'laporan_penjualan_juni'=>$laporan_penjualan_juni,'laporan_penjualan_juli'=>$laporan_penjualan_juli,'laporan_penjualan_agustus'=>$laporan_penjualan_agustus
         ,'laporan_penjualan_september'=>$laporan_penjualan_september,'laporan_penjualan_oktober'=>$laporan_penjualan_oktober,'laporan_penjualan_november'=>$laporan_penjualan_november
-        ,'laporan_penjualan_desember'=>$laporan_penjualan_desember]);
+        ,'laporan_penjualan_desember'=>$laporan_penjualan_desember,'tgl_awal_laporan_tahunan'=>$tgl_awal_laporan_tahunan
+        ,'tgl_akhir_laporan_tahunan'=>$tgl_akhir_laporan_tahunan]);
     }
 
     public function show_whatsapp(){

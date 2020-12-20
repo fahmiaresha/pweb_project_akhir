@@ -16,6 +16,26 @@ class ProdukController extends Controller
     }
 
     public function store_produk(Request $request){
+        // $this->validate($request, [
+		// 	'file' => 'required|file|image|mimes:jpeg,png,jpg',
+        // ]);
+
+        // // menyimpan data file yang diupload ke variabel $file
+        // $file = $request->file('file');
+        
+        // $nama_file = time()."_".$file->getClientOriginalName();
+        
+        //  // isi dengan nama folder tempat kemana file diupload
+		// $tujuan_upload = 'data_file';
+		// $file->move($tujuan_upload,$nama_file);
+        
+        if($request->hasFile('file')){
+            $file = $request->file('file');
+            $nama_file = time()."_".$file->getClientOriginalName();
+            $tujuan_upload = 'foto_produk';
+		    $file->move($tujuan_upload,$nama_file);
+        }
+
         $hb = $request->harga_beli;
         $x = str_replace("Rp.","",$hb);
         $harga_beli = str_replace(".","",$x);
@@ -37,6 +57,7 @@ class ProdukController extends Controller
         'HARGA_JUAL_RESELLER_PRODUK'=> $harga_jual_reseller,
         'HARGA_JUAL_PELANGGAN_PRODUK'=> $harga_jual,
         'DESKRIPSI_PRODUK'=> $request->deskripsi_produk,
+        'FOTO_PRODUK' => $nama_file
         ]);
         return redirect('/data-produk')->with('insert','berhasil');
     }
@@ -54,18 +75,45 @@ class ProdukController extends Controller
         $y = str_replace("Rp.","",$hj);
         $update_harga_jual = str_replace(".","",$y);
 
-        DB::table('produk')->where('ID_PRODUK',$request->id)->update([
-            'ID_SUPPLIER' => $request->supplier,
-            'ID_KATEGORI_PRODUK' => $request->kategori,
-            'NAMA_PRODUK' => $request->nama,
-            'TANGGAL_PEMBELIAN_PRODUK'=> $request->daterangepicker,
-            'STOK_PRODUK'=> $request->stok,
-            'HARGA_BELI_PRODUK'=> $update_harga_beli,
-            'HARGA_JUAL_RESELLER_PRODUK'=> $update_harga_jual_reseller,
-            'HARGA_JUAL_PELANGGAN_PRODUK'=> $update_harga_jual,
-            'DESKRIPSI_PRODUK'=> $request->deskripsi_produk,
-        ]);
-        return redirect('/data-produk')->with('update','berhasil');
+        if($request->hasFile('file')){
+            $file = $request->file('file');
+            $nama_file = time()."_".$file->getClientOriginalName();
+            $tujuan_upload = 'foto_produk';
+            $file->move($tujuan_upload,$nama_file);
+
+            // echo 'masuk';
+
+            DB::table('produk')->where('ID_PRODUK',$request->id)->update([
+                'ID_SUPPLIER' => $request->supplier,
+                'ID_KATEGORI_PRODUK' => $request->kategori,
+                'NAMA_PRODUK' => $request->nama,
+                'TANGGAL_PEMBELIAN_PRODUK'=> $request->daterangepicker,
+                'STOK_PRODUK'=> $request->stok,
+                'HARGA_BELI_PRODUK'=> $update_harga_beli,
+                'HARGA_JUAL_RESELLER_PRODUK'=> $update_harga_jual_reseller,
+                'HARGA_JUAL_PELANGGAN_PRODUK'=> $update_harga_jual,
+                'DESKRIPSI_PRODUK'=> $request->deskripsi_produk,
+                'FOTO_PRODUK' => $nama_file
+            ]);
+            return redirect('/data-produk')->with('update','berhasil');
+        }
+        else{
+            // echo 'tdk masuk';
+            DB::table('produk')->where('ID_PRODUK',$request->id)->update([
+                'ID_SUPPLIER' => $request->supplier,
+                'ID_KATEGORI_PRODUK' => $request->kategori,
+                'NAMA_PRODUK' => $request->nama,
+                'TANGGAL_PEMBELIAN_PRODUK'=> $request->daterangepicker,
+                'STOK_PRODUK'=> $request->stok,
+                'HARGA_BELI_PRODUK'=> $update_harga_beli,
+                'HARGA_JUAL_RESELLER_PRODUK'=> $update_harga_jual_reseller,
+                'HARGA_JUAL_PELANGGAN_PRODUK'=> $update_harga_jual,
+                'DESKRIPSI_PRODUK'=> $request->deskripsi_produk
+            ]);
+            return redirect('/data-produk')->with('update','berhasil');
+        }
+
+       
     }
 
     public function delete_produk($id)

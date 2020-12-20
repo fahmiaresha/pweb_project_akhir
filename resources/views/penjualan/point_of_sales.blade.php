@@ -156,6 +156,7 @@
 
                       <tbody>
                         @foreach($product as $pr)
+                        @if($pr->STOK_PRODUK!=0)
                         <tr id="row{{$pr -> ID_PRODUK}}" style="cursor:pointer;">
                           <th scope="row">
                           <!-- <input type="checkbox" id="pr{{$pr->ID_PRODUK }}" > -->
@@ -167,6 +168,7 @@
                        
                           </th>
                           @foreach($kategori_produk as $kp)
+                          
                           @if($pr->ID_KATEGORI_PRODUK==$kp->ID_KATEGORI_PRODUK)
                           <td>
                           {{$kp->NAMA_KATEGORI_PRODUK}}
@@ -180,6 +182,7 @@
                           <td>{{ $pr->STOK_PRODUK}}</td>
                           <td>{{ $pr->DESKRIPSI_PRODUK}}</td>
                         </tr>
+                         @endif
                         @endforeach
                         </tbody>
                         </table>

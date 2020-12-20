@@ -123,7 +123,7 @@
 <div class="page-header d-md-flex justify-content-between">
         <div>
             <h3>Welcome back, Fahmi</h3>
-            <p class="text-muted">Halaman ini menunjukkan ringkasan penjualan dan nota supplier.</p>
+            <p class="text-muted">Halaman ini menunjukkan ringkasan tahunan penjualan dan nota supplier.</p>
         </div>
         <div class="mt-3 mt-md-0">
             <div class="btn btn-outline-light">
@@ -191,6 +191,8 @@
         </div>
 </div>
 
+
+
 <div class="row">
         <div class="col-md-6">
             <div class="card">
@@ -226,7 +228,7 @@
                                 </div>
                             </div>
                             <div class="mt-3">
-                                    <a href="#" class="btn btn-primary pull-right">Report Detail</a>
+                                    <a href="/pdf-laporan-penjualan/{{$tgl_awal_laporan_tahunan}}/{{$tgl_akhir_laporan_tahunan}}/kosong" target="_blank" class="btn btn-primary pull-right">Report Detail</a>
                             </div>
                         </div>
                     </div>
@@ -260,7 +262,7 @@
                                 </div>
                             </div>
                             <div class="mt-3">
-                                    <a href="#" class="btn btn-warning pull-right">Report Detail</a>
+                                    <a href="/pdf-nota-supplier/{{$tgl_awal_laporan_tahunan}}/{{$tgl_akhir_laporan_tahunan}}/kosong" target="_blank" class="btn btn-warning pull-right">Report Detail</a>
                             </div>
                         </div>
                     </div>
