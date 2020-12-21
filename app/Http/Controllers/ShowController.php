@@ -16,8 +16,7 @@ class ShowController extends Controller
 
     }
 
-   
-
+  
 
 
     public function tampil_dashboard(){

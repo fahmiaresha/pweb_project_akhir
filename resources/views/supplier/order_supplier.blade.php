@@ -112,7 +112,7 @@
                     <td>
                              <!-- Button trigger modal -->
                              <button type="button" class="btn btn-outline-info mb-1" data-toggle="modal" data-target="#editModal{{ $co->ID_CATATAN_ORDER_SUPPLIER }}">
-                             <i class="fa fa-pencil mr-1"></i>Edit
+                             <i class="far fa-edit mr-1"></i>Edit
                             </button>
 
                           
@@ -162,7 +162,7 @@
                             <!-- tutup Button trigger modal edit -->
                             
             <button type="button" class="btn btn-outline-success mb-1 ml-2" data-toggle="modal" data-target="#modalwa{{ $co->ID_CATATAN_ORDER_SUPPLIER }}">
-            <i class="fa fa-whatsapp mr-1"></i>Whatsapp
+            <i class="fab fa-whatsapp mr-1"></i>Whatsapp
             </button>
                            
                     <!-- modal wa-->

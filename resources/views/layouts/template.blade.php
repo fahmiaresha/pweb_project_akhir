@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title')</title>
     <!-- Favicon -->
-    <link rel="shortcut icon" href="{{ url('assets/media/image/favicon.png') }}"/>
+    <link rel="shortcut icon" href="{{ url('assets/media/image/favicon.ico') }}"/>
 
     <!-- Main css -->
     <link rel="stylesheet" href="{{ url('vendors/bundle.css') }}" type="text/css">
@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 @yield('head')
 
 <!-- App css -->
@@ -57,8 +57,10 @@
                 </div>
 
                 <div class="header-logo">
-                    <a href="{{ url('/') }}">
-                        <img class="logo" src="{{ url('assets/media/image/logo.png') }}" alt="logo">
+                    <a href="{{ url('/dashboard') }}">
+                        <!-- <img class="logo" src="{{ url('assets/media/image/logo.png') }}" alt="logo"> -->
+                        <img class="logo" src="{{ url('assets/media/image/favicon.ico') }}" alt="logo">
+                        <h4 class="logo mt-3 ml-2" style="color:white">Toko Bagus</h4>
                     </a>
                 </div>
             </div>
@@ -294,10 +296,19 @@
                         <a @if(request()->segment(1) =='dashboard') class="active" @endif href="{{ route('dashboard') }}" >
                    
                     <span class="nav-link-icon">
-                    <i class="fa fa-tachometer"></i>
+                    <i class="fa fa-tachometer-alt"></i>
                     </span>
                     
                             <span>Dashboard</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a @if(request()->segment(1) =='pegawai') class="active" @endif href="{{ route('pegawai') }}" >
+                    <span class="nav-link-icon">
+                    <i class="fas fa-user-check" ></i>
+                    </span>
+                            <span>Pegawai</span>
                         </a>
                     </li>
 
@@ -360,7 +371,7 @@
                         <span class="nav-link-icon" >
                         <i class="fa fa-briefcase"></i>
                     </span>
-                            <span >Produk</span>
+                            <span>Produk</span>
                         </a>
                         <ul>
                              <li>
@@ -379,7 +390,7 @@
                         <span class="nav-link-icon">
                     <i class="fa fa-cart-plus"></i>
                     </span>
-                            <span >Penjualan</span>
+                            <span>Penjualan</span>
                         </a>
                         <ul>
                             <li>
@@ -400,7 +411,7 @@
                         <span class="nav-link-icon">
                     <i class="fa fa-bar-chart"></i>
                     </span>
-                            <span style="margin-left:-3px;">Laporan</span>
+                            <span >Laporan</span>
                         </a>
                         <ul>
                             <li>
@@ -437,9 +448,9 @@
                         </a>
                         <ul>
 
-                            <li>
+                            <!-- <li>
                             <a @if(request()->segment(1) == 'register') class="active" @endif href="{{ route('register') }}">Data Pegawai</a>
-                            </li>
+                            </li> -->
 
                             <li>
                             <a @if(request()->segment(1) == 'profile') class="active" @endif href="{{ route('profile') }}">Profile</a>
@@ -456,14 +467,14 @@
                         </ul>
                     </li>
 
-                    <li>
+                    <!-- <li>
                         <a @if(request()->segment(1) =='user-manual') class="active" @endif href="{{ route('user-manual') }}" >
                     <span class="nav-link-icon">
                     <i class="fa fa-download"></i>
                     </span>
                             <span>User Manual</span>
                         </a>
-                    </li>
+                    </li> -->
 
                   
                 </ul>

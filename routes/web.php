@@ -117,6 +117,13 @@ Route::get('profile', 'ShowController@profile')->name('profile');
 Route::get('logout', 'ShowController@logout')->name('logout');
 Route::get('register', 'ShowController@register')->name('register');
 
+//pegawai
+Route::get('/pegawai', 'PegawaiController@data_pegawai')->name('pegawai');
+Route::post('/store-pegawai', 'PegawaiController@store_pegawai');
+Route::post('/update-status-pegawai', 'PegawaiController@update_status_pegawai');
+Route::post('/update-pegawai', 'PegawaiController@update_pegawai');
+Route::post('/delete-pegawai', 'PegawaiController@delete_pegawai');
+
 // user-manual
 Route::get('user-manual', 'ShowController@user_manual')->name('user-manual');
 

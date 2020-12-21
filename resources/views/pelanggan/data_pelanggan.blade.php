@@ -130,7 +130,7 @@
                       
                              <!-- Button trigger modal -->
                              <button type="button" class="btn btn-outline-info mb-1" data-toggle="modal" data-target="#editModal{{ $p->ID_PELANGGAN }}">
-                             <i class="fa fa-pencil mr-1"></i>Edit
+                             <i class="far fa-edit mr-1"></i>Edit
                             </button>
 
                           
@@ -209,11 +209,11 @@
                                       <!-- Button trigger modal -->
                                       <button type="button" class="btn btn-outline-danger mb-1 ml-2" data-toggle="modal" 
                                         data-target="#delete1123{{ $p->ID_PELANGGAN }}">
-                                        <i class="fa fa-trash mr-1"></i>Hapus</button>
+                                        <i class="fas fa-trash-restore mr-1"></i>Hapus</button>
                             @else 
                             <button type="button" class="btn btn-outline-danger mb-1 ml-2" data-toggle="modal" 
                                         data-target="#delete1123" onclick="tampil_cant_delete()">
-                                        <i class="fa fa-trash mr-1"></i>Hapus</button>                          
+                                        <i class="fas fa-trash-restore mr-1"></i>Hapus</button>                          
                             @endif
 
                                     <!-- Modal -->

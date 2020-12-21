@@ -129,7 +129,7 @@
                       
                              <!-- Button trigger modal -->
                              <button type="button" class="btn btn-outline-info mb-1" data-toggle="modal" data-target="#editModal{{ $s->ID_SERVICE }}">
-                             <i class="fa fa-pencil mr-1"></i>Edit
+                             <i class="far fa-edit mr-1"></i>Edit
                             </button>
 
                           
