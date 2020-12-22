@@ -82,7 +82,7 @@ class PosController extends Controller
                 // 'TANGGAL_PENJUALAN' => $request->tanggal_penjualan ,
                 //sementara
                 'ID_PELANGGAN' => $request->nama_pelanggan ,
-                'ID_USER' => 1 ,
+                'ID_USER' => $request->id_kasir ,
                 'TOTAL_PENJUALAN' => $request->subtotal ,
                 'KATEGORI_PELANGGAN_PENJUALAN' => $request->isi_kategori_pelanggan ,
                 'CASH_PELANGGAN' => $cash_fix ,

@@ -100,8 +100,8 @@
               <div class="form-group col-md-4">
                   <label for="kasir">Kasir</label>
                   <input type="text" class="form-control @error('nota_date') is-invalid @enderror" 
-          id="" placeholder="  " name="nama_kasir"  value="Fahmi Aresha" readonly>
-                     
+          id="" placeholder="" name="nama_kasir"  value="{{Session::get('nama_user')}}" readonly>
+                  <input type="hidden" name="id_kasir" value="{{Session::get('id_user')}}">
                   
                   </div>
 

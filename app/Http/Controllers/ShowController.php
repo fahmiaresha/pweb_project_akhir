@@ -8,6 +8,9 @@ use Redirect;
 use App\nota_supplier;
 use App\penjualan;
 use PDF;
+use Illuminate\Support\Facades\Hash;
+use Auth;
+use Illuminate\Support\Facades\Session;
 
 class ShowController extends Controller
 {
@@ -16,10 +19,50 @@ class ShowController extends Controller
 
     }
 
+    public function profile(){
+        $pegawai = DB::table('users')->get();
+        $jabatan = DB::table('jabatan')->get();
+        return view('settings/profile',['jabatan'=>$jabatan,'pegawai'=>$pegawai]);
+    }
+
+    public function update_profile(){
+
+    }
+
+    public function ubahpassword(){
+        // $pw = 123456;
+        // $hashed = Hash::make($pw);
+        // $result = Hash::check($pw, $hashed);
+
+        // [1] > $pw = 123456;
+        // // 123456
+        // [2] > $hashed = Hash::make($pw);
+        // // '$2y$10$xSugoyKv765TY8DsERJ2/.mPIOwLNdM5Iw1n3x1XNVymBlHNG4cX6'
+        // [3] > Hash::check($hashed, $pw);
+        // // false
+        // [4] > Hash::check($pw, $hashed);
+        // // true
+
+        // $pegawai = DB::table('users')->get();
+        // $jabatan = DB::table('jabatan')->get();
+        // return view('settings/ubahpassword',['pegawai'=>$pegawai,'pegawai'=>$pegawai]);
+    }
   
 
 
     public function tampil_dashboard(){
+        //get-id
+        $userId = Auth::id();
+
+        //get-all-informasi-user
+        $user = Auth::user();
+        $jabatan = $user->ID_JABATAN;
+        $name = $user->name;
+        
+        Session::put('id_user',$userId);
+        Session::put('nama_user',$name);
+
+
         $total_produk = DB::table('produk')->count();
         $total_kategori_produk = DB::table('kategori_produk')->count();
         $total_service = DB::table('service')->count();
@@ -225,7 +268,7 @@ class ShowController extends Controller
             ->orderBy('ID_PENJUALAN', 'ASC')
             ->get();
 
-        return view('dashboard',['penjualan'=>$penjualan
+        return view('dashboard2',['penjualan'=>$penjualan
         ,'produk'=>$produk,'pelanggan'=>$pelanggan,'users'=>$users
         ,'kategori_pelanggan'=>$kategori_pelanggan,'kategori_produk'=>$kategori_produk,'produk_penjualan'=>$produk_penjualan
         ,'total_produk'=>$total_produk,'total_kategori_produk'=>$total_kategori_produk,'total_service'=>$total_service

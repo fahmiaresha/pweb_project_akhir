@@ -57,7 +57,7 @@
                 </div>
 
                 <div class="header-logo">
-                    <a href="{{ url('/dashboard') }}">
+                    <a href="{{ url('/home') }}">
                         <!-- <img class="logo" src="{{ url('assets/media/image/logo.png') }}" alt="logo"> -->
                         <img class="logo" src="{{ url('assets/media/image/favicon.ico') }}" alt="logo">
                         <h4 class="logo mt-3 ml-2" style="color:white">Toko Bagus</h4>
@@ -239,7 +239,7 @@
                                          class="rounded-circle"
                                          alt="avatar">
                                 </figure>
-                                <span class="ml-2 d-sm-inline d-none">Fahmi Aresha</span>
+                                <span class="ml-2 d-sm-inline d-none">{{Session::get('nama_user')}}</span>
                             </a>
                             <!-- <div class="dropdown-menu dropdown-menu-right dropdown-menu-big">
                                 <div class="text-center py-4">
@@ -293,7 +293,7 @@
             <div class="navigation-menu-body">
                 <ul>
                     <li>
-                        <a @if(request()->segment(1) =='dashboard') class="active" @endif href="{{ route('dashboard') }}" >
+                        <a @if(request()->segment(1) =='home') class="active" @endif href="{{ route('home') }}" >
                    
                     <span class="nav-link-icon">
                     <i class="fa fa-tachometer-alt"></i>
@@ -448,9 +448,7 @@
                         </a>
                         <ul>
 
-                            <!-- <li>
-                            <a @if(request()->segment(1) == 'register') class="active" @endif href="{{ route('register') }}">Data Pegawai</a>
-                            </li> -->
+                            
 
                             <li>
                             <a @if(request()->segment(1) == 'profile') class="active" @endif href="{{ route('profile') }}">Profile</a>
@@ -613,7 +611,12 @@
             resetTimer(); 
         }
 
-       
+        const x = document.getElementsByClassName('post0');
+            for(let i=0;i<x.length;i++){
+            x[i].addEventListener('click',function(){
+                x[i].submit();
+            });
+        }
     </script>
 
 

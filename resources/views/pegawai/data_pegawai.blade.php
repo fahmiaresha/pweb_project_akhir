@@ -87,8 +87,8 @@
                         <label for="Alamat">Ulangi Password</label>
                         <div class="form-group">
                             <input type="password" class="demo-code-preview form-control mt-1" 
-                            id="repeat_password" onkeyup="cekPass()" placeholder="Ulangi Password" name="password" value="{{ old('password') }}" required>
-                            <strong><p id="error"></p></strong>
+                            id="repeat_password" onkeyup="cekPass()" placeholder="Ulangi Password" name="repeat_password" value="{{ old('password') }}" required>
+                            <strong><p id="error" class="mt-1"></p></strong>
                         </div>
                         
 
@@ -138,7 +138,7 @@
                         </div>
                         <span class="badge badge-danger"><font size="1">Non-Aktif</font></span>    
                         @endif 
-                        </form>
+                      </form>
                     </td>
                     <td>{{$p->name}}</td>
                     <td>
@@ -211,7 +211,7 @@
                                     id="telp" placeholder="Telepon" name="telpon" value="{{$p->telp_user}}" >
                                 </div>
 
-                                <label for="Alamat">Password</label>
+                                <!-- <label for="Alamat">Password</label>
                                 <div class="form-group">
                                     <input type="password" class="demo-code-preview form-control mt-1" 
                                     id="password2" placeholder="Password" name="password" value="{{$p->password}}" required>
@@ -220,9 +220,9 @@
                                 <label for="Alamat">Ulangi Password</label>
                                 <div class="form-group">
                                     <input type="password" class="demo-code-preview form-control mt-1" 
-                                    id="repeat_password2" onkeyup="cekPass2()" placeholder="Ulangi Password" name="password" value="{{$p->password}}" required>
-                                    <strong><p id="error2"></p></strong>
-                                </div>
+                                    id="repeat_password2" onkeyup="cekPass2()" placeholder="Ulangi Password" name="repeat_password" value="{{$p->password}}" required>
+                                    <strong><p id="error2" class="mt-1"></p></strong>
+                                </div> -->
                            
                                 
                                 </div>
@@ -238,7 +238,11 @@
 
                             
                             <!-- tutup Button trigger modal edit -->
-
+                            @if($p->ID_JABATAN==1)
+                                    <button type="button" class="btn btn-outline-danger mb-1 ml-2" data-toggle="modal" 
+                                        data-target="#delete1123" onclick="tampil_cant_delete()">
+                                        <i class="fas fa-trash-restore mr-1"></i>Hapus</button> 
+                            @else
                                       <!-- Button trigger modal -->
                                       <button type="button" class="btn btn-outline-danger mb-1 ml-2" data-toggle="modal" 
                                         data-target="#delete1123{{$p->id}}">
@@ -261,7 +265,7 @@
                                         </div>
                                         <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Back</button>
-                                        <a href="/data-pelanggan-delete/{{$p->id}}">
+                                        <a href="/delete-pegawai/{{$p->id}}">
                                             <button type="button" class="btn btn-primary">
                                             
                                             <font size="3" color="white">Yes</font></button></a>
@@ -270,6 +274,7 @@
                                         </div>
                                     </div>
                                     </div> 
+                            @endif
                     </td>
                     </tr>
                     @endforeach
@@ -328,6 +333,10 @@ $(document).ready(function (){
                             text.innerHTML='*Password Sesuai !';  
                         } 
     }
+
+    function tampil_cant_delete(){
+        swal("Oops!","Akun tidak bisa dihapus !","info");
+    }
 </script>
 
 <script src="../../vendors/select2/js/select2.min.js"></script>
@@ -336,7 +345,7 @@ $(document).ready(function (){
 
 @if (session('insert'))
 <script>
-swal("Success!","Data Pelanggan Berhasil Di Tambahkan","success");
+swal("Success!","Data Pegawai Berhasil Di Tambahkan","success");
 </script>
 @endif
 
@@ -346,9 +355,28 @@ swal("Success!","Status Pegawai Berhasil Di Update","success");
 </script>
 @endif
 
+
+@if (session('update'))
+<script>
+swal("Success!","Data Pegawai Berhasil Di Update","success");
+</script>
+@endif
+
 @if (session('delete'))
 <script>
-swal("Success!","Data Pelanggan Berhasil Di Hapus","success");
+swal("Success!","Data Pegawai Berhasil Di Hapus","success");
+</script>
+@endif
+
+@if (session('password_tdk_cocok'))
+<script>
+swal("Oops!","Password tidak cocok !","error");
+</script>
+@endif
+
+@if (session('email_sama'))
+<script>
+swal("Oops!","Email sudah digunakan !","error");
 </script>
 @endif
 @endsection

@@ -23,14 +23,35 @@ use Illuminate\Support\Facades\Route;
 // Route::post('password/reset', ['as'=>'password.request', 'uses'=>'Auth\ResetPasswordController@reset']);
 // Route::get('password/reset/{token}', ['as'=>'password.reset', 'uses'=>'Auth\ResetPasswordController@showResetForm']);
 // Route::post('logout', ['as'=>'logout', 'uses'=>'Auth\LoginController@logout']);
-Auth::routes();
+// Authentication Routes...
 
-Route::get('/', 'HomeController@index')->name('home');
-Route::get('/home', 'HomeController@index')->name('home');
+// $this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
+// $this->post('login', 'Auth\LoginController@login');
+// $this->post('logout', 'Auth\LoginController@logout')->name('logout');
+
+// // Registration Routes...
+// $this->get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+// $this->post('register', 'Auth\RegisterController@register');
+
+// // Password Reset Routes...
+// $this->get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm');
+// $this->post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+// $this->get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm');
+// $this->post('password/reset', 'Auth\ResetPasswordController@reset');
+
+
+// Route::get('/', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
 // Route::get('/lupapassword', 'UserController@tampil_lupapassword');
 
 //dashboard
-Route::get('/dashboard', 'ShowController@tampil_dashboard')->name('dashboard');
+
+Route::get('/',['as'=>'login', 'uses' => 'Auth\LoginController@showLoginForm']);
+Auth::routes();
+Route::get('/home', 'ShowController@tampil_dashboard')->name('home');
+Route::get('/logout',['as'=>'logout', 'uses'=>'Auth\LoginController@logout']);
+// Route::get('/', 'ShowController@tampil_dashboard');
+// Route::get('/dashboard', 'ShowController@tampil_dashboard')->name('dashboard');
 
 //pelanggan
 Route::get('/data-pelanggan', 'PelangganController@tampil_pelanggan')->name('data-pelanggan');
@@ -113,16 +134,18 @@ Route::post('/search-nota-supplier', 'LaporanController@search_nota_supplier');
 Route::get('/pdf-nota-supplier/{fromdate}/{todate}/{input_supplier}', 'LaporanController@pdf_nota_supplier');
 
 //settings
-Route::get('profile', 'ShowController@profile')->name('profile');
-Route::get('logout', 'ShowController@logout')->name('logout');
-Route::get('register', 'ShowController@register')->name('register');
+Route::get('/profile', 'ShowController@profile')->name('profile');
+Route::get('/update-profile', 'ShowController@update_profile');
+Route::get('/ubahpassword', 'ShowController@ubahpassword');
+
 
 //pegawai
 Route::get('/pegawai', 'PegawaiController@data_pegawai')->name('pegawai');
 Route::post('/store-pegawai', 'PegawaiController@store_pegawai');
 Route::post('/update-status-pegawai', 'PegawaiController@update_status_pegawai');
 Route::post('/update-pegawai', 'PegawaiController@update_pegawai');
-Route::post('/delete-pegawai', 'PegawaiController@delete_pegawai');
+Route::get('/delete-pegawai/{id}', 'PegawaiController@delete_pegawai');
+
 
 // user-manual
 Route::get('user-manual', 'ShowController@user_manual')->name('user-manual');

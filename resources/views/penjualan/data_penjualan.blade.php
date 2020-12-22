@@ -68,7 +68,13 @@
                         @endforeach
                     @endif  
                     </td>
-                    <td>Fahmi Aresha</td>
+                    <td>
+                    @foreach($users as $u)
+                        @if($u->id== $p->ID_USER)
+                            {{$u->name}}
+                        @endif
+                    @endforeach
+                    </td>
                     <td>Rp. {{ number_format($p->TOTAL_PENJUALAN)}}</td>
                     <!-- <td>
                     @if($p->CATATAN_PENJUALAN==null)
@@ -97,7 +103,11 @@
                         <div class="form-group">
                         <label for="exampleFormControlTextarea1"><strong>Kasir</strong></label>
                          <div class="coba">
-                         Fahmi Aresha
+                         @foreach($users as $u)
+                            @if($u->id== $p->ID_USER)
+                                {{$u->name}}
+                            @endif
+                        @endforeach
                          </div>
                         </div>
 

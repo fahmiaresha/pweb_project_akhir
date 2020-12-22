@@ -122,7 +122,7 @@
               
 <div class="page-header d-md-flex justify-content-between">
         <div>
-            <h3>Welcome back, Fahmi</h3>
+            <h3>Welcome back, {{Session::get('nama_user')}}</h3>
             <p class="text-muted">Halaman ini menunjukkan ringkasan tahunan penjualan dan nota supplier.</p>
         </div>
         <div class="mt-3 mt-md-0">
