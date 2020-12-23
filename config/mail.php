@@ -89,7 +89,7 @@ return [
     // ],
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'sateronly@gmail.com'),
+        'address' => env('MAIL_FROM_ADDRESS', 'resetpwakun@gmail.com'),
         'name' => env('MAIL_FROM_NAME', 'No-reply'),
     ],
 

@@ -15,6 +15,26 @@
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <style>
+    .badge-notif {
+        position:relative;
+        }
+
+        .badge-notif[data-badge]:after {
+                content:attr(data-badge);
+                position:absolute;
+                top:-10px;
+                right:-10px;
+                font-size:.7em;
+                background:#e53935;
+                color:white;
+                width:18px;
+                height:18px;
+                text-align:center;
+                line-height:18px;
+                border-radius: 50%;
+        }
+    </style>
 @yield('head')
 
 <!-- App css -->
@@ -108,120 +128,54 @@
                             </a>
                         </li>
 
+                        <?php
+                            $produk = \DB::select("SELECT * from produk where STOK_PRODUK < 10");
+                            $kategori_produk = \DB::select("SELECT * from kategori_produk");
+                        ?>
 
                         <li class="nav-item dropdown mr-3">
-                            <a href="#" class="nav-link nav-link-notify" title="Notifications" data-toggle="dropdown">
+                            <a href="#" class="badge-notif" data-badge="{{ count($produk) }}"  title="Notifications" data-toggle="dropdown">
                                 <i data-feather="bell"></i>
+                                 <!-- <span> </span> -->
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-big">
+                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-big ">
                                 <div
                                     class="border-bottom px-4 py-3 text-center d-flex justify-content-between align-items-center">
                                     <h5 class="mb-0">Notifications</h5>
-                                    <small class="opacity-7">2   unread notifications</small>
                                 </div>
                                 <div class="dropdown-scroll">
+                                @foreach($produk as $p)
+                                
                                     <ul class="list-group list-group-flush">
-                                        <li class="px-4 py-2 text-center small text-muted bg-light">Today</li>
+                                        <li class="px-4 py-2 text-center small text-muted bg-light">Stok Produk Hampir Habis</li>
                                         <li class="px-4 py-3 list-group-item">
                                             <a href="#" class="d-flex align-items-center hide-show-toggler">
                                                 <div class="flex-shrink-0">
                                                     <figure class="avatar mr-3">
-                                                        <span
-                                                            class="avatar-title bg-info-bright text-info rounded-circle">
-                                                            <i class="ti-lock"></i>
+                                                        <span class="avatar-title bg-warning-bright text-warning rounded-circle">
+                                                            <i class="ti-alert"></i>
                                                         </span>
                                                     </figure>
                                                 </div>
                                                 <div class="flex-grow-1">
                                                     <p class="mb-0 line-height-20 d-flex justify-content-between">
-                                                        2 steps verification
-                                                        <i title="Mark as read" data-toggle="tooltip"
-                                                           class="hide-show-toggler-item fa fa-circle-o font-size-11"></i>
-                                                    </p>
-                                                    <span class="text-muted small">20 min ago</span>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li class="px-4 py-3 list-group-item">
-                                            <a href="#" class="d-flex align-items-center hide-show-toggler">
-                                                <div class="flex-shrink-0">
-                                                    <figure class="avatar mr-3">
-                                                        <span
-                                                            class="avatar-title bg-warning-bright text-warning rounded-circle">
-                                                            <i class="ti-server"></i>
-                                                        </span>
-                                                    </figure>
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <p class="mb-0 line-height-20 d-flex justify-content-between">
-                                                        Storage is running low!
-                                                        <i title="Mark as read" data-toggle="tooltip"
-                                                           class="hide-show-toggler-item fa fa-circle-o font-size-11"></i>
-                                                    </p>
-                                                    <span class="text-muted small">45 sec ago</span>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li class="px-4 py-2 text-center small text-muted bg-light">Old Notifications</li>
-                                        <li class="px-4 py-3 list-group-item">
-                                            <a href="#" class="d-flex align-items-center hide-show-toggler">
-                                                <div class="flex-shrink-0">
-                                                    <figure class="avatar mr-3">
-                                                        <span class="avatar-title bg-secondary-bright text-secondary rounded-circle">
-                                                            <i class="ti-file"></i>
-                                                        </span>
-                                                    </figure>
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <p class="mb-0 line-height-20 d-flex justify-content-between">
-                                                        1 person sent a file
+                                                    @foreach($kategori_produk as $kp)
+                                                        @if($p->ID_KATEGORI_PRODUK==$kp->ID_KATEGORI_PRODUK)
+                                                        {{$kp->NAMA_KATEGORI_PRODUK}} - {{$p->NAMA_PRODUK}}
+                                                        @endif    
+                                                    @endforeach
+                                                        
                                                         <i title="Mark as unread" data-toggle="tooltip"
                                                            class="hide-show-toggler-item fa fa-check font-size-11"></i>
                                                     </p>
-                                                    <span class="text-muted small">Yesterday</span>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li class="px-4 py-3 list-group-item">
-                                            <a href="#" class="d-flex align-items-center hide-show-toggler">
-                                                <div class="flex-shrink-0">
-                                                    <figure class="avatar mr-3">
-                                                        <span class="avatar-title bg-success-bright text-success rounded-circle">
-                                                            <i class="ti-download"></i>
-                                                        </span>
-                                                    </figure>
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <p class="mb-0 line-height-20 d-flex justify-content-between">
-                                                        Reports ready to download
-                                                        <i title="Mark as unread" data-toggle="tooltip"
-                                                           class="hide-show-toggler-item fa fa-check font-size-11"></i>
-                                                    </p>
-                                                    <span class="text-muted small">Yesterday</span>
-                                                </div>
-                                            </a>
-                                        </li>
-                                        <li class="px-4 py-3 list-group-item">
-                                            <a href="#" class="d-flex align-items-center hide-show-toggler">
-                                                <div class="flex-shrink-0">
-                                                    <figure class="avatar mr-3">
-                                                        <span class="avatar-title bg-primary-bright text-primary rounded-circle">
-                                                            <i class="ti-arrow-top-right"></i>
-                                                        </span>
-                                                    </figure>
-                                                </div>
-                                                <div class="flex-grow-1">
-                                                    <p class="mb-0 line-height-20 d-flex justify-content-between">
-                                                        The invitation has been sent.
-                                                        <i title="Mark as unread" data-toggle="tooltip"
-                                                           class="hide-show-toggler-item fa fa-check font-size-11"></i>
-                                                    </p>
-                                                    <span class="text-muted small">Last Week</span>
+                                                    <span class="text-muted small">Stok Sisa {{$p->STOK_PRODUK}}</span>
                                                 </div>
                                             </a>
                                         </li>
                                     </ul>
+                                @endforeach
                                 </div>
+
                                 <div class="px-4 py-3 text-right border-top">
                                     <ul class="list-inline small">
                                         <li class="list-inline-item mb-0">
