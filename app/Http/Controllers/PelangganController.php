@@ -9,6 +9,9 @@ use PDF;
 
 class PelangganController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth');
+    }
     
 
     public function send_wa_pesanan_pelanggan(Request $request){

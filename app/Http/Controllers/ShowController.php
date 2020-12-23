@@ -14,22 +14,51 @@ use Illuminate\Support\Facades\Session;
 
 class ShowController extends Controller
 {
-
+    public function __construct() {
+        $this->middleware('auth');
+    }
+    
     public function user_manual(){
 
     }
 
     public function profile(){
+        $userId = Auth::id();
+
+        //get-all-informasi-user
+        $user = Auth::user();
+        $jabatan = $user->ID_JABATAN;
+        $name = $user->name;
+        
+        Session::put('id_user',$userId);
+        Session::put('nama_user',$name);
+
         $pegawai = DB::table('users')->get();
+        
         $jabatan = DB::table('jabatan')->get();
         return view('settings/profile',['jabatan'=>$jabatan,'pegawai'=>$pegawai]);
     }
 
-    public function update_profile(){
+    public function update_profile(Request $request){
+        // dd($request->all());
+        $request->validate([
+            'nama_admin' => 'required',
+            'alamat_admin' => 'required',
+            'email_admin' => 'required|email',
+            ]);
 
+            DB::table('users')->where('id',$request->id)->update([
+                'name' => $request->nama_admin,
+                'alamat_user' => $request->alamat_admin,
+                'telp_user' => $request->telp_admin,
+                'email' => $request->email_admin,
+            ]);
+
+            return redirect('/profile')->with('update_profile','dd');
     }
 
-    public function ubahpassword(){
+    public function ubahpassword(Request $request){
+        // dd($request->all());
         // $pw = 123456;
         // $hashed = Hash::make($pw);
         // $result = Hash::check($pw, $hashed);
@@ -43,9 +72,34 @@ class ShowController extends Controller
         // [4] > Hash::check($pw, $hashed);
         // // true
 
-        // $pegawai = DB::table('users')->get();
-        // $jabatan = DB::table('jabatan')->get();
-        // return view('settings/ubahpassword',['pegawai'=>$pegawai,'pegawai'=>$pegawai]);
+        $data = DB::table('users')->where('id',$request->id)->first();
+        // $result = Hash::check($request->current_password,$data->password);
+        if(Hash::check($request->current_password,$data->password)){
+            // echo 'password cocok';
+            if($request->password == $request->password_confirmation){
+                if($request->current_password != $request->password){
+                // echo 'password dan konfirmasi password cocok';
+                $pw = $request->password;
+                $password = Hash::make($pw);
+                  DB::table('users')->where('id',$request->id)->update([
+                    'password' => $password,
+                  ]);
+                  return redirect('/profile')->with('password_sukses_diubah','bb');
+                }
+                else{
+                    // echo 'password lama dan baru tidak boleh sama ';
+                    return redirect('/profile')->with('password_baru_lama_sama','cc');
+                }
+            }
+            else{
+                // echo 'password dan konfirmasi password tidak cocok';
+                return redirect('/profile')->with('password_konfirmasipassword_tdk_cocok','dd');
+            }
+        }
+        else{
+            // echo "password tidak cocok";
+            return redirect('/profile')->with('current_password_tidak_cocok','aaa');
+        }
     }
   
 

@@ -8,6 +8,10 @@ use PDF;
 
 class PosController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth');
+    }
+    
     public function invoice_penjualan($id){
         $id_invoice=$id;
         $penjualan = DB::table('penjualan')->get();

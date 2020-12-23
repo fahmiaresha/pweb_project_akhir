@@ -6,7 +6,8 @@
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="keywords" content="Halaman Login Web PKM" />
+<meta name="keywords" content="Halaman Login Toko Bagus" />
+<link rel="shortcut icon" href="{{ url('assets/media/image/favicon.ico') }}"/>
 
 	 <script>
         addEventListener("load", function () {
@@ -125,6 +126,19 @@
                                     </script>
                                     </font>
                                 @enderror
+
+                                @if (session('akun_tidak_aktif')) 
+                                 <font size="3"> 
+                                    <script>
+                                    Swal.fire({
+                                        timer: 2000,
+                                        icon: 'error',
+                                        title: 'Maaf',
+                                        text: 'Akun anda tidak aktif !',
+                                        })
+                                    </script>
+                                    </font>
+                                @endif
                             </div>
 					<!-- <div class="login-check">
 						 <label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i> </i> Keep me logged in</label>
@@ -142,9 +156,9 @@
                 </form>
               
             </div>
-            <!-- <div class="coba mt-3" style="text-align: right;">
-                    <a href="/lupapassword"><font size="2" style="color:skyblue">Lupa Password ?</font></a>
-            </div> -->
+            <div class="coba mt-3" style="text-align: right;">
+                    <a href="/password/reset" target="_blank"><font size="2" style="color:skyblue">Lupa Password ?</font></a>
+            </div>
             
 		</div>
         

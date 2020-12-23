@@ -135,8 +135,8 @@ Route::get('/pdf-nota-supplier/{fromdate}/{todate}/{input_supplier}', 'LaporanCo
 
 //settings
 Route::get('/profile', 'ShowController@profile')->name('profile');
-Route::get('/update-profile', 'ShowController@update_profile');
-Route::get('/ubahpassword', 'ShowController@ubahpassword');
+Route::post('/update-profile', 'ShowController@update_profile');
+Route::post('/ubah-password-pegawai', 'ShowController@ubahpassword');
 
 
 //pegawai
@@ -145,6 +145,7 @@ Route::post('/store-pegawai', 'PegawaiController@store_pegawai');
 Route::post('/update-status-pegawai', 'PegawaiController@update_status_pegawai');
 Route::post('/update-pegawai', 'PegawaiController@update_pegawai');
 Route::get('/delete-pegawai/{id}', 'PegawaiController@delete_pegawai');
+Route::post('/update-password-pegawai', 'PegawaiController@update_password_pegawai');
 
 
 // user-manual

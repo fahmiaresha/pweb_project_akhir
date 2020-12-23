@@ -9,6 +9,9 @@ use Redirect;
 class SupplierController extends Controller
 
 {
+    public function __construct() {
+        $this->middleware('auth');
+    }
 
     public function send_wa_pesan_supplier(Request $request){
         $nomor2 = $request->nomor_whatsapp;

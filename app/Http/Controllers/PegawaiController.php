@@ -8,6 +8,10 @@ use Illuminate\Support\Facades\Hash;
 
 class PegawaiController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth');
+    }
+    
     public function data_pegawai(){
         $pegawai = DB::table('users')->get();
         $jabatan = DB::table('jabatan')->get();

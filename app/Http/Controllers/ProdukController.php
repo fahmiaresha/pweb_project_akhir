@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 
 class ProdukController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth');
+    }
+    
     public function tampil_data_produk(){
         $produk = DB::table('produk')->get();
         $kategori_produk = DB::table('kategori_produk')->get();

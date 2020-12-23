@@ -239,18 +239,18 @@
                             
                             <!-- tutup Button trigger modal edit -->
                             @if($p->ID_JABATAN==1)
-                                    <button type="button" class="btn btn-outline-danger mb-1 ml-2" data-toggle="modal" 
+                                    <!-- <button type="button" class="btn btn-outline-danger mb-1 ml-2" data-toggle="modal" 
                                         data-target="#delete1123" onclick="tampil_cant_delete()">
-                                        <i class="fas fa-trash-restore mr-1"></i>Hapus</button> 
+                                        <i class="fas fa-trash-restore mr-1"></i>Hapus</button>  -->
                             @else
                                       <!-- Button trigger modal -->
-                                      <button type="button" class="btn btn-outline-danger mb-1 ml-2" data-toggle="modal" 
+                                      <!-- <button type="button" class="btn btn-outline-danger mb-1 ml-2" data-toggle="modal" 
                                         data-target="#delete1123{{$p->id}}">
                                         <i class="fas fa-trash-restore mr-1"></i>Hapus</button>
                            
                            
 
-                                    <!-- Modal -->
+                                    
                                     <div class="modal fade" id="delete1123{{$p->id}}" tabindex="0" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
@@ -273,7 +273,7 @@
                                         </div>
                                         </div>
                                     </div>
-                                    </div> 
+                                    </div>  -->
                             @endif
                     </td>
                     </tr>
