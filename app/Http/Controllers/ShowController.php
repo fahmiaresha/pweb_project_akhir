@@ -22,6 +22,10 @@ class ShowController extends Controller
 
     }
 
+    public function show_404(){
+        return view ('404');
+    }
+
     public function profile(){
         $userId = Auth::id();
 

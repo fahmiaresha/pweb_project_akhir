@@ -154,7 +154,13 @@
                         @endforeach
                     @endif  
                     </td>
-                    <td>Fahmi Aresha</td>
+                    <td>
+                    @foreach($users as $u)
+                        @if($u->id== $p->ID_USER)
+                            {{$u->name}}
+                        @endif
+                    @endforeach
+                    </td>
                     @if($input_produk=='kosong')
                     <td>Rp. {{ number_format($p->TOTAL_PENJUALAN)}}</td>
                     @else

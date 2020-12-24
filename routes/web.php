@@ -48,10 +48,39 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/',['as'=>'login', 'uses' => 'Auth\LoginController@showLoginForm']);
 Auth::routes();
-Route::get('/home', 'ShowController@tampil_dashboard')->name('home');
-Route::get('/logout',['as'=>'logout', 'uses'=>'Auth\LoginController@logout']);
+
 // Route::get('/', 'ShowController@tampil_dashboard');
 // Route::get('/dashboard', 'ShowController@tampil_dashboard')->name('dashboard');
+
+
+//hak akses owner
+Route::group(['middleware' => ['auth','cekuser:1','cekstatusakun:1']], function(){
+
+//laporan-penjualan
+Route::get('/laporan-penjualan', 'LaporanController@laporan_penjualan')->name('laporan-penjualan');
+Route::post('/search-laporan-penjualan', 'LaporanController@search_laporan_penjualan');
+Route::get('/pdf-laporan-penjualan/{fromdate}/{todate}/{input_produk}', 'LaporanController@pdf_penjualan');
+
+//laporan-nota-supplier
+Route::get('/laporan-nota-supplier', 'LaporanController@laporan_nota_supplier')->name('laporan-nota-supplier');
+Route::post('/search-nota-supplier', 'LaporanController@search_nota_supplier');
+Route::get('/pdf-nota-supplier/{fromdate}/{todate}/{input_supplier}', 'LaporanController@pdf_nota_supplier');
+
+//pegawai
+Route::get('/pegawai', 'PegawaiController@data_pegawai')->name('pegawai');
+Route::post('/store-pegawai', 'PegawaiController@store_pegawai');
+Route::post('/update-status-pegawai', 'PegawaiController@update_status_pegawai');
+Route::post('/update-pegawai', 'PegawaiController@update_pegawai');
+Route::get('/delete-pegawai/{id}', 'PegawaiController@delete_pegawai');
+Route::post('/update-password-pegawai', 'PegawaiController@update_password_pegawai');
+
+});
+
+//hak akses admin
+Route::group(['middleware' => ['auth','cekuser:1,2','cekstatusakun:1']], function(){
+
+Route::get('/home', 'ShowController@tampil_dashboard')->name('home');
+Route::get('/logout',['as'=>'logout', 'uses'=>'Auth\LoginController@logout']);
 
 //pelanggan
 Route::get('/data-pelanggan', 'PelangganController@tampil_pelanggan')->name('data-pelanggan');
@@ -115,6 +144,11 @@ Route::get('/kategori-produk-delete/{id}', 'ProdukController@delete_kategori_pro
 Route::get('/whatsapp', 'ShowController@show_whatsapp')->name('whatsapp');
 Route::post('/whatsapp-store', 'ShowController@store_whatsapp');
 
+//settings
+Route::get('/profile', 'ShowController@profile')->name('profile');
+Route::post('/update-profile', 'ShowController@update_profile');
+Route::post('/ubah-password-pegawai', 'ShowController@ubahpassword');
+
 //point-of-sales
 Route::get('/point-of-sales', 'PosController@show_pos')->name('point-of-sales');
 Route::post('/point-of-sales/store', 'PosController@store_pos');
@@ -123,35 +157,12 @@ Route::post('/point-of-sales/store', 'PosController@store_pos');
 Route::get('/data-penjualan', 'PosController@show_data_penjualan')->name('data-penjualan');
 Route::get('/invoice-penjualan/{id}', 'PosController@invoice_penjualan');
 
-//laporan-penjualan
-Route::get('/laporan-penjualan', 'LaporanController@laporan_penjualan')->name('laporan-penjualan');
-Route::post('/search-laporan-penjualan', 'LaporanController@search_laporan_penjualan');
-Route::get('/pdf-laporan-penjualan/{fromdate}/{todate}/{input_produk}', 'LaporanController@pdf_penjualan');
-
-//laporan-nota-supplier
-Route::get('/laporan-nota-supplier', 'LaporanController@laporan_nota_supplier')->name('laporan-nota-supplier');
-Route::post('/search-nota-supplier', 'LaporanController@search_nota_supplier');
-Route::get('/pdf-nota-supplier/{fromdate}/{todate}/{input_supplier}', 'LaporanController@pdf_nota_supplier');
-
-//settings
-Route::get('/profile', 'ShowController@profile')->name('profile');
-Route::post('/update-profile', 'ShowController@update_profile');
-Route::post('/ubah-password-pegawai', 'ShowController@ubahpassword');
-
-
-//pegawai
-Route::get('/pegawai', 'PegawaiController@data_pegawai')->name('pegawai');
-Route::post('/store-pegawai', 'PegawaiController@store_pegawai');
-Route::post('/update-status-pegawai', 'PegawaiController@update_status_pegawai');
-Route::post('/update-pegawai', 'PegawaiController@update_pegawai');
-Route::get('/delete-pegawai/{id}', 'PegawaiController@delete_pegawai');
-Route::post('/update-password-pegawai', 'PegawaiController@update_password_pegawai');
-
+});
 
 // user-manual
 Route::get('user-manual', 'ShowController@user_manual')->name('user-manual');
 
-
+Route::get('/404', 'ShowController@show_404');
 
 
 

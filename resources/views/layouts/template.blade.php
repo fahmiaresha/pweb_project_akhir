@@ -257,6 +257,7 @@
                         </a>
                     </li>
 
+                    @if(auth()->user()->ID_JABATAN=="1")
                     <li>
                         <a @if(request()->segment(1) =='pegawai') class="active" @endif href="{{ route('pegawai') }}" >
                     <span class="nav-link-icon">
@@ -265,6 +266,8 @@
                             <span>Pegawai</span>
                         </a>
                     </li>
+                    @endif
+                    
 
                    
       
@@ -359,7 +362,7 @@
 
                    
 
-
+                    @if(auth()->user()->ID_JABATAN=="1")
                     <li>
                         <a href="#">
                         <span class="nav-link-icon">
@@ -377,6 +380,7 @@
                             </li>
                         </ul>
                     </li>
+                    @endif
 
 
                     <!-- <li>
