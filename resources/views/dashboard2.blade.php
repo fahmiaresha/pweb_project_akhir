@@ -123,7 +123,13 @@
 <div class="page-header d-md-flex justify-content-between">
         <div>
             <h3>Welcome back, {{Session::get('nama_user')}}</h3>
+            @if(auth()->user()->ID_JABATAN=="1")
             <p class="text-muted">Halaman ini menunjukkan ringkasan tahunan penjualan dan nota supplier.</p>
+            @endif
+
+            @if(auth()->user()->ID_JABATAN=="2")
+            <p class="text-muted">Halaman ini menunjukkan ringkasan penjualan produk.</p>
+            @endif
         </div>
         <div class="mt-3 mt-md-0">
             <div class="btn btn-outline-light">
@@ -191,8 +197,8 @@
         </div>
 </div>
 
-
-
+<!-- hak akses owner -->
+@if(auth()->user()->ID_JABATAN=="1")
 <div class="row">
         <div class="col-md-6">
             <div class="card">
@@ -270,7 +276,128 @@
             </div>
         </div>
 </div>
+@endif
 
+
+
+
+<!-- hak akses admin -->
+<div class="row">
+<div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <h6 class="card-title mb-2">Produk terjual</h6>
+                    </div>
+                    <div>
+                        <div class="list-group list-group-flush">
+                            <div class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                <div>
+                                    <h5>Hari</h5>
+                                    <div>Total penjualan</div>
+                                </div>
+                                <h3 class="text-warning mb-0">{{$produk_terjual_hari}}</h3>
+                            </div>
+                            <div class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                <div>
+                                    <h5>Bulan</h5>
+                                    <div>Total penjualan</div>
+                                </div>
+                                <div>
+                                    <h3 class="text-info mb-0">{{$produk_terjual_bulanan}}</h3>
+                                </div>
+                            </div>
+                            <div class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                <div>
+                                    <h5>Tahun</h5>
+                                    <div>Total penjualan</div>
+                                </div>
+                                <div>
+                                    <h3 class="text-success mb-0">{{$produk_terjual_tahunan}}</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <?php
+            $produk = \DB::select("SELECT * from produk where STOK_PRODUK < 10");
+            $kategori_produk = \DB::select("SELECT * from kategori_produk");
+            $suppier = \DB::select("SELECT * from supplier");
+            $catatan_order_supplier = \DB::select("SELECT * from catatan_order_supplier");
+        ?>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <h6 class="card-title mb-2">Supplier</h6>
+                    </div>
+                    <div>
+                        <div class="list-group list-group-flush">
+                                @php
+                                $pesanan_selesai=0;
+                                $pesanan_blm_selesai=0;
+                                @endphp
+                            @foreach($catatan_order_supplier as $cos)
+                                @if($cos->STATUS_ORDER_SUPPLIER==1)
+                                    @php $pesanan_selesai++; @endphp
+                                @else
+                                    @php $pesanan_blm_selesai++; @endphp
+                                @endif
+                            @endforeach
+                            <div class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                <div>
+                                    <!-- <h5>Hari</h5> -->
+                                    <div>Pesanan Selesai</div>
+                                </div>
+                                <h3 class="text-warning mb-0">@php echo $pesanan_selesai; @endphp</h3>
+                            </div>
+
+                            <div class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                <div>
+                                    <!-- <h5>Bulan</h5> -->
+                                    <div>Pesanan Belum Selesai</div>
+                                </div>
+                                <div>
+                                    <h3 class="text-success mb-0">@php echo $pesanan_blm_selesai; @endphp</h3>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <h6 class="card-title mb-2">Stok</h6>
+                    </div>
+                    <div>
+                        <div class="list-group list-group-flush">
+                            <div class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                <div>
+                                    <div>Produk hampir habis</div>
+                                    <!-- <div>Total penjualan</div> -->
+                                </div>
+                                <h3 class="text-danger mb-0">{{ count($produk) }}</h3>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                                   <button class="btn btn-primary pull-right" onclick="show_detail()">Detail Produk</button>
+                            </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+       
+</div>
+
+@if(auth()->user()->ID_JABATAN=="1")
 <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -285,6 +412,7 @@
             </div>
         </div>
 </div>
+@endif
 
 <div class="row">
         <div class="col-md-12">
@@ -300,9 +428,75 @@
             </div>
         </div>
 </div>
+
+<div class="modal fade" id="detail_produk_hampir_habis" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalCenterTitle">Produk hampir habis</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <i class="ti-close"></i>
+            </button>
+          </div>
+          <div class="modal-body">
+          <table class="table table-active table-hover" id="myTable">
+                        <thead>
+                        <tr>
+                        <center>
+                        
+                          <th>#</th>
+                          <th>Supplier</th>
+                          <th>Kategori</th>
+                          <th>Produk</th>
+                          <th>Stok</th>
+                          </center>
+                        </tr>
+                        </thead>
+                        <tr>
+                        
+                        @foreach($produk as $p)
+                        <td>{{$loop->iteration}}</td>
+                            @foreach($suppier as $s)
+                                @if($p->ID_SUPPLIER==$s->ID_SUPPLIER)
+                                    <td>{{$s->NAMA_SUPPLIER}} - {{$s->ALAMAT_SUPPLIER}}</td>
+                                @endif
+                            @endforeach
+                        
+                            @foreach($kategori_produk as $kp)
+                                @if($p->ID_KATEGORI_PRODUK==$kp->ID_KATEGORI_PRODUK)
+                                <td>{{$kp->NAMA_KATEGORI_PRODUK}}</td>
+                                <td>{{$p->NAMA_PRODUK}}</td>
+                                @endif    
+                                
+                            @endforeach
+                            
+                           
+                           
+                            <td style="text-align:center;">{{$p->STOK_PRODUK}}</td>
+                            
+                        </tr>
+                        @endforeach
+                        </table>
+                        <br>
+          </div>
+         
+        </div>
+      </div>
+    </div>
 @endsection
 
 @section('script')
+<script>
+    function show_detail(){
+        $('#detail_produk_hampir_habis').modal('show');
+    }
+
+$(document).ready(function (){
+    $('#myTable').DataTable();
+});
+
+</script>
+
 <script src="vendors/charts/chartjs/chart.min.js"></script>
 <script src="assets/js/examples/charts/chartjs.js"></script>
 <script src="../../vendors/select2/js/select2.min.js"></script>

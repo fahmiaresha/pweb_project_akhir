@@ -168,6 +168,7 @@ class ShowController extends Controller
                             ->orderBy('TOTAL_PRODUK_DIJUAL', 'DESC')
                             ->whereBetween('TANGGAL_PENJUALAN',[$tgl_awal_laporan_tahunan,$tgl_akhir_laporan_tahunan])
                             ->limit(5)->get();
+        // dump($produk_penjualan);
         
         //nota supplier lunas
         $nota_supplier=nota_supplier::select(['STATUS_NOTA_SUPPLIER','NOMOR_NOTA_SUPPLIER','TANGGAL_NOTA_DATANG','ID_SUPPLIER', 'TOTAL_BAYAR_NOTA_SUPPLIER']) // Do some querying..
@@ -326,6 +327,20 @@ class ShowController extends Controller
             ->orderBy('ID_PENJUALAN', 'ASC')
             ->get();
 
+            // SELECT COUNT(ID_PRODUK) AS TOTAL_TERJUAL FROM detail_penjualan;
+
+        $produk_terjual_hari = DB::table('detail_penjualan')
+                                ->whereBetween('TANGGAL_PENJUALAN', [$tgl_awal_akhir_harian,$tgl_awal_akhir_harian])    
+                                ->count();
+
+        $produk_terjual_bulanan = DB::table('detail_penjualan')
+                                ->whereBetween('TANGGAL_PENJUALAN', [$tgl_awal_laporan_bulanan,$tgl_akhir_laporan_bulanan])    
+                                ->count();
+        $produk_terjual_tahunan = DB::table('detail_penjualan')
+                                ->whereBetween('TANGGAL_PENJUALAN', [$tgl_awal_laporan_tahunan,$tgl_akhir_laporan_tahunan])    
+                                ->count();
+        
+
         return view('dashboard2',['penjualan'=>$penjualan
         ,'produk'=>$produk,'pelanggan'=>$pelanggan,'users'=>$users
         ,'kategori_pelanggan'=>$kategori_pelanggan,'kategori_produk'=>$kategori_produk,'produk_penjualan'=>$produk_penjualan
@@ -337,7 +352,8 @@ class ShowController extends Controller
         ,'laporan_penjualan_juni'=>$laporan_penjualan_juni,'laporan_penjualan_juli'=>$laporan_penjualan_juli,'laporan_penjualan_agustus'=>$laporan_penjualan_agustus
         ,'laporan_penjualan_september'=>$laporan_penjualan_september,'laporan_penjualan_oktober'=>$laporan_penjualan_oktober,'laporan_penjualan_november'=>$laporan_penjualan_november
         ,'laporan_penjualan_desember'=>$laporan_penjualan_desember,'tgl_awal_laporan_tahunan'=>$tgl_awal_laporan_tahunan
-        ,'tgl_akhir_laporan_tahunan'=>$tgl_akhir_laporan_tahunan]);
+        ,'tgl_akhir_laporan_tahunan'=>$tgl_akhir_laporan_tahunan,'produk_terjual_hari'=>$produk_terjual_hari,'produk_terjual_bulanan'=>$produk_terjual_bulanan
+        ,'produk_terjual_tahunan'=>$produk_terjual_tahunan]);
     }
 
     public function show_whatsapp(){

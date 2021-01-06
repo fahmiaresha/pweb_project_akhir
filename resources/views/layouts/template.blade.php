@@ -317,9 +317,11 @@
                             <a @if(request()->segment(1) == 'pesan-supplier') class="active" @endif href="{{ route('pesan-supplier') }}">Pesan Supplier</a>
                             </li>
 
+                            @if(auth()->user()->ID_JABATAN=="1")
                             <li>
                             <a @if(request()->segment(1) == 'nota-supplier') class="active" @endif href="{{ route('nota-supplier') }}">Nota Supplier</a>
                             </li>
+                            @endif
                         </ul>
                     </li>
 
