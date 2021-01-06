@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Penjualan #INV-{{$id_invoice}}</title>
+    <title>Penjualan #NTA-{{$id_invoice}}</title>
     <style>
   @page {
     size: 5.7cm 5cm;
@@ -34,17 +34,30 @@
 
     <table>
                                                 <tbody>
+
+                                                   
                                                     <tr>
                                                         <td><strong>Nomor  <strong></td>
-                                                        <td>: INV-{{$id_invoice}}</td>
+                                                        <td>: NTA-{{$id_invoice}}</td>
                                                     </tr>
+                                                    
                                                     @foreach ($penjualan as $p)
                                                         @if($id_invoice==$p->ID_PENJUALAN)
                                                         <tr>
                                                         <td><strong>Tanggal</strong></td>
                                                         <td>: {{date('d-m-Y H:i:s', strtotime($p->TANGGAL_PENJUALAN)) }}</td>
                                                         </tr>
-                                                        <tr>
+                                                    <tr>
+                                                        <td><strong>Kasir</strong></td>
+                                                        <td>:
+                                                        @foreach($users as $u)
+                                                            @if($p->ID_USER==$u->id)
+                                                             {{$u->name}}
+                                                            @endif
+                                                        @endforeach
+                                                        </td>
+                                                    </tr>
+                                                        <!-- <tr>
                                                         <td><strong>Pelanggan <strong> </td>
                                                         <td>: 
                                                                     
@@ -54,8 +67,7 @@
                                                                             @endif
                                                                         @endforeach
                                                         </td>
-                                                        </tr> 
-                                                         
+                                                        </tr>  -->
                                                         @endif
                                                     @endforeach
                                                     <tr>
@@ -70,6 +82,8 @@
                                                             @endif
                                                     @endforeach
                                                     </tr>
+
+                                                   
                                                     
                                                 </tbody>
     </table>

@@ -47,6 +47,8 @@
                 <div class="modal-body">
                 <form method="post" action="{{ url('/data-service-pelanggan-store') }}">
                         @csrf
+                        <input type="hidden" name="nama_user" value="{{Session::get('id_user')}}">
+
                         <label for="nama_pelanggan">Pelanggan</label>
                         <select name="nama_pelanggan" id="nama_pelanggan" class="select2-example">
                         <option value="-" disabled="true" selected="true">Pilih Nama Pelanggan</option>
@@ -83,6 +85,7 @@
                         <th>Nama Pelanggan</th>
                         <th>Sepeda</th>
                         <th>Deskripsi Service</th>
+                        <th>Pegawai</th>
                         <th>Aksi</th>
                         </tr>
                     </thead>
@@ -122,7 +125,14 @@
                         @endif
                     @endforeach
                     <td>{{$s->NAMA_SEPEDA_SERVICE}}</td>
-                    <td>{{$s->DESKRIPSI_SERVICE}}</td>           
+                    <td>{{$s->DESKRIPSI_SERVICE}}</td>
+                    <td>
+                    @foreach($users as $u)
+                        @if($s->PEGAWAI==$u->id)
+                            {{$u->name}}
+                        @endif
+                    @endforeach
+                    </td>           
                     <td>
                         
                             
@@ -147,6 +157,9 @@
                                 <form method="post" action="{{ url('/data-service-pelanggan-update') }}">
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $s->ID_SERVICE }}">
+
+ 
+                               
 
                                 <label for="Kategori">Pelanggan</label>
                                 <select name="nama_pelanggan" id="nama_pelanggan"  class="form-control">

@@ -524,7 +524,7 @@
                 $('#timer').html(max_count);
                 $('#logout_popup').modal('show');
                 startCount();
-            }, 30*10*1000); //, 30 menit=30*60*1000, 
+            }, 30*60*1000); //, 30 menit=30*60*1000, 
         }
 
         function resetTimer(){

@@ -21,6 +21,8 @@ class PosController extends Controller
         $kategori_pelanggan = DB::table('kategori_pelanggan')->get();
         $detail_penjualan = DB::table('detail_penjualan')->get();
         $kategori_produk = DB::table('kategori_produk')->get();
+        // dump($penjualan);
+        // dump($users);
         // return view('penjualan/invoice_penjualan',['id_invoice'=>$id_invoice,'penjualan'=>$penjualan
         // ,'product'=>$product,'pelanggan'=>$pelanggan,'users'=>$users,'detail_penjualan'=>$detail_penjualan
         // ,'kategori_pelanggan'=>$kategori_pelanggan,'kategori_produk'=>$kategori_produk]);

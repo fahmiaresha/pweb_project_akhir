@@ -276,7 +276,9 @@
 
 <script>
 $(document).ready(function (){
-    $('#myTable').DataTable();
+    $('#myTable').DataTable({
+        "order":[[1,"asc"]]
+    });
 });
 
 </script>

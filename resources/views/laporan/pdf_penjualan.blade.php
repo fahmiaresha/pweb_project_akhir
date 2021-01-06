@@ -74,7 +74,7 @@
                         
                         <tr>
                             <th>#</th>
-                            <th><center>Invoice</center></th>
+                            <th><center>Nota</center></th>
                             <th><center>Tanggal</center></th>
                             <th><center>Kategori</center></th>
                             <th><center>Pelanggan</center></th>
@@ -93,7 +93,7 @@
                            @foreach($result as $p)
                            <tr>
                            <td>{{$nomor++}}</td>
-                           <td>INV-{{$p->ID_PENJUALAN}}</td>
+                           <td>NTA-{{$p->ID_PENJUALAN}}</td>
                     <td> {{date('d-m-Y H:i:s', strtotime($p->TANGGAL_PENJUALAN)) }}</td>           
                     <td>
                         @foreach($kategori_pelanggan as $kp)

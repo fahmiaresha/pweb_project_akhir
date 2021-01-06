@@ -321,7 +321,7 @@
             </button>
           </div>
           <div class="modal-body">
-            Apakah anda ingin mencetak INV-{{$id_penjualan}} ?
+            Apakah anda ingin mencetak NTA-{{$id_penjualan}} ?
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Back

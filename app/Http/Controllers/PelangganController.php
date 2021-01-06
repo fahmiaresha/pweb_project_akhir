@@ -106,13 +106,15 @@ class PelangganController extends Controller
     public function tampil_service_pelanggan(){
         $pelanggan = DB::table('pelanggan')->get();
         $service = DB::table('service')->get();
-        return view('pelanggan/service_pelanggan',['pelanggan'=>$pelanggan,'service'=>$service]);
+        $users = DB::table('users')->get();
+        return view('pelanggan/service_pelanggan',['pelanggan'=>$pelanggan,'service'=>$service,'users'=>$users]);
     }
 
     public function store_service_pelanggan(Request $request){
         DB::table('service')->insert(['ID_PELANGGAN' => $request->nama_pelanggan,
         'NAMA_SEPEDA_SERVICE' => $request->nama_sepeda,
-        'DESKRIPSI_SERVICE' => $request->deskripsi_service
+        'DESKRIPSI_SERVICE' => $request->deskripsi_service,
+        'PEGAWAI' => $request->nama_user
         ]);
         return redirect('/service-pelanggan')->with('insert','berhasil');
     }
@@ -130,12 +132,13 @@ class PelangganController extends Controller
         $pelanggan = DB::table('pelanggan')->get();
         $kategori_pelanggan = DB::table('kategori_pelanggan')->get();
         $service = DB::table('service')->get();
+        $users = DB::table('users')->get();
         $id_invoice=$id;
         // return view('pelanggan/invoice_service',['pelanggan'=>$pelanggan,'kategori_pelanggan'=>$kategori_pelanggan
         // ,'id_invoice'=>$id_invoice,'service'=>$service]);
 
         $pdf = PDF::loadview('pelanggan/invoice_service',['pelanggan'=>$pelanggan,'kategori_pelanggan'=>$kategori_pelanggan
-        ,'id_invoice'=>$id_invoice,'service'=>$service]);
+        ,'id_invoice'=>$id_invoice,'service'=>$service,'users'=>$users]);
         return $pdf->stream();
       
     }

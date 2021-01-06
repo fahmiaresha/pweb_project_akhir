@@ -118,7 +118,7 @@
             <table id="myTable" class="table table-striped table-bordered table-hover">
                     <thead>
                         <tr>
-                        <th>Inovice</th>
+                        <th>Nota</th>
                         <th>Tanggal</th>
                         <th>Kategori</th>
                         <th>Pelanggan</th>
@@ -134,7 +134,7 @@
                 @endphp
                 @foreach($x as $p)
                     <tr>
-                    <td>INV-{{$p->ID_PENJUALAN}}</td>
+                    <td>NTA-{{$p->ID_PENJUALAN}}</td>
                     <td> {{date('d-m-Y H:i:s', strtotime($p->TANGGAL_PENJUALAN)) }}</td>           
                     <td>
                         @foreach($kategori_pelanggan as $kp)
@@ -227,7 +227,9 @@
 
 <script>
 $(document).ready(function (){
-    $('#myTable').DataTable(); 
+    $('#myTable').DataTable({
+        "order":[[1,"asc"]]
+    });
     $('.select2-example').select2();
     $('input[name="daterangepicker"]').daterangepicker({
     opens: 'left',

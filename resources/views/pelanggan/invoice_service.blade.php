@@ -35,6 +35,16 @@
         <td><strong>Tanggal <strong></td>
         <td>:  {{date('d-m-Y H:i:s', strtotime($s->TANGGAL_SERVICE)) }}</td>
         </tr>
+        <tr>
+        <td><strong>Kasir<strong></td>
+        <td>:
+        @foreach($users as $u)
+                        @if($s->PEGAWAI==$u->id)
+                            {{$u->name}}
+                        @endif
+        @endforeach
+        </td>
+        </tr>
             @foreach($pelanggan as $p)
                 @if($s->ID_PELANGGAN==$p->ID_PELANGGAN)
                 <tr>
