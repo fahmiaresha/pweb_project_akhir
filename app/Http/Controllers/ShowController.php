@@ -189,7 +189,7 @@ class ShowController extends Controller
                                 ->get();
 
         $laporan_penjualan_pertahun=penjualan::select(['ID_PENJUALAN','TANGGAL_PENJUALAN','TOTAL_PENJUALAN','KATEGORI_PELANGGAN_PENJUALAN', 'ID_USER']) // Do some querying..
-                                ->whereBetween('TANGGAL_PENJUALAN_ASLI', [$bulan_tanggal_awal_tahunan, $tgl_akhir_laporan_tahunan])
+                                ->whereBetween('TANGGAL_PENJUALAN_ASLI', [$tgl_awal_laporan_tahunan, $tgl_akhir_laporan_tahunan])
                                 ->orderBy('ID_PENJUALAN', 'ASC')
                                 ->get();
 

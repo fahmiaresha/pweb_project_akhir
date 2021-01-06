@@ -9,7 +9,58 @@ class ProdukController extends Controller
     public function __construct() {
         $this->middleware('auth');
     }
+
+    public function get_detail_produk($id){
+        $kategori_produk = DB::table("produk")->where("ID_PRODUK",$id)->get();
+        return json_encode($kategori_produk);
+    }
+
+    public function get_produk($id){
+        // $produk = DB::table("produk")->where("ID_SUPPLIER",$id)->pluck("NAMA_PRODUK","ID_PRODUK");
+         $produk = DB::table("produk")->where("ID_SUPPLIER",$id)->get();
+        return json_encode($produk);
+    }
     
+    public function tambah_stok_produk(){
+        $produk = DB::table('produk')->get();
+        $kategori_produk = DB::table('kategori_produk')->get();
+        $supplier = DB::table('supplier')->get();
+        $update_stok = DB::table('update_stok')->get();
+        $user = DB::table('users')->get();
+        
+        // dump($produk);
+        return view('produk/tambah_stok_produk',['produk'=>$produk,'kategori_produk'=>$kategori_produk
+        ,'supplier'=>$supplier,'update_stok'=>$update_stok,'user'=>$user]);
+    }
+
+    public function update_stok_produk(Request $request){
+        // dd($request->all());
+        $stok_total = $request->stok_saat_ini + $request->tambah_stok;
+
+        try{
+            DB::table('produk')->where('ID_PRODUK',$request->produk)->update([
+                'STOK_PRODUK'=> $stok_total
+            ]);
+            
+            DB::table('update_stok')->insert([
+                'nama_supplier' => $request->supplier,
+                'nama_produk' => $request->produk,
+                'tanggal_pembelian_produk' => $request->tanggal_pembelian,
+                'stok_saat_ini' => $request->stok_saat_ini,
+                'stok_ditambah' => $request->tambah_stok,
+                'stok_total' => $stok_total,
+                'nama_user' => $request->nama_user,
+                'kategori_produk' => $request->kategori_produk,
+            ]);
+        }
+        catch(\Exception $e){
+            return redirect('/tambah-stok-produk')->with('pilih_produk','berhasil');
+        }
+
+        return redirect('/tambah-stok-produk')->with('insert','berhasil');
+        
+    }
+
     public function tampil_data_produk(){
         $produk = DB::table('produk')->get();
         $kategori_produk = DB::table('kategori_produk')->get();

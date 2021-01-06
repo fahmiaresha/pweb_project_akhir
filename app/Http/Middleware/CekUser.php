@@ -19,6 +19,5 @@ class CekUser
             return $next($request);
         }
         return redirect('/404');
-        // return $next($request);
     }
 }

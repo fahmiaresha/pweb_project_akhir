@@ -35,7 +35,7 @@
                 <table id="myTable" class="table table-striped table-bordered table-hover">
                     <thead>
                         <tr>
-                        <th>Invoice</th>
+                        <th>Nota</th>
                         <th>Tanggal</th>
                         <th>Kategori</th>
                         <th>Pelanggan</th>
@@ -48,7 +48,7 @@
                 <tbody>
                     @foreach($penjualan as $p)
                     <tr>
-                    <td>INV-{{$p->ID_PENJUALAN}}</td>
+                    <td>NTA-{{$p->ID_PENJUALAN}}</td>
                     <td> {{date('d-m-Y H:i:s', strtotime($p->TANGGAL_PENJUALAN)) }}</td>           
                     <td>
                         @foreach($kategori_pelanggan as $kp)
@@ -116,7 +116,7 @@
                             <div class="form-group">
                             <label for="exampleFormControlTextarea1"><strong>No. Invoice</strong></label>
                             <div class="coba">
-                            INV-{{$p->ID_PENJUALAN}}
+                            NTA-{{$p->ID_PENJUALAN}}
                             </div>
                             </div>
                         </div>
@@ -259,7 +259,7 @@
 
                     <a href="/invoice-penjualan/{{$p->ID_PENJUALAN}}" target="_blank">
                             <button type="button" class="btn btn-outline-success mb-1 ml-2">
-                            <i class="fa fa-print mr-1"></i>Invoice
+                            <i class="fa fa-print mr-1"></i>Nota
                             </button>
                     </a>
                     </td>      

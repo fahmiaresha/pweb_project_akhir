@@ -140,6 +140,12 @@ Route::post('/kategori-produk-store', 'ProdukController@store_kategori_produk');
 Route::post('/kategori-produk-update', 'ProdukController@update_kategori_produk');
 Route::get('/kategori-produk-delete/{id}', 'ProdukController@delete_kategori_produk');
 
+//tambah-stok-produk
+Route::get('/get_detail_produk/{id}', 'ProdukController@get_detail_produk');
+Route::get('/get_produk/{id}', 'ProdukController@get_produk');
+Route::get('/tambah-stok-produk', 'ProdukController@tambah_stok_produk')->name('tambah-stok-produk');
+Route::post('/update-stok-produk', 'ProdukController@update_stok_produk');
+
 //whatsapp
 Route::get('/whatsapp', 'ShowController@show_whatsapp')->name('whatsapp');
 Route::post('/whatsapp-store', 'ShowController@store_whatsapp');

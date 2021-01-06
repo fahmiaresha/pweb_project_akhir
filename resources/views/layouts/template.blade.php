@@ -45,7 +45,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body  class="dark scrollable-layout   " onclick="gerak()">
+<body  class="dark scrollable-layout" onclick="gerak()">
 <!-- horizontal-navigation -->
 <!-- Preloader -->
 <div class="preloader">
@@ -331,12 +331,18 @@
                             <span>Produk</span>
                         </a>
                         <ul>
+                            
+
                              <li>
                             <a @if(request()->segment(1) == 'data-produk') class="active" @endif href="{{ route('data-produk') }}">Data Produk</a>
                             </li>
 
                             <li>
                             <a @if(request()->segment(1) == 'kategori-produk') class="active" @endif href="{{ route('kategori-produk') }}">Kategori Produk</a>
+                            </li>
+
+                            <li>
+                            <a @if(request()->segment(1) == 'tambah-stok-produk') class="active" @endif href="{{ route('tambah-stok-produk') }}">Tambah Stok Produk</a>
                             </li>
 
                         </ul>
@@ -413,8 +419,8 @@
                             </li>
 
 
-                            <li>
-                            <a @if(request()->segment(1) == 'logout') class="active" @endif href="{{ route('logout') }}">Logout</a>
+                            <li onclick="tampil_logout()">
+                            <a @if(request()->segment(1) == 'logout') class="active" @endif >Logout</a>
                             </li>
 
                             
@@ -518,7 +524,7 @@
                 $('#timer').html(max_count);
                 $('#logout_popup').modal('show');
                 startCount();
-            }, 30*60*1000); //, 30 menit=30*60*1000, 
+            }, 30*10*1000); //, 30 menit=30*60*1000, 
         }
 
         function resetTimer(){
@@ -569,12 +575,38 @@
             resetTimer(); 
         }
 
-        const x = document.getElementsByClassName('post0');
-            for(let i=0;i<x.length;i++){
-            x[i].addEventListener('click',function(){
-                x[i].submit();
-            });
-        }
+    
+    </script>
+
+    <script>
+    
+    function tampil_logout(event){
+              // event.preventDefault();
+              // var urlToRedirect = event.currentTarget.getAttribute('href'); //use currentTarget because the click may be on the nested i tag and not a tag causing the href to be empty
+              // console.log(urlToRedirect); // verify if this is the right URL
+              
+              swal({
+                  title: 'Apakah Anda Ingin Logout ?',
+                  text: "Session Akan Di Reset !",
+                  icon: 'warning',
+                  showCancelButton: true,
+                  buttons: true,
+                  dangerMode: true,
+                  
+                }).then((result) => {
+                    if (result) {
+                    swal("Anda Berhasil Logout!", {
+                        icon: "success",
+                    });
+                    tampil_link();
+                  }
+                })
+            }
+
+            function tampil_link(){
+              window.location.href = "{{URL::to('/logout')}}"
+            }
+
     </script>
 
 

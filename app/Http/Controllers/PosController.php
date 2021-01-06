@@ -41,7 +41,7 @@ class PosController extends Controller
     }
 
     public function show_data_penjualan(){
-        $penjualan = DB::table('penjualan')->get();
+        $penjualan = DB::table('penjualan')->orderBy('TANGGAL_PENJUALAN', 'ASC')->get();
         $product = DB::table('produk')->get();
         $pelanggan = DB::table('pelanggan')->get();
         $users = DB::table('users')->get();
