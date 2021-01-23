@@ -8,7 +8,10 @@ class ProdukController extends Controller
 {
     public function __construct() {
         $this->middleware('auth');
+        
     }
+
+  
 
     public function get_detail_produk($id){
         $kategori_produk = DB::table("produk")->where("ID_PRODUK",$id)->get();
@@ -70,6 +73,19 @@ class ProdukController extends Controller
         ,'supplier'=>$supplier]);
     }
 
+    public function history_produk(){
+        $produk = DB::table('produk')->get();
+        $kategori_produk = DB::table('kategori_produk')->get();
+        $supplier = DB::table('supplier')->get();
+        $user = DB::table('users')->get();
+        $history_produk = DB::table('history_produk')->get();
+        $history_sebelum_perubahan_produk = DB::table('history_sebelum_perubahan_produk')->get();
+        // dump($produk);
+        return view('produk/history_produk',['produk'=>$produk,'kategori_produk'=>$kategori_produk
+        ,'supplier'=>$supplier,'history_produk'=>$history_produk,'history_sebelum_perubahan_produk'=>$history_sebelum_perubahan_produk
+        ,'user'=>$user]);
+      }
+
     public function store_produk(Request $request){
         // $this->validate($request, [
 		// 	'file' => 'required|file|image|mimes:jpeg,png,jpg',
@@ -130,7 +146,25 @@ class ProdukController extends Controller
         $y = str_replace("Rp.","",$hj);
         $update_harga_jual = str_replace(".","",$y);
 
+        
+        $produk=DB::table('produk')->where('ID_PRODUK',$request->id)->first();
+
+       
+
         if($request->hasFile('file')){
+
+             //insert ke tabel history_sebelum_perubahan_produk
+                DB::table('history_sebelum_perubahan_produk')->insert(['ID_SUPPLIER' => $produk->ID_SUPPLIER,
+                'ID_KATEGORI_PRODUK' => $produk->ID_KATEGORI_PRODUK,
+                'NAMA_PRODUK' => $produk->NAMA_PRODUK,
+                'TANGGAL_PEMBELIAN_PRODUK'=> $produk->TANGGAL_PEMBELIAN_PRODUK,
+                'STOK_PRODUK'=> $produk->STOK_PRODUK,
+                'HARGA_BELI_PRODUK'=> $produk->HARGA_BELI_PRODUK,
+                'HARGA_JUAL_RESELLER_PRODUK'=> $produk->HARGA_JUAL_RESELLER_PRODUK,
+                'HARGA_JUAL_PELANGGAN_PRODUK'=> $produk->HARGA_JUAL_PELANGGAN_PRODUK,
+                'DESKRIPSI_PRODUK'=> $produk->DESKRIPSI_PRODUK,
+                ]);
+
             $file = $request->file('file');
             $nama_file = time()."_".$file->getClientOriginalName();
             $tujuan_upload = 'foto_produk';
@@ -150,9 +184,34 @@ class ProdukController extends Controller
                 'DESKRIPSI_PRODUK'=> $request->deskripsi_produk,
                 'FOTO_PRODUK' => $nama_file
             ]);
+
+            DB::table('history_produk')->insert(['ID_SUPPLIER' => $request->supplier,
+            'ID_KATEGORI_PRODUK' => $request->kategori,
+            'NAMA_PRODUK' => $request->nama,
+            'TANGGAL_PEMBELIAN_PRODUK'=> $request->daterangepicker,
+            'STOK_PRODUK'=> $request->stok,
+            'HARGA_BELI_PRODUK'=> $update_harga_beli,
+            'HARGA_JUAL_RESELLER_PRODUK'=> $update_harga_jual_reseller,
+            'HARGA_JUAL_PELANGGAN_PRODUK'=> $update_harga_jual,
+            'DESKRIPSI_PRODUK'=> $request->deskripsi_produk,
+            'ID_PEGAWAI' =>$request->nama_user
+            ]);
+            
             return redirect('/data-produk')->with('update','berhasil');
         }
         else{
+            //insert ke tabel history_sebelum_perubahan_produk
+            DB::table('history_sebelum_perubahan_produk')->insert(['ID_SUPPLIER' => $produk->ID_SUPPLIER,
+            'ID_KATEGORI_PRODUK' => $produk->ID_KATEGORI_PRODUK,
+            'NAMA_PRODUK' => $produk->NAMA_PRODUK,
+            'TANGGAL_PEMBELIAN_PRODUK'=> $produk->TANGGAL_PEMBELIAN_PRODUK,
+            'STOK_PRODUK'=> $produk->STOK_PRODUK,
+            'HARGA_BELI_PRODUK'=> $produk->HARGA_BELI_PRODUK,
+            'HARGA_JUAL_RESELLER_PRODUK'=> $produk->HARGA_JUAL_RESELLER_PRODUK,
+            'HARGA_JUAL_PELANGGAN_PRODUK'=> $produk->HARGA_JUAL_PELANGGAN_PRODUK,
+            'DESKRIPSI_PRODUK'=> $produk->DESKRIPSI_PRODUK,
+            ]);
+            
             // echo 'tdk masuk';
             DB::table('produk')->where('ID_PRODUK',$request->id)->update([
                 'ID_SUPPLIER' => $request->supplier,
@@ -165,6 +224,19 @@ class ProdukController extends Controller
                 'HARGA_JUAL_PELANGGAN_PRODUK'=> $update_harga_jual,
                 'DESKRIPSI_PRODUK'=> $request->deskripsi_produk
             ]);
+
+            DB::table('history_produk')->insert(['ID_SUPPLIER' => $request->supplier,
+            'ID_KATEGORI_PRODUK' => $request->kategori,
+            'NAMA_PRODUK' => $request->nama,
+            'TANGGAL_PEMBELIAN_PRODUK'=> $request->daterangepicker,
+            'STOK_PRODUK'=> $request->stok,
+            'HARGA_BELI_PRODUK'=> $update_harga_beli,
+            'HARGA_JUAL_RESELLER_PRODUK'=> $update_harga_jual_reseller,
+            'HARGA_JUAL_PELANGGAN_PRODUK'=> $update_harga_jual,
+            'DESKRIPSI_PRODUK'=> $request->deskripsi_produk,
+            'ID_PEGAWAI' =>$request->nama_user
+            ]);
+
             return redirect('/data-produk')->with('update','berhasil');
         }
 

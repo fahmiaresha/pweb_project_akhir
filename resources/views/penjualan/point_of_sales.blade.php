@@ -1,6 +1,7 @@
 @extends('layouts.template')
 @section('title','Point Of Sales')
 @section('head')
+<meta name="csrf-token" content="{{ csrf_token() }}"> 
   <!-- Datatable -->
   <link rel="stylesheet" href="{{ url('vendors/dataTable/datatables.min.css') }}" type="text/css">
  <!-- select2 -->
@@ -112,22 +113,78 @@
 
                   <div class="form-group col-md-4"> 
                   <label for="customer_id">Pelanggan</label>
-                <!-- <input type="text" class="form-control reset" 
-          id="nota_date" placeholder="Nama Pelanggan" name="nama_pelanggan" 
-          value="" required> -->
-
-                 <select name="nama_pelanggan" class="custom-select">
-                        @foreach($pelanggan as $p)
-                        <option value="{{ $p->ID_PELANGGAN }}" required>{{ $p->NAMA_PELANGGAN }} - {{ $p->ALAMAT_PELANGGAN }}</option>
-                        @endforeach
+                <select name="nama_pelanggan" class="select2-example" id="list_pelanggan">
+                  <option value="0" disabled="true" selected="true">Pilih Kategori Pelanggan Dahulu</option>
                 </select>
 
+                  
                   
                   </div>
           </div>
 
-            <button type="button" class="btn btn-primary mb-3" data-toggle="modal" onclick="show_alert()">
-            <i class="fa fa-plus-circle mr-2"></i>Penjualan</button>
+<div class="form-row">
+  <div class="form-group col-md-4">    
+    <button type="button" class="btn btn-primary mb-3" data-toggle="modal" onclick="show_alert()">
+    <i class="fa fa-plus-circle mr-2"></i>Penjualan</button>
+  </div>
+    <div class="form-group col-md-4">
+    </div>
+    <div class="form-group col-md-4">
+        <div id="tambah_pelanggan_baru">
+                        <button type="button" class="btn btn-primary mb-2" data-toggle="modal"  data-target="#coba">
+                            <i class="fa fa-plus-circle mr-2"></i>Pelanggan</button>
+                            <div class="modal fade" tabindex="-1" role="dialog" id="coba">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Data Pelanggan</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                <!-- <form method="post" action=""> -->
+                                        <label for="Kategori">Kategori</label>
+                                        <select name="kategori_pelanggan_ajax" id="kategori" class="select2-example">
+                                        <option disabled="true" selected="true" required>Pilih Kategori</option>
+                                        @foreach($kategori_pelanggan as $kp)
+                                        <option value="{{ $kp->ID_KATEGORI_PELANGGAN }}" required>{{ $kp->NAMA_KATEGORI_PELANGGAN }}</option>
+                                        @endforeach
+                                      </select>
+
+                                        <label for="Nama" style="margin-top:10px;">Nama</label>
+                                        <div class="form-group">
+                                            <input type="text" class="demo-code-preview form-control mt-1" 
+                                            id="nama" placeholder="Nama Lengkap" name="nama_pelanggan_ajax" value="{{ old('nama') }}" required>
+                                        </div>
+
+                                        <label for="Alamat">Alamat</label>
+                                        <div class="form-group">
+                                            <input type="text" class="demo-code-preview form-control mt-1" 
+                                            id="alamat" placeholder="Alamat Lengkap" name="alamat_pelanggan_ajax" value="{{ old('alamat') }}" >
+                                        </div>
+
+                                        <label for="Telp">Telepon</label>
+                                        <div class="form-group">
+                                            <input type="number" class="demo-code-preview form-control mt-1" 
+                                            id="telp" placeholder="Telepon" name="telp_pelanggan_ajax" value="{{ old('telp') }}" >
+                                        </div>
+                                </div>
+                                
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary btn-submit-pelanggan-baru" data-dismiss="modal">Insert</button>
+                                    <!-- </form> -->
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="div"><h7 style="color:#e3bcba">Klik untuk membuat pelanggan baru...</h5></div>
+                      
+                        </div>
+    </div>
+
+</div>
 
             <!-- .modal-lg -->
             <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="tambahModal">
@@ -298,13 +355,10 @@
     <div class="row">
         <div class="col-md-12 text-right">
             <button type="button" onclick="klik_reset()" class="btn btn-danger mr-1">Reset</button>
-            <button type="submit" class="btn btn-warning">Simpan Transaksi</button>
+            <button type="submit" id="submit_transaksi" class="btn btn-warning">Simpan Transaksi</button>
         </div>
     </div>
 </div>
-
-
-                            
             </form>
             </div>
         </div>
@@ -344,18 +398,44 @@ var harga_produk_penjualan;
 var pilih_kategori_pelanggan;
 var pelanggan_kategori;
 
+function submit_transaksi(){
+  document.getElementById("submit_transaksi").submit();
+}
+
 $(".readonly").keydown(function(e){
         e.preventDefault();
 });
-
-
-
-
 
 $(document).ready(function (){
     $('.mydatatable').DataTable();
     $('.select2-example').select2();
     $('#select2').select2();
+
+    jQuery("#pelanggan_kategori").change(function(){
+               var pelanggan = jQuery(this).val();
+               if(pelanggan)
+               {
+                console.log('masuk if pelanggan');
+                  jQuery.ajax({
+                     url : 'get_detail_pelanggan/' +pelanggan,
+                     type : "GET",
+                     dataType : "json",
+                     success:function(data)
+                     {
+                        console.log(data);
+                        jQuery('select[name="nama_pelanggan"]').empty();
+                        jQuery.each(data, function(key,value){
+                           $('select[name="nama_pelanggan"]').append('<option value="'+ value.ID_PELANGGAN +'">'+ value.NAMA_PELANGGAN + ' - '+ value.ALAMAT_PELANGGAN+'</option>');
+                        });
+                     }
+                  });
+               }
+               else
+               {
+                  $('select[name="nama_pelanggan"]').empty();
+               }
+    });
+
 });
 </script>
 <script src="../../vendors/select2/js/select2.min.js"></script>
@@ -442,9 +522,6 @@ function kategori_pelanggan(){
   pelanggan_kategori = document.getElementById("pelanggan_kategori").value;
 
   document.getElementById('isi_kategori_pelanggan').value = pelanggan_kategori;
-                
-
-  
   // console.log(pelanggan_kategori);
   // 1=reseller
   // 2=non reseller
@@ -738,9 +815,97 @@ function recount(id) {
 
 			rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
 			return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
-		}    
+    }    
+    
+   
 
 
+</script>
+
+
+<script>
+ $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $(".btn-submit-pelanggan-baru").click(function(e){
+      console.log('masuk ajax pelanggan baru');
+        e.preventDefault();
+
+        var kategori_pelanggan_ajax = $("[name=kategori_pelanggan_ajax]").val();
+        var nama_pelanggan_ajax = $("input[name=nama_pelanggan_ajax]").val();
+        var alamat_pelanggan_ajax = $("input[name=alamat_pelanggan_ajax]").val();
+        var telp_pelanggan_ajax = $("input[name=telp_pelanggan_ajax]").val();
+        
+        var url = '{{ url('store-pelanggan-ajax') }}';
+        $.ajax({
+           url:url,
+           method:'POST',
+           data:{
+                  name_kategori_pelanggan_ajax:kategori_pelanggan_ajax, 
+                  name_nama_pelanggan_ajax:nama_pelanggan_ajax, 
+                  name_alamat_pelanggan_ajax:alamat_pelanggan_ajax, 
+                  name_telp_pelanggan_ajax:telp_pelanggan_ajax, 
+                },
+           success:function(response){
+              if(response.success){
+                  // alert('sukses')
+                  show_alert_sukses_create_pelanggan();
+              }else{
+                  alert("Data Gagal Ditambahkan");
+              }
+           },
+           error:function(error){
+              console.log(error)
+           }
+        });
+	});
+
+  function show_alert_sukses_create_pelanggan(){
+        toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "1000",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+        }
+        toastr.success('Data Pelanggan Berhasil Ditambahkan! . . .'); 
+
+        var pelanggan = $('#pelanggan_kategori').val();
+        if(pelanggan)
+        {
+        console.log('masuk if pelanggan');
+          jQuery.ajax({
+              url : 'get_detail_pelanggan/' +pelanggan,
+              type : "GET",
+              dataType : "json",
+              success:function(data)
+              {
+                console.log(data);
+                jQuery('select[name="nama_pelanggan"]').empty();
+                jQuery.each(data, function(key,value){
+                    $('select[name="nama_pelanggan"]').append('<option value="'+ value.ID_PELANGGAN +'">'+ value.NAMA_PELANGGAN + ' - '+ value.ALAMAT_PELANGGAN+'</option>');
+                });
+              }
+          });
+        }
+        else
+        {
+          // $('select[name="nama_pelanggan"]').append('<option disabled="true" selected="true" required>Pilih Kategori</option>');
+        }  
+    }
 </script>
 
 @if (session('insert'))

@@ -116,7 +116,8 @@ class ShowController extends Controller
         $user = Auth::user();
         $jabatan = $user->ID_JABATAN;
         $name = $user->name;
-        
+
+        Session::put('status_toast','0');
         Session::put('id_user',$userId);
         Session::put('nama_user',$name);
 

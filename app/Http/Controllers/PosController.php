@@ -11,6 +11,26 @@ class PosController extends Controller
     public function __construct() {
         $this->middleware('auth');
     }
+
+    public function get_detail_pelanggan($id){
+        $pelanggan = DB::table("pelanggan")->where("ID_KATEGORI_PELANGGAN",$id)->get();
+        return json_encode($pelanggan);
+    }
+
+    public function store_pelanggan_ajax(Request $request){
+
+       DB::table('pelanggan')->insert(['ID_KATEGORI_PELANGGAN' =>$request->input('name_kategori_pelanggan_ajax'),
+       'NAMA_PELANGGAN' =>  $request->input('name_nama_pelanggan_ajax'),
+       'ALAMAT_PELANGGAN' =>  $request->input('name_alamat_pelanggan_ajax'),
+       'TELP_PELANGGAN'=>  $request->input('name_telp_pelanggan_ajax'),
+       ]);
+
+       return response()->json(
+        [
+          'success' => true,
+          'message' => 'Data inserted successfully'
+        ]);
+    }
     
     public function invoice_penjualan($id){
         $id_invoice=$id;

@@ -347,6 +347,10 @@
                             <a @if(request()->segment(1) == 'tambah-stok-produk') class="active" @endif href="{{ route('tambah-stok-produk') }}">Tambah Stok Produk</a>
                             </li>
 
+                            <li>
+                            <a @if(request()->segment(1) == 'history-produk') class="active" @endif href="{{ route('history-produk') }}">History Produk</a>
+                            </li>
+
                         </ul>
                     </li>
 
@@ -391,14 +395,14 @@
                     @endif
 
 
-                    <!-- <li>
+                    <li>
                         <a @if(request()->segment(1) =='whatsapp') class="active" @endif href="{{ route('whatsapp') }}" >
                     <span class="nav-link-icon">
-                    <i class="fa fa-whatsapp"></i>
+                    <i class="fab fa-whatsapp"></i>
                     </span>
                             <span>Whatsapp</span>
                         </a>
-                    </li> -->
+                    </li>
 
 
                     

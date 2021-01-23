@@ -227,6 +227,7 @@
                                 <form method="post" action="{{ url('/data-produk-update') }}" enctype="multipart/form-data">
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $p->ID_PRODUK }}">
+                                <input type="hidden" name="nama_user" value="{{Session::get('id_user')}}">
 
                                 <label for="Kategori">Kategori</label>
                                 <select name="kategori" id="kategori" class="form-control">

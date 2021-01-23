@@ -136,6 +136,9 @@ Route::post('/data-produk-store', 'ProdukController@store_produk');
 Route::post('/data-produk-update', 'ProdukController@update_produk');
 Route::get('/data-produk-delete/{id}', 'ProdukController@delete_produk');
 
+//history-produk
+Route::get('/history-produk', 'ProdukController@history_produk')->name('history-produk');
+
 //kategori-produk
 Route::get('/kategori-produk', 'ProdukController@tampil_kategori_produk')->name('kategori-produk');
 Route::post('/kategori-produk-store', 'ProdukController@store_kategori_produk');
@@ -160,6 +163,8 @@ Route::post('/ubah-password-pegawai', 'ShowController@ubahpassword');
 //point-of-sales
 Route::get('/point-of-sales', 'PosController@show_pos')->name('point-of-sales');
 Route::post('/point-of-sales/store', 'PosController@store_pos');
+Route::get('/get_detail_pelanggan/{id}', 'PosController@get_detail_pelanggan');
+Route::post('/store-pelanggan-ajax', 'PosController@store_pelanggan_ajax');
 
 //penjualan
 Route::get('/data-penjualan', 'PosController@show_data_penjualan')->name('data-penjualan');

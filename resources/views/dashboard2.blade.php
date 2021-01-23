@@ -439,6 +439,7 @@
             </button>
           </div>
           <div class="modal-body">
+          <div class="table-responsive">
           <table class="table table-active table-hover" id="myTable">
                         <thead>
                         <tr>
@@ -478,6 +479,7 @@
                         @endforeach
                         </table>
                         <br>
+          </div>
           </div>
          
         </div>
@@ -642,4 +644,21 @@ var produk = document.getElementById("produk").getContext('2d');
 			}
 		});
 </script>
+@php
+  $x=Session::get('status_toast');
+@endphp
+@if($x==0)
+<script>
+toastr.options = {
+        timeOut: 3000,
+        progressBar: true,
+        showMethod: "slideDown",
+        hideMethod: "slideUp",
+        showDuration: 200,
+        hideDuration: 200
+    };
+toastr.success('Welcome !');
+</script>
+@php Session::put('status_toast','1'); @endphp
+@endif
 @endsection

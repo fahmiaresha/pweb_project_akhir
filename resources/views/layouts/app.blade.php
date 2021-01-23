@@ -8,7 +8,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- <title>{{ config('app.name', 'Laravel') }}</title> -->
-    <title>Toko Bagus</title>
+    <!-- <title>Toko Bagus</title> -->
+    <link rel="shortcut icon" href="{{ url('assets/media/image/favicon.ico') }}"/>
+    <title>@yield('title')</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
