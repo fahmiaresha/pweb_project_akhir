@@ -160,6 +160,13 @@ Route::get('/profile', 'ShowController@profile')->name('profile');
 Route::post('/update-profile', 'ShowController@update_profile');
 Route::post('/ubah-password-pegawai', 'ShowController@ubahpassword');
 
+
+//penerimaan-barang
+Route::get('/data-penerimaan-barang', 'PenerimaanController@show_penerimaan_barang')->name('data-penerimaan-barang');
+Route::get('/penerimaan-barang', 'PenerimaanController@input_penerimaan_barang')->name('penerimaan-barang');
+Route::post('/penerimaan-barang/store', 'PenerimaanController@store_penerimaan_barang');
+Route::get('/get-supplier/{id}', 'PenerimaanController@get_supplier');
+
 //point-of-sales
 Route::get('/point-of-sales', 'PosController@show_pos')->name('point-of-sales');
 Route::post('/point-of-sales/store', 'PosController@store_pos');

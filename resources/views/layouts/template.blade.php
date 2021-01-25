@@ -15,6 +15,12 @@
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+    <!-- animate -->
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
     <style>
     .badge-notif {
         position:relative;
@@ -357,6 +363,24 @@
                     <li>
                         <a href="#">
                         <span class="nav-link-icon">
+                    <i class="fas fa-vote-yea" style="margin-left:-2px;"></i>
+                    </span>
+                            <span>Penerimaan</span>
+                        </a>
+                        <ul>
+                            <li>
+                            <a @if(request()->segment(1) == 'data-penerimaan') class="active" @endif href="{{ route('data-penerimaan-barang') }}">Data Penerimaan</a>
+                            </li>
+
+                             <li>
+                            <a @if(request()->segment(1) == 'penerimaan-barang') class="active" @endif href="{{ route('penerimaan-barang') }}">Penerimaan Barang</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                        <span class="nav-link-icon">
                     <i class="fa fa-cart-plus"></i>
                     </span>
                             <span>Penjualan</span>
@@ -395,14 +419,14 @@
                     @endif
 
 
-                    <li>
+                    <!-- <li>
                         <a @if(request()->segment(1) =='whatsapp') class="active" @endif href="{{ route('whatsapp') }}" >
                     <span class="nav-link-icon">
                     <i class="fab fa-whatsapp"></i>
                     </span>
                             <span>Whatsapp</span>
                         </a>
-                    </li>
+                    </li> -->
 
 
                     

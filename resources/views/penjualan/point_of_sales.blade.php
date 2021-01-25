@@ -133,52 +133,7 @@
         <div id="tambah_pelanggan_baru">
                         <button type="button" class="btn btn-primary mb-2" data-toggle="modal"  data-target="#coba">
                             <i class="fa fa-plus-circle mr-2"></i>Pelanggan</button>
-                            <div class="modal fade" tabindex="-1" role="dialog" id="coba">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Data Pelanggan</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                <!-- <form method="post" action=""> -->
-                                        <label for="Kategori">Kategori</label>
-                                        <select name="kategori_pelanggan_ajax" id="kategori" class="select2-example">
-                                        <option disabled="true" selected="true" required>Pilih Kategori</option>
-                                        @foreach($kategori_pelanggan as $kp)
-                                        <option value="{{ $kp->ID_KATEGORI_PELANGGAN }}" required>{{ $kp->NAMA_KATEGORI_PELANGGAN }}</option>
-                                        @endforeach
-                                      </select>
-
-                                        <label for="Nama" style="margin-top:10px;">Nama</label>
-                                        <div class="form-group">
-                                            <input type="text" class="demo-code-preview form-control mt-1" 
-                                            id="nama" placeholder="Nama Lengkap" name="nama_pelanggan_ajax" value="{{ old('nama') }}" required>
-                                        </div>
-
-                                        <label for="Alamat">Alamat</label>
-                                        <div class="form-group">
-                                            <input type="text" class="demo-code-preview form-control mt-1" 
-                                            id="alamat" placeholder="Alamat Lengkap" name="alamat_pelanggan_ajax" value="{{ old('alamat') }}" >
-                                        </div>
-
-                                        <label for="Telp">Telepon</label>
-                                        <div class="form-group">
-                                            <input type="number" class="demo-code-preview form-control mt-1" 
-                                            id="telp" placeholder="Telepon" name="telp_pelanggan_ajax" value="{{ old('telp') }}" >
-                                        </div>
-                                </div>
-                                
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary btn-submit-pelanggan-baru" data-dismiss="modal">Insert</button>
-                                    <!-- </form> -->
-                                </div>
-                                </div>
-                            </div>
-                            </div>
+                            
                             <div class="div"><h7 style="color:#e3bcba">Klik untuk membuat pelanggan baru...</h5></div>
                       
                         </div>
@@ -202,6 +157,7 @@
                       <thead>
                         <tr>
                           <th width=1px scope="col">#</th>
+                          <th scope="col">Tanggal Pembelian</th>
                           <th scope="col">Kategori</th>
                           <th scope="col">Nama</th>
                           <th scope="col" class="th_harga_reseller">Harga</th>
@@ -224,6 +180,9 @@
                             </div>
                        
                           </th>
+                          <td>
+                          {{$pr->TANGGAL_PEMBELIAN_PRODUK}}
+                          </td>
                           @foreach($kategori_produk as $kp)
                           
                           @if($pr->ID_KATEGORI_PRODUK==$kp->ID_KATEGORI_PRODUK)
@@ -388,6 +347,66 @@
       </div>
     </div>
     @endif
+
+<!-- modal tambah pelanggan baru -->
+    <div class="modal fade" tabindex="-1" role="dialog" id="coba">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Data Pelanggan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            <form method="post" name="post_tambah_pelanggan_baru" action="">
+                    <label for="Kategori">Kategori</label>
+                  <select name="kategori_pelanggan_ajax"  class="select2-example">
+                    <option disabled="true" id="id_kategori_pelanggan_ajax" value="" selected="true" required>Pilih Kategori</option>
+                    @foreach($kategori_pelanggan as $kp)
+                    <option value="{{ $kp->ID_KATEGORI_PELANGGAN }}" required>{{ $kp->NAMA_KATEGORI_PELANGGAN }}</option>
+                    @endforeach
+                  </select>
+                  <div class="div mt-1">
+                  <h8 style="color:#e3bcba" id="validate_kategori_pelanggan_ajax"></h8>
+                  </div>
+                  
+
+                    <label for="Nama" style="margin-top:10px;">Nama</label>
+                    <div class="form-group">
+                        <input type="text" class="demo-code-preview form-control mt-1" 
+                        id="nama_pelanggan_ajax" placeholder="Nama Lengkap" name="nama_pelanggan_ajax" value="{{ old('nama') }}" required>
+                    </div>
+
+                  <div class="div mb-1" style="margin-top:-12px;">
+                  <h8 style="color:#e3bcba" id="validate_nama_pelanggan_ajax"></h8>
+                  </div>
+
+                    <label for="Alamat">Alamat</label>
+                    <div class="form-group">
+                        <input type="text" class="demo-code-preview form-control mt-1" 
+                        id="alamat_pelanggan_ajax" placeholder="Alamat Lengkap" name="alamat_pelanggan_ajax" value="{{ old('alamat') }}" >
+                    </div>
+
+                  <div class="div mb-1" style="margin-top:-12px;">
+                  <h8 style="color:#e3bcba" id="validate_alamat_pelanggan_ajax"></h8>
+                  </div>
+
+                    <label for="Telp">Telepon</label>
+                    <div class="form-group">
+                        <input type="number" class="demo-code-preview form-control mt-1" 
+                        id="telp" placeholder="Telepon" name="telp_pelanggan_ajax" value="{{ old('telp') }}" >
+                    </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary btn-submit-pelanggan-baru">Insert</button>
+                </form>
+            </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('script')
@@ -441,7 +460,7 @@ $(document).ready(function (){
 <script src="../../vendors/select2/js/select2.min.js"></script>
 <script src="{{ url('vendors/dataTable/datatables.min.js') }}"></script>
 <script src="{{ url('assets/js/examples/pages/user-list.js') }}"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
 
 
 <script>
@@ -831,36 +850,54 @@ function recount(id) {
     });
 
     $(".btn-submit-pelanggan-baru").click(function(e){
-      console.log('masuk ajax pelanggan baru');
+        console.log('masuk ajax pelanggan baru');
         e.preventDefault();
 
         var kategori_pelanggan_ajax = $("[name=kategori_pelanggan_ajax]").val();
         var nama_pelanggan_ajax = $("input[name=nama_pelanggan_ajax]").val();
         var alamat_pelanggan_ajax = $("input[name=alamat_pelanggan_ajax]").val();
         var telp_pelanggan_ajax = $("input[name=telp_pelanggan_ajax]").val();
+
+      
+        if(id_kategori_pelanggan_ajax==""){
+                console.log('masuk validate kategori pelanggan');
+                $('#validate_kategori_pelanggan_ajax').val('Pilih Kategori Pelanggan...');
+        }
+        if(nama_pelanggan_ajax==""){
+                // console.log('masuk validate nama pelanggan');
+                $('#validate_nama_pelanggan_ajax').html('Nama Lengkap Harus Di isi...');        
+        }
+        if(alamat_pelanggan_ajax==""){
+          $('#validate_alamat_pelanggan_ajax').html('Alamat Harus Di isi...'); 
+        }
         
-        var url = '{{ url('store-pelanggan-ajax') }}';
-        $.ajax({
-           url:url,
-           method:'POST',
-           data:{
-                  name_kategori_pelanggan_ajax:kategori_pelanggan_ajax, 
-                  name_nama_pelanggan_ajax:nama_pelanggan_ajax, 
-                  name_alamat_pelanggan_ajax:alamat_pelanggan_ajax, 
-                  name_telp_pelanggan_ajax:telp_pelanggan_ajax, 
-                },
-           success:function(response){
-              if(response.success){
-                  // alert('sukses')
-                  show_alert_sukses_create_pelanggan();
-              }else{
-                  alert("Data Gagal Ditambahkan");
+        if(kategori_pelanggan_ajax!="" && nama_pelanggan_ajax!="" && alamat_pelanggan_ajax!=""){
+            var url = '{{ url('store-pelanggan-ajax') }}';
+            $.ajax({
+              url:url,
+              method:'POST',
+              data:{
+                      name_kategori_pelanggan_ajax:kategori_pelanggan_ajax, 
+                      name_nama_pelanggan_ajax:nama_pelanggan_ajax, 
+                      name_alamat_pelanggan_ajax:alamat_pelanggan_ajax, 
+                      name_telp_pelanggan_ajax:telp_pelanggan_ajax, 
+                    },
+              success:function(response){
+                  if(response.success){
+                      // alert('sukses')
+                      show_alert_sukses_create_pelanggan();
+                  }else{
+                      alert("Data Gagal Ditambahkan");
+                  }
+              },
+              error:function(error){
+                  console.log(error)
               }
-           },
-           error:function(error){
-              console.log(error)
-           }
-        });
+            });           
+          }
+          else{
+              
+          }
 	});
 
   function show_alert_sukses_create_pelanggan(){
