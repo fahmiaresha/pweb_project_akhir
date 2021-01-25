@@ -12,41 +12,70 @@ class PenerimaanController extends Controller
     }
 
     public function show_penerimaan_barang(){
+        $supplier= DB::table('supplier')->get();
+        $product = DB::table('produk')->get();
+        $users = DB::table('users')->get();
+        $kategori_produk = DB::table('kategori_produk')->get();
+        $penerimaan_barang = DB::table('penerimaan_barang')->get();
+        $detail_penerimaan_barang = DB::table('detail_penerimaan_barang')->get();
+        
 
+        return view('penerimaan_barang/data_penerimaan_barang',['supplier'=>$supplier
+        ,'product'=>$product,'users'=>$users,'penerimaan_barang'=>$penerimaan_barang
+        ,'kategori_produk'=>$kategori_produk,'detail_penerimaan_barang'=>$detail_penerimaan_barang
+        ]);
     }
 
     public function store_penerimaan_barang(Request $request)
     {     
-        dd(request()->all());
-        //   try{
-            // DB::beginTransaction();     
-            // DB::table('penerimaan_barang')->insert([
-            //     'TANGGAL_NOTA' => $request->tanggal_nota,
-            //     'NOMOR_NOTA' => $request->nomor_nota,
-            //     'ID_USER' => $request->id_kasir,
-            //     'CATATAN_PENERIMAAN_BARANG' => $request->catatan_penerimaan_barang,
-            //     'FOTO_NOTA' => $request->file,
-            //     'TOTAL_PENERIMAAN_BARANG' => 111,
-            // ]);          
-    
-            //     foreach($request['ID_PRODUK'] as $pr){
-            //         DB::table('detail_penerimaan_barang')->insert([
-            //             'ID_PENERIMAAN_BARANG' => $request->id_penerimaan_barang,
-            //             'ID_PRODUK' => $pr ,
-            //             'ID_SUPPLIER' => $request['ID_SUPPLIER'][$pr] ,
-            //             'TANGGAL_PEMBELIAN_PRODUK' => $request['TGL_PEMBELIAN'][$pr] ,
-            //             'ID_KATEGORI_PRODUK' => $request['ID_KATEGORI_PRODUK'][$pr] ,
-            //             'STOK_LAMA_PRODUK' => $request['STOK_PRODUK'][$pr] ,
-            //             'JUMLAH_PRODUK_DITERIMA' => $request['jumlah'][$pr] ,
-            //         ]);     
-            //     }
-                // DB::commit();
-                // return redirect('/penerimaan-barang');
-        //   }
-        //   catch(\Exception $exception){
-        //       DB::rollBack();
-        //       return redirect('/penerimaan-barang')->with('gagal','gagal');
-        //   } 
+        // dd(request()->all());
+        if($request->hasFile('file')){
+            $file = $request->file('file');
+            $nama_file = time()."_".$file->getClientOriginalName();
+            $tujuan_upload = 'foto_penerimaan_barang';
+		    $file->move($tujuan_upload,$nama_file);
+        }
+        else{
+            $nama_file="";
+        }
+        
+          try{
+            DB::beginTransaction();     
+     
+                foreach($request['ID_PRODUK'] as $pr){
+                    DB::table('detail_penerimaan_barang')->insert([
+                        'ID_PENERIMAAN_BARANG' => $request->id_penerimaan_barang,
+                        'ID_PRODUK' => $pr ,
+                        'ID_SUPPLIER' => $request['ID_SUPPLIER'][$pr] ,
+                        'TANGGAL_PEMBELIAN_PRODUK' => $request['TGL_PEMBELIAN'][$pr] ,
+                        'ID_KATEGORI_PRODUK' => $request['ID_KATEGORI_PRODUK'][$pr] ,
+                        'STOK_LAMA_PRODUK' => $request['STOK_PRODUK'][$pr] ,
+                        'JUMLAH_PRODUK_DITERIMA' => $request['jumlah'][$pr] ,
+                        'STOK_BARU_PRODUK' => $request['STOK_PRODUK'][$pr] + $request['jumlah'][$pr] ,
+                    ]);     
+                }
+
+                $jumlah_produk_diterima=0;
+                foreach($request['ID_PRODUK'] as $pr){
+                        $jumlah_produk_diterima= $jumlah_produk_diterima + $request['jumlah'][$pr];
+                }
+
+                DB::table('penerimaan_barang')->insert([
+                    'TANGGAL_NOTA' => $request->tanggal_nota,
+                    'NOMOR_NOTA' => $request->nomor_nota,
+                    'ID_USER' => $request->id_kasir,
+                    'CATATAN_PENERIMAAN_BARANG' => $request->catatan_penerimaan_barang,
+                    'FOTO_NOTA' => $nama_file,
+                    'TOTAL_PENERIMAAN_BARANG' => $jumlah_produk_diterima,
+                ]);
+
+                DB::commit();
+                return redirect('/penerimaan-barang')->with('insert','sukses');
+          }
+          catch(\Exception $exception){
+              DB::rollBack();
+              return redirect('/penerimaan-barang')->with('gagal','gagal');
+          } 
     }
 
     public function get_supplier($id){

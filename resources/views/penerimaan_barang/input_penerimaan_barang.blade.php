@@ -33,7 +33,7 @@
         <div class="card-body">
             <div class="table-responsive">
 
-            <form method="post" action="{{ url('/penerimaan-barang/store') }}">
+            <form method="post" action="{{ url('/penerimaan-barang/store') }}" enctype="multipart/form-data">
                 @csrf
               <div class="coba mb-2">
                 <label for="date" ><font size="4"><strong>Penerimaan #{{$total_penerimaan_barang}}</strong></font></label>
@@ -367,7 +367,7 @@ function addRow(id){
 	    <div class='row'>\
 	      <h6 class='NAMA_SUPPLIER'>"+name_supplier+" - "+alamat_supplier+"</div>\
 	    <div class='row'>\
-	      <input type='hidden' name='ID_SUPPLIER["+id+"]'  readonly id='ID_SUPPLIER"+id+"' value='"+name_supplier+"'></div>\
+	      <input type='hidden' name='ID_SUPPLIER["+id+"]'  readonly id='ID_SUPPLIER"+id+"' value='"+supplier+"'></div>\
 	  </td>\
 	  \
       \
@@ -455,6 +455,16 @@ function klik_reset(){
   $("#keranjang_kosong").show();
 }
 </script>
-    
+@if (session('insert'))
+<script>
+swal("Success!","Data Penerimaan Berhasil Di Tambahkan","success");
+</script>
+@endif
+
+@if (session('gagal'))
+<script>
+swal("Oops!","Data Penerimaan Gagal Di Tambahkan","error");
+</script>
+@endif
        
 @endsection

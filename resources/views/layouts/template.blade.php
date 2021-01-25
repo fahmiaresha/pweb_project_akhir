@@ -369,7 +369,7 @@
                         </a>
                         <ul>
                             <li>
-                            <a @if(request()->segment(1) == 'data-penerimaan') class="active" @endif href="{{ route('data-penerimaan-barang') }}">Data Penerimaan</a>
+                            <a @if(request()->segment(1) == 'data-penerimaan-barang') class="active" @endif href="{{ route('data-penerimaan-barang') }}">Data Penerimaan</a>
                             </li>
 
                              <li>
