@@ -166,6 +166,8 @@ Route::get('/data-penerimaan-barang', 'PenerimaanController@show_penerimaan_bara
 Route::get('/penerimaan-barang', 'PenerimaanController@input_penerimaan_barang')->name('penerimaan-barang');
 Route::post('/penerimaan-barang/store', 'PenerimaanController@store_penerimaan_barang');
 Route::get('/get-supplier/{id}', 'PenerimaanController@get_supplier');
+Route::post('/data-produk-store-input-penerimaan-barang', 'PenerimaanController@store_produk');
+
 
 //point-of-sales
 Route::get('/point-of-sales', 'PosController@show_pos')->name('point-of-sales');
@@ -177,6 +179,8 @@ Route::post('/store-pelanggan-ajax', 'PosController@store_pelanggan_ajax');
 Route::get('/data-penjualan', 'PosController@show_data_penjualan')->name('data-penjualan');
 Route::get('/invoice-penjualan/{id}', 'PosController@invoice_penjualan');
 
+//galery
+Route::get('/gallery', 'ShowController@gallery')->name('gallery');
 });
 
 // user-manual

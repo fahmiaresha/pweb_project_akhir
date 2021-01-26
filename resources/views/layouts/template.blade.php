@@ -349,15 +349,25 @@
                             <a @if(request()->segment(1) == 'kategori-produk') class="active" @endif href="{{ route('kategori-produk') }}">Kategori Produk</a>
                             </li>
 
-                            <li>
+                            <!-- <li>
                             <a @if(request()->segment(1) == 'tambah-stok-produk') class="active" @endif href="{{ route('tambah-stok-produk') }}">Tambah Stok Produk</a>
-                            </li>
+                            </li> -->
 
                             <li>
                             <a @if(request()->segment(1) == 'history-produk') class="active" @endif href="{{ route('history-produk') }}">History Produk</a>
                             </li>
 
                         </ul>
+                    </li>
+
+                    <li>
+                        <a @if(request()->segment(1) == 'gallery') class="active"
+                           @endif href="{{ route('gallery') }}">
+                    <span class="nav-link-icon">
+                        <i class="fas fa-images"></i>
+                    </span>
+                            <span>Gallery</span>
+                        </a>
                     </li>
 
                     <li>

@@ -77,7 +77,7 @@
 
                         <div class="form-group col-md-4"> 
                         <label for="customer_id">Nota</label>
-                        <input type="text" class="form-control" id="" placeholder="Nomor Nota..." name="nomor_nota" required >
+                        <input type="text" class="form-control" id="nomor_nota" placeholder="Nomor Nota..." name="nomor_nota" required >
                         </div>
                 </div>
         <div class="form-row">
@@ -227,6 +227,102 @@
         </div>
     </div>
 
+<!-- modal tambah produk-->
+    <div class="modal fade" tabindex="-1" role="dialog" id="produkbaru">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Data Produk</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                <form method="post" action="{{ url('/data-produk-store-input-penerimaan-barang') }}" enctype="multipart/form-data">
+                        @csrf
+                        <label for="Kategori">Kategori</label>
+                        <select name="kategori" id="select2" class="select2-example">
+                        <option disabled="true" selected="true" required>Pilih Kategori</option>
+                        @foreach($kategori_produk as $kp)
+                        <option value="{{ $kp->ID_KATEGORI_PRODUK }}" required>{{ $kp->NAMA_KATEGORI_PRODUK }}</option>
+                        @endforeach
+                       </select>
+                        <div class="div mt-2">
+                        
+                        </div>
+                       <label for="Kategori">Supplier</label>
+                        <select name="supplier" id="supplier" class="select2-example">
+                        <option disabled="true" selected="true" required>Pilih Supplier</option>
+                        @foreach($supplier as $sp)
+                        <option value="{{ $sp->ID_SUPPLIER }}" required>{{ $sp->NAMA_SUPPLIER }}</option>
+                        @endforeach
+                       </select>
+
+                       <label for="Nama" style="margin-top:10px;">Tanggal Pembelian</label>
+                        <div class="form-group">
+                        <input type="text" name="daterangepicker" class="form-control" class="demo-code-preview form-control mt-1" placeholder="Tanggal Pembelian" name="daterangepicker" id="daterangepicker" value="{{ old('daterangepicker') }}">
+                        </div>
+                       
+                        <label for="Nama" style="margin-top:10px;">Nama</label>
+                        <div class="form-group">
+                            <input type="text" class="demo-code-preview form-control mt-1" 
+                            id="nama" placeholder="Nama Produk" name="nama" value="{{ old('nama') }}" required>
+                        </div>
+
+                        <label for="Nama" style="margin-top:10px;">Stok</label>
+                        <div class="form-group">
+                            <input type="number" class="demo-code-preview form-control mt-1" 
+                            id="nama" placeholder="Stok Produk" min="1" name="stok" value="{{ old('stok') }}" required>
+                        </div>
+
+                        <label for="Nama" style="margin-top:10px;">Harga Beli</label>
+                        <div class="form-group">
+                            <input type="text" id="harga_beli" class="demo-code-preview form-control mt-1" 
+                            id="nama" placeholder="Harga Beli Produk" name="harga_beli" value="{{ old('harga_beli') }}" required>
+                        </div>
+
+                        <label for="Nama" style="margin-top:10px;">Harga Reseller</label>
+                        <div class="form-group">
+                            <input type="text" id="harga_jual_reseller" class="demo-code-preview form-control mt-1" 
+                            id="nama" placeholder="Harga Jual Reseller" name="harga_jual_reseller" value="{{ old('harga_jual_reseller') }}" required>
+                        </div>
+
+                        <label for="Nama" style="margin-top:10px;">Harga Jual</label>
+                        <div class="form-group">
+                            <input type="text" id="harga_jual" class="demo-code-preview form-control mt-1" 
+                            id="nama" placeholder="Harga Jual" name="harga_jual" value="{{ old('harga_jual') }}" required>
+                        </div>
+
+                        <label for="Nama" style="margin-top:10px;">Foto</label>
+                        <div class="form-group">
+                        <div class="custom-file">
+                        <input type="file" class="custom-file-input" name="file" required>
+                            <label class="custom-file-label" for="customFile" >Choose file</label>
+                        </div>
+                        @if(count($errors) > 0)
+                        <div class="alert alert-danger mt-2">
+                            @foreach ($errors->all() as $error)
+                                {{ $error }}
+                            @endforeach
+                        </div>
+                        @endif
+                        </div>
+
+                        <label for="Nama" style="margin-top:10px;">Deskripsi</label>
+                        <div class="form-group">
+                        <textarea class="demo-code-preview form-control mt-1"
+                        placeholder="Deskripsi Produk" name="deskripsi_produk" value="{{ old('deskripsi_produk') }}"></textarea>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Insert</button>
+                    </form>
+                </div>
+                </div>
+            </div>
+            </div>
+             <!-- tutup modal -->
 @endsection
 
 @section('script')
@@ -252,6 +348,16 @@ $(document).ready(function (){
         format: 'DD-M-YY hh:mm A'
         }
     });
+
+    $('input[name="daterangepicker"]').daterangepicker({
+      timePicker: true,
+      singleDatePicker: true,
+      showDropdowns: true,
+      locale: {
+          format: 'DD-M-YY hh:mm A'
+        }
+    });
+
 
 });
 
@@ -451,13 +557,74 @@ function klik_reset(){
   $("#cart").remove();
   angka=0;
   // $('form :input').val('');
+  $('#nomor_nota').val('');
   $('.reset').val('');
+  $("#cart").remove();
   $("#keranjang_kosong").show();
+}
+
+var harga_beli = document.getElementById('harga_beli');
+        harga_beli.addEventListener('keyup', function(e){
+        harga_beli.value = formatRupiah(this.value, 'Rp. ');
+		});
+
+var harga_jual_reseller = document.getElementById('harga_jual_reseller');
+        harga_jual_reseller.addEventListener('keyup', function(e){
+        harga_jual_reseller.value = formatRupiah(this.value, 'Rp. ');
+		});
+
+var harga_jual = document.getElementById('harga_jual');
+        harga_jual.addEventListener('keyup', function(e){
+        harga_jual.value = formatRupiah(this.value, 'Rp. ');
+		});
+
+var update_harga_beli = document.getElementsByClassName('update_harga_beli');
+    for(let i=0;i<update_harga_beli.length;i++){
+    update_harga_beli[i].addEventListener('keyup',function(e){
+        update_harga_beli[i].value = formatRupiah(this.value, 'Rp. ');
+    });
+    }
+
+var update_jual_reseller = document.getElementsByClassName('update_jual_reseller');
+    for(let i=0;i<update_jual_reseller.length;i++){
+    update_jual_reseller[i].addEventListener('keyup',function(e){
+        update_jual_reseller[i].value = formatRupiah(this.value, 'Rp. ');
+    });
+    }
+
+var update_harga_jual = document.getElementsByClassName('update_harga_jual');
+    for(let i=0;i<update_harga_jual.length;i++){
+    update_harga_jual[i].addEventListener('keyup',function(e){
+        update_harga_jual[i].value = formatRupiah(this.value, 'Rp. ');
+    });
+    }
+
+function formatRupiah(angka, prefix){
+			var number_string = angka.replace(/[^,\d]/g, '').toString(),
+			split   		= number_string.split(','),
+			sisa     		= split[0].length % 3,
+			rupiah     		= split[0].substr(0, sisa),
+			ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
+
+			// tambahkan titik jika yang di input sudah menjadi angka ribuan
+			if(ribuan){
+				separator = sisa ? '.' : '';
+				rupiah += separator + ribuan.join('.');
+			}
+
+			rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+			return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
 }
 </script>
 @if (session('insert'))
 <script>
 swal("Success!","Data Penerimaan Berhasil Di Tambahkan","success");
+</script>
+@endif
+
+@if (session('insert_produk'))
+<script>
+swal("Success!","Data Produk Berhasil Di Tambahkan","success");
 </script>
 @endif
 

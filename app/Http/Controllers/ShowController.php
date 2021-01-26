@@ -22,6 +22,15 @@ class ShowController extends Controller
 
     }
 
+    public function gallery(){
+        $produk = DB::table('produk')->get();
+        $kategori_produk = DB::table('kategori_produk')->get();
+        $supplier = DB::table('supplier')->get();
+
+        return view('gallery',['produk'=>$produk,'kategori_produk'=>$kategori_produk
+        ,'supplier'=>$supplier]);
+    }
+
     public function show_404(){
         return view ('404');
     }

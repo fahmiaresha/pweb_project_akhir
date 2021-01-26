@@ -11,6 +11,40 @@ class PenerimaanController extends Controller
         $this->middleware('auth');
     }
 
+    public function store_produk(Request $request){
+        if($request->hasFile('file')){
+            $file = $request->file('file');
+            $nama_file = time()."_".$file->getClientOriginalName();
+            $tujuan_upload = 'foto_produk';
+		    $file->move($tujuan_upload,$nama_file);
+        }
+
+        $hb = $request->harga_beli;
+        $x = str_replace("Rp.","",$hb);
+        $harga_beli = str_replace(".","",$x);
+
+        $hr = $request->harga_jual_reseller;
+        $y = str_replace("Rp.","",$hr);
+        $harga_jual_reseller = str_replace(".","",$y);
+
+        $hj = $request->harga_jual;
+        $y = str_replace("Rp.","",$hj);
+        $harga_jual = str_replace(".","",$y);
+
+        DB::table('produk')->insert(['ID_SUPPLIER' => $request->supplier,
+        'ID_KATEGORI_PRODUK' => $request->kategori,
+        'NAMA_PRODUK' => $request->nama,
+        'TANGGAL_PEMBELIAN_PRODUK'=> $request->daterangepicker,
+        'STOK_PRODUK'=> $request->stok,
+        'HARGA_BELI_PRODUK'=> $harga_beli,
+        'HARGA_JUAL_RESELLER_PRODUK'=> $harga_jual_reseller,
+        'HARGA_JUAL_PELANGGAN_PRODUK'=> $harga_jual,
+        'DESKRIPSI_PRODUK'=> $request->deskripsi_produk,
+        'FOTO_PRODUK' => $nama_file
+        ]);
+        return redirect('/penerimaan-barang')->with('insert_produk','sukses');
+    }
+
     public function show_penerimaan_barang(){
         $supplier= DB::table('supplier')->get();
         $product = DB::table('produk')->get();
@@ -53,7 +87,12 @@ class PenerimaanController extends Controller
                         'JUMLAH_PRODUK_DITERIMA' => $request['jumlah'][$pr] ,
                         'STOK_BARU_PRODUK' => $request['STOK_PRODUK'][$pr] + $request['jumlah'][$pr] ,
                     ]);     
+                    //update-produk-stok
+                    DB::table('produk')->where('ID_PRODUK',$pr)->update([
+                        'STOK_PRODUK'=> $request['STOK_PRODUK'][$pr] + $request['jumlah'][$pr]
+                    ]);
                 }
+
 
                 $jumlah_produk_diterima=0;
                 foreach($request['ID_PRODUK'] as $pr){
@@ -68,6 +107,8 @@ class PenerimaanController extends Controller
                     'FOTO_NOTA' => $nama_file,
                     'TOTAL_PENERIMAAN_BARANG' => $jumlah_produk_diterima,
                 ]);
+
+               
 
                 DB::commit();
                 return redirect('/penerimaan-barang')->with('insert','sukses');
