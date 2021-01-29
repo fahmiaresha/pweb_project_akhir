@@ -19,16 +19,25 @@ class ShowController extends Controller
     }
     
     public function user_manual(){
-
+       
     }
 
-    public function gallery(){
+    public function gallery_produk(){
         $produk = DB::table('produk')->get();
         $kategori_produk = DB::table('kategori_produk')->get();
         $supplier = DB::table('supplier')->get();
 
-        return view('gallery',['produk'=>$produk,'kategori_produk'=>$kategori_produk
+        return view('gallery_produk',['produk'=>$produk,'kategori_produk'=>$kategori_produk
         ,'supplier'=>$supplier]);
+    }
+
+    public function gallery_nota_supplier(){
+        $supplier = DB::table('supplier')->get();
+        $catatan_order_supplier = DB::table('catatan_order_supplier')->get();
+        $nota_supplier = DB::table('nota_supplier')->get();
+
+        return view('gallery_nota_supplier',['supplier'=>$supplier,
+        'catatan_order_supplier'=>$catatan_order_supplier,'nota_supplier'=>$nota_supplier]);
     }
 
     public function show_404(){

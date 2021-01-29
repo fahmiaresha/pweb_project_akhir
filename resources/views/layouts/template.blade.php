@@ -360,14 +360,24 @@
                         </ul>
                     </li>
 
+                   
+
                     <li>
-                        <a @if(request()->segment(1) == 'gallery') class="active"
-                           @endif href="{{ route('gallery') }}">
-                    <span class="nav-link-icon">
-                        <i class="fas fa-images"></i>
+                        <a href="#">
+                        <span class="nav-link-icon">
+                    <i class="fas fa-vote-yea" style="margin-left:-2px;"></i>
                     </span>
                             <span>Gallery</span>
                         </a>
+                        <ul>
+                            <li>
+                            <a @if(request()->segment(1) == 'gallery-produk') class="active" @endif href="{{ route('gallery-produk') }}">Galery Produk</a>
+                            </li>
+
+                             <li>
+                            <a @if(request()->segment(1) == 'gallery-nota-supplier') class="active" @endif href="{{ route('gallery-nota-supplier') }}">Gallery Nota Supplier</a>
+                            </li>
+                        </ul>
                     </li>
 
                     <li>

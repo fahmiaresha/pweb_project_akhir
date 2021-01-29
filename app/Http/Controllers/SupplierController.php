@@ -134,7 +134,7 @@ class SupplierController extends Controller
         $nama_file = time()."_".$file->getClientOriginalName();
         
          // isi dengan nama folder tempat kemana file diupload
-		$tujuan_upload = 'data_file';
+		$tujuan_upload = 'foto_nota_supplier';
 		$file->move($tujuan_upload,$nama_file);
         
         // echo $file;

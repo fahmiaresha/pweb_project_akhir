@@ -231,8 +231,8 @@
                 @foreach($supplier as $s)
                 @if($ns->ID_SUPPLIER==$s->ID_SUPPLIER) 
                 <div class="coba" >
-                <center class="image-popup" href="{{ url('/data_file/'.$ns->FOTO_NOTA_SUPPLIER) }}">
-                <img data-dismiss="modal" style="height:auto; max-width:75%; cursor:zoom-in;" src="{{ url('/data_file/'.$ns->FOTO_NOTA_SUPPLIER) }}" >
+                <center class="image-popup" href="{{ url('/foto_nota_supplier/'.$ns->FOTO_NOTA_SUPPLIER) }}">
+                <img data-dismiss="modal" style="height:auto; max-width:75%; cursor:zoom-in;" src="{{ url('/foto_nota_supplier/'.$ns->FOTO_NOTA_SUPPLIER) }}" >
                 </center>
                 </div>
                    <br>

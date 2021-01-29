@@ -3,6 +3,8 @@
 @section('head')
     <!-- Magnific popup -->
     <link rel="stylesheet" href="{{ url('vendors/lightbox/magnific-popup.css') }}" type="text/css">
+
+    
 @endsection
 
 @section('content')
@@ -14,10 +16,10 @@
                     <li class="breadcrumb-item">
                         <a href="{{ url('/') }}">Home</a>
                     </li>
-                    <!-- <li class="breadcrumb-item">
-                        <a href="#">Produk</a>
-                    </li> -->
-                    <li class="breadcrumb-item active" aria-current="page">Gallery</li>
+                    <li class="breadcrumb-item">
+                        <a href="#">Gallery</a>
+                    </li>
+                    <li class="breadcrumb-item active" aria-current="page">Gallery Produk</li>
                 </ol>
             </nav>
         </div>
@@ -59,7 +61,7 @@
                                 <div>
                                 @foreach($kategori_produk as $kp)
                                     @if($kp->ID_KATEGORI_PRODUK==$p->ID_KATEGORI_PRODUK)
-                                    <h4 class="mb-2">{{ $kp->NAMA_KATEGORI_PRODUK }} - {{$p->NAMA_PRODUK}}</h4>
+                                    <h5 class="mb-2">{{ $kp->NAMA_KATEGORI_PRODUK }} - {{$p->NAMA_PRODUK}}</h5>
                                     @endif
                                 @endforeach
                                     <div><i class="fa fa-tag mr-2"></i>Rp. {{number_format($p->HARGA_JUAL_PELANGGAN_PRODUK)}}</div>
@@ -73,6 +75,7 @@
             </div>
         </div>
     </div>
+    
 
 
 @endsection
@@ -85,4 +88,5 @@
     <script src="{{ url('vendors/jquery.isotope.min.js') }}"></script>
 
     <script src="{{ url('assets/js/examples/pages/gallery.js') }}"></script>
+
 @endsection

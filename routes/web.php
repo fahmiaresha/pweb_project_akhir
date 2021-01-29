@@ -180,7 +180,9 @@ Route::get('/data-penjualan', 'PosController@show_data_penjualan')->name('data-p
 Route::get('/invoice-penjualan/{id}', 'PosController@invoice_penjualan');
 
 //galery
-Route::get('/gallery', 'ShowController@gallery')->name('gallery');
+Route::get('/gallery-produk', 'ShowController@gallery_produk')->name('gallery-produk');
+Route::get('/gallery-nota-supplier', 'ShowController@gallery_nota_supplier')->name('gallery-nota-supplier');
+
 });
 
 // user-manual
