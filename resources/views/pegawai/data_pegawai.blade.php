@@ -45,8 +45,8 @@
                 <form method="post" action="{{ url('/store-pegawai') }}">
                         @csrf
                         <label for="Kategori">Jabatan</label>
-                        <select name="jabatan" id="jabatan" class="select2-example">
-                        <option disabled="true" selected="true" required>Pilih Jabatan</option>
+                        <select name="jabatan" id="jabatan" required class="select2-example">
+                        <option disabled="true" selected="true" value="" >Pilih Jabatan</option>
                         @foreach($jabatan as $j)
                         <option value="{{ $j->ID_JABATAN }}" required>{{ $j->NAMA_JABATAN }}</option>
                         @endforeach

@@ -48,10 +48,10 @@
                 <form method="post" action="{{ url('/data-pelanggan-store') }}">
                         @csrf
                         <label for="Kategori">Kategori</label>
-                        <select name="kategori" id="kategori" class="select2-example">
-                        <option disabled="true" selected="true" required>Pilih Kategori</option>
+                        <select name="kategori" id="kategori" required class="select2-example">
+                        <option disabled="true" selected="true" value="">Pilih Kategori</option>
                         @foreach($kategori_pelanggan as $kp)
-                        <option value="{{ $kp->ID_KATEGORI_PELANGGAN }}" required>{{ $kp->NAMA_KATEGORI_PELANGGAN }}</option>
+                        <option value="{{ $kp->ID_KATEGORI_PELANGGAN }}">{{ $kp->NAMA_KATEGORI_PELANGGAN }}</option>
                         @endforeach
                        </select>
                        
@@ -66,7 +66,7 @@
                         <label for="Alamat">Alamat</label>
                         <div class="form-group">
                             <input type="text" class="demo-code-preview form-control mt-1" 
-                            id="alamat" placeholder="Alamat Lengkap" name="alamat" value="{{ old('alamat') }}" >
+                            id="alamat" placeholder="Alamat Lengkap" name="alamat" value="{{ old('alamat') }}" required>
                         </div>
 
                         <label for="Telp">Telepon</label>
@@ -169,7 +169,7 @@
                                         <label for="Alamat">Alamat</label>
                                 <div class="form-group">
                                     <input type="text" class="demo-code-preview form-control mt-1" 
-                                    id="alamat" placeholder="Alamat Lengkap" name="alamat" value="{{ $p->ALAMAT_PELANGGAN}}" >
+                                    id="alamat" placeholder="Alamat Lengkap" name="alamat" value="{{ $p->ALAMAT_PELANGGAN}}" required >
                                 </div>
 
                                 <label for="Telp">Telepon</label>

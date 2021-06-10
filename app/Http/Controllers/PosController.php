@@ -131,7 +131,8 @@ class PosController extends Controller
           }
           catch(\Exception $exception){
               DB::rollBack();
-              return redirect('/point-of-sales')->with('gagal','gagal');
+              dump($exception);
+            //   return redirect('/point-of-sales')->with('gagal','gagal');
           } 
     }
 }

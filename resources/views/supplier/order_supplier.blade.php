@@ -44,8 +44,8 @@
                 <form method="post" action="{{ url('/pesan-supplier-store') }}">
                         @csrf
                         <label for="nama_supplier">Supplier</label>
-                        <select name="nama_supplier" id="nama_supplier" class="select2-example">
-                        <option value="-" disabled="true" selected="true">Pilih Nama Supplier</option>
+                        <select name="nama_supplier" id="nama_supplier" required class="select2-example">
+                        <option value="" disabled="true" selected="true">Pilih Nama Supplier</option>
                         @foreach($supplier as $s)
                         <option value="{{ $s->ID_SUPPLIER }}">{{ $s->NAMA_SUPPLIER }} - {{ $s->ALAMAT_SUPPLIER }}</option>
                         @endforeach

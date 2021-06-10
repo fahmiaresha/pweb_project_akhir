@@ -50,8 +50,8 @@
                         <input type="hidden" name="nama_user" value="{{Session::get('id_user')}}">
 
                         <label for="nama_pelanggan">Pelanggan</label>
-                        <select name="nama_pelanggan" id="nama_pelanggan" class="select2-example">
-                        <option value="-" disabled="true" selected="true">Pilih Nama Pelanggan</option>
+                        <select name="nama_pelanggan" id="nama_pelanggan" required class="select2-example">
+                        <option value="" disabled="true" selected="true">Pilih Nama Pelanggan</option>
                         @foreach($pelanggan as $p)
                         <option value="{{ $p->ID_PELANGGAN }}">{{ $p->NAMA_PELANGGAN }} - {{ $p->ALAMAT_PELANGGAN }}</option>
                         @endforeach

@@ -241,8 +241,8 @@
                 <form method="post" action="{{ url('/data-produk-store-input-penerimaan-barang') }}" enctype="multipart/form-data">
                         @csrf
                         <label for="Kategori">Kategori</label>
-                        <select name="kategori" id="select2" class="select2-example">
-                        <option disabled="true" selected="true" required>Pilih Kategori</option>
+                        <select name="kategori" id="select2" required class="select2-example">
+                        <option disabled="true" selected="true" value="">Pilih Kategori</option>
                         @foreach($kategori_produk as $kp)
                         <option value="{{ $kp->ID_KATEGORI_PRODUK }}" required>{{ $kp->NAMA_KATEGORI_PRODUK }}</option>
                         @endforeach
@@ -251,8 +251,8 @@
                         
                         </div>
                        <label for="Kategori">Supplier</label>
-                        <select name="supplier" id="supplier" class="select2-example">
-                        <option disabled="true" selected="true" required>Pilih Supplier</option>
+                        <select name="supplier" id="supplier" required class="select2-example">
+                        <option disabled="true" selected="true" value="" >Pilih Supplier</option>
                         @foreach($supplier as $sp)
                         <option value="{{ $sp->ID_SUPPLIER }}" required>{{ $sp->NAMA_SUPPLIER }}</option>
                         @endforeach

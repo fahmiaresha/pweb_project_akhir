@@ -66,8 +66,8 @@
                         @csrf
 
                         <label for="nama_supplier">Supplier</label>
-                        <select name="nama_supplier" id="nama_supplier" class="select2-example">
-                        <option value="-" disabled="true" selected="true">Pilih Nama Supplier</option>
+                        <select name="nama_supplier" id="nama_supplier" required class="select2-example">
+                        <option value="" disabled="true" selected="true">Pilih Nama Supplier</option>
                         @foreach($supplier as $s)
                         <option value="{{ $s->ID_SUPPLIER }}">{{ $s->NAMA_SUPPLIER }} - {{ $s->ALAMAT_SUPPLIER }}</option>
                         @endforeach
@@ -75,7 +75,7 @@
 
                        <label for="Nama" style="margin-top:10px;">Nomor</label>
                         <div class="form-group">
-                        <input type="text" name="nomor_nota" class="demo-code-preview form-control mt-1" placeholder="Nomor Nota" value="{{ old('nomor_nota') }}">
+                        <input type="text" name="nomor_nota" class="demo-code-preview form-control mt-1" placeholder="Nomor Nota" value="{{ old('nomor_nota') }}" required>
                         </div>
 
                        <label for="Nama" style="margin-top:10px;">Tanggal Nota</label>
@@ -85,7 +85,7 @@
                        
                         <label for="Nama" style="margin-top:10px;">Total</label>
                         <div class="form-group">
-                        <input type="text" class="demo-code-preview form-control mt-1" placeholder="Total Bayar" name="total_bayar" id="total_bayar" value="{{ old('total_bayar') }}">
+                        <input type="text" class="demo-code-preview form-control mt-1" placeholder="Total Bayar" name="total_bayar" id="total_bayar" value="{{ old('total_bayar') }}" required>
                         </div>
 
                         <label for="Nama" >Foto</label>

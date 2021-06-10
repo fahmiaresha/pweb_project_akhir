@@ -18,7 +18,7 @@
     <strong>
     <div class="coba" style="margin-bottom:1px;">Toko Bagus</div>
     <div class="coba" style="margin-bottom:1px;">Wonocolo Sepanjang No.97</div>
-    <div class="coba" style="margin-bottom:1px;">Telp. 089-6346-5688</div>
+    <div class="coba" style="margin-bottom:1px;">Telp. 0896-3465-6688</div>
     </strong>
     </center>
 

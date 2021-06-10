@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
     <!-- animate -->
     <link
@@ -365,7 +365,7 @@
                     <li>
                         <a href="#">
                         <span class="nav-link-icon">
-                    <i class="fas fa-vote-yea" style="margin-left:-2px;"></i>
+                    <i class="fas fa-images" style="margin-left:-2px;"></i>
                     </span>
                             <span>Gallery</span>
                         </a>

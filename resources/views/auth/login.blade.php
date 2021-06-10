@@ -166,7 +166,7 @@
         <!-- copyright -->
         
 		<div class="copyright animate__animated animate__fadeInUp" style=" animation-duration: 3s;">
-			<p>© 2020 Toko Bagus . All rights reserved</p>
+			<p>© {{ date('Y') }} Toko Bagus . All rights reserved</p>
 		</div>
 		<!-- //copyright --> 
 	</div>

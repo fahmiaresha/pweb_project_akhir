@@ -54,9 +54,9 @@
             <div class="gallery-container row">
             @foreach($produk as $p)
                 <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 {{ $p->ID_KATEGORI_PRODUK }} mb-4">
-                    <a href="{{ url('/foto_produk/'.$p->FOTO_PRODUK) }}" class="image-popup-gallery-item">
+                    <a href="{{ url('/foto_produk/'.$p->FOTO_PRODUK) }}"  class="image-popup-gallery-item">
                         <div class="image-hover">
-                            <img src="{{ url('/foto_produk/'.$p->FOTO_PRODUK) }}" class="rounded" alt="image">
+                            <img src="{{ url('/foto_produk/'.$p->FOTO_PRODUK) }}"  class="rounded" alt="image">
                             <div class="image-hover-body rounded">
                                 <div>
                                 @foreach($kategori_produk as $kp)

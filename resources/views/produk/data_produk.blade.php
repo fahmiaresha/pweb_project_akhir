@@ -49,8 +49,8 @@
                 <form method="post" action="{{ url('/data-produk-store') }}" enctype="multipart/form-data">
                         @csrf
                         <label for="Kategori">Kategori</label>
-                        <select name="kategori" id="select2" class="select2-example">
-                        <option disabled="true" selected="true" required>Pilih Kategori</option>
+                        <select name="kategori" id="select2" required class="select2-example">
+                        <option disabled="true" selected="true" value="" required>Pilih Kategori</option>
                         @foreach($kategori_produk as $kp)
                         <option value="{{ $kp->ID_KATEGORI_PRODUK }}" required>{{ $kp->NAMA_KATEGORI_PRODUK }}</option>
                         @endforeach
@@ -59,8 +59,8 @@
                         
                         </div>
                        <label for="Kategori">Supplier</label>
-                        <select name="supplier" id="supplier" class="select2-example">
-                        <option disabled="true" selected="true" required>Pilih Supplier</option>
+                        <select name="supplier" id="supplier" required class="select2-example">
+                        <option disabled="true" selected="true" value="">Pilih Supplier</option>
                         @foreach($supplier as $sp)
                         <option value="{{ $sp->ID_SUPPLIER }}" required>{{ $sp->NAMA_SUPPLIER }}</option>
                         @endforeach
@@ -119,7 +119,7 @@
                         <label for="Nama" style="margin-top:10px;">Deskripsi</label>
                         <div class="form-group">
                         <textarea class="demo-code-preview form-control mt-1"
-                        placeholder="Deskripsi Produk" name="deskripsi_produk" value="{{ old('deskripsi_produk') }}"></textarea>
+                        placeholder="Deskripsi Produk" name="deskripsi_produk" value="{{ old('deskripsi_produk') }}" required></textarea>
                         </div>
                 </div>
                 <div class="modal-footer">
@@ -302,7 +302,7 @@
                         <label for="Nama" style="margin-top:10px;">Deskripsi</label>
                         <div class="form-group">
                         <textarea class="demo-code-preview form-control mt-1"
-                        placeholder="Deskripsi Produk" name="deskripsi_produk" value="{{$p->DESKRIPSI_PRODUK}}">{{$p->DESKRIPSI_PRODUK}}</textarea>
+                        placeholder="Deskripsi Produk" name="deskripsi_produk" value="{{$p->DESKRIPSI_PRODUK}}" required>{{$p->DESKRIPSI_PRODUK}}</textarea>
                         </div>
                            
                                 

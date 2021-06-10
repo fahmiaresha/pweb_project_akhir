@@ -29,7 +29,7 @@
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
-            <form method="post" action="{{ url('/point-of-sales/store') }}">
+            <form id="submit_pos" method="post" action="{{ url('/point-of-sales/store') }}">
                 @csrf
               
               @if($id_penjualan==null)
@@ -85,8 +85,8 @@
         <div class="form-group col-md-4">
         
                 <label for="customer_id">Kategori Pelanggan</label>
-                 <select name="kategori11" class="custom-select" id="pelanggan_kategori" onchange="kategori_pelanggan()">
-                        <option disabled="true" selected="true" required>Pilih Kategori</option>
+                 <select name="kategori11" class="custom-select" required id="pelanggan_kategori" onchange="kategori_pelanggan()">
+                        <option disabled="true" selected="true" value="" >Pilih Kategori</option>
                         @foreach($kategori_pelanggan as $kp)
                         <option value="{{ $kp->ID_KATEGORI_PELANGGAN }}" required>{{ $kp->NAMA_KATEGORI_PELANGGAN }}</option>
                         @endforeach
@@ -314,7 +314,7 @@
     <div class="row">
         <div class="col-md-12 text-right">
             <button type="button" onclick="klik_reset()" class="btn btn-danger mr-1">Reset</button>
-            <button type="submit" id="submit_transaksi" class="btn btn-warning">Simpan Transaksi</button>
+            <button type="submit"   onclick="event.preventDefault();submit_transaksi();" class="btn btn-warning">Simpan Transaksi</button>
         </div>
     </div>
 </div>
@@ -349,7 +349,7 @@
     @endif
 
 <!-- modal tambah pelanggan baru -->
-    <div class="modal fade" tabindex="-1" role="dialog" id="coba">
+    <div class="modal fade"  tabindex="-1" role="dialog" id="coba">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
@@ -361,8 +361,8 @@
             <div class="modal-body">
             <form method="post" name="post_tambah_pelanggan_baru" action="">
                     <label for="Kategori">Kategori</label>
-                  <select name="kategori_pelanggan_ajax"  class="select2-example">
-                    <option disabled="true" id="id_kategori_pelanggan_ajax" value="" selected="true" required>Pilih Kategori</option>
+                  <select name="kategori_pelanggan_ajax" id="id_kategori_pelanggan_ajax" required class="select2-example">
+                    <option disabled="true"  value="" selected="true" required>Pilih Kategori</option>
                     @foreach($kategori_pelanggan as $kp)
                     <option value="{{ $kp->ID_KATEGORI_PELANGGAN }}" required>{{ $kp->NAMA_KATEGORI_PELANGGAN }}</option>
                     @endforeach
@@ -417,9 +417,7 @@ var harga_produk_penjualan;
 var pilih_kategori_pelanggan;
 var pelanggan_kategori;
 
-function submit_transaksi(){
-  document.getElementById("submit_transaksi").submit();
-}
+
 
 $(".readonly").keydown(function(e){
         e.preventDefault();
@@ -516,6 +514,8 @@ jQuery( function( $ ) {
             }
         });
 });
+
+
 
 function klik_reset(){
   $("#cart").remove();
@@ -836,7 +836,20 @@ function recount(id) {
 			return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
     }    
     
-   
+function submit_transaksi(){
+  let str = document.getElementById('cash').value;
+  var cash_uang = str.replace(".", "");
+  let total_bayar = document.getElementById('subtotal').value;
+  console.warn(cash_uang);
+  console.warn(total_bayar);
+  if(parseInt(cash_uang) >= parseInt(total_bayar)){
+      document.getElementById("submit_pos").submit();
+  }
+  else{
+      show_alert_gagal_bayar();
+  }
+ 
+}
 
 
 </script>
@@ -859,9 +872,9 @@ function recount(id) {
         var telp_pelanggan_ajax = $("input[name=telp_pelanggan_ajax]").val();
 
       
-        if(id_kategori_pelanggan_ajax==""){
+        if(id_kategori_pelanggan_ajax.value==""){
                 console.log('masuk validate kategori pelanggan');
-                $('#validate_kategori_pelanggan_ajax').val('Pilih Kategori Pelanggan...');
+                $('#validate_kategori_pelanggan_ajax').html('Pilih Kategori Pelanggan Dahulu...');
         }
         if(nama_pelanggan_ajax==""){
                 // console.log('masuk validate nama pelanggan');
@@ -885,6 +898,7 @@ function recount(id) {
               success:function(response){
                   if(response.success){
                       // alert('sukses')
+                      $('#coba').modal('hide');
                       show_alert_sukses_create_pelanggan();
                   }else{
                       alert("Data Gagal Ditambahkan");
@@ -943,6 +957,26 @@ function recount(id) {
           // $('select[name="nama_pelanggan"]').append('<option disabled="true" selected="true" required>Pilih Kategori</option>');
         }  
     }
+  function show_alert_gagal_bayar(){
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "1000",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+        }
+        toastr.error('Cash harus melebihi total bayar !'); 
+  }
 </script>
 
 @if (session('insert'))

@@ -48,8 +48,8 @@
                 <form method="post" action="{{ url('/pesanan-pelanggan-store') }}">
                         @csrf
                         <label for="nama_pelanggan">Pelanggan</label>
-                        <select name="nama_pelanggan" id="nama_pelanggan" class="select2-example">
-                        <option value="-" disabled="true" selected="true">Pilih Nama Pelanggan</option>
+                        <select name="nama_pelanggan" id="nama_pelanggan" required class="select2-example">
+                        <option value="" disabled="true" selected="true">Pilih Nama Pelanggan</option>
                         @foreach($pelanggan as $p)
                         <option value="{{ $p->ID_PELANGGAN }}">{{ $p->NAMA_PELANGGAN }} - {{ $p->ALAMAT_PELANGGAN }}</option>
                         @endforeach
