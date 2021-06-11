@@ -46,9 +46,10 @@ class PelangganController extends Controller
         $service = DB::table('service')->get();
         $catatan_pre_order_pelanggan = DB::table('catatan_pre_order_pelanggan')->get();
         $kategori_pelanggan = DB::table('kategori_pelanggan')->get();
+        $penjualan=DB::table('penjualan')->get();
         return view('pelanggan/data_pelanggan',['pelanggan'=>$pelanggan,
         'kategori_pelanggan'=>$kategori_pelanggan,'service'=>$service,
-        'catatan_pre_order_pelanggan'=>$catatan_pre_order_pelanggan]);
+        'catatan_pre_order_pelanggan'=>$catatan_pre_order_pelanggan,'penjualan'=>$penjualan]);
     }
 
     public function store_pelanggan(Request $request){

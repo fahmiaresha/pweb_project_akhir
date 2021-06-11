@@ -203,7 +203,13 @@
                                 @endif
                             @endforeach
 
-                            <!-- tutup Button trigger modal edit -->
+                            @foreach($penjualan as $pp)
+                                @if($po->ID_PELANGGAN==$pp->ID_PELANGGAN)
+                                    @php $x=1; @endphp
+                                @endif
+                            @endforeach
+
+                            
 
                             @if($x==0)
                                       <!-- Button trigger modal -->

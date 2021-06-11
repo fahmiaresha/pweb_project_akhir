@@ -186,7 +186,7 @@ class ShowController extends Controller
                             ->groupBy('ID_PRODUK')
                             ->orderBy('TOTAL_PRODUK_DIJUAL', 'DESC')
                             ->whereBetween('TANGGAL_PENJUALAN',[$tgl_awal_laporan_tahunan,$tgl_akhir_laporan_tahunan])
-                            ->limit(5)->get();
+                            ->limit(15)->get();
         // dump($produk_penjualan);
         
         //nota supplier lunas

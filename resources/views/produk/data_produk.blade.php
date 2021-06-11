@@ -317,14 +317,31 @@
                             </div>
                             </div> 
 
-                            <!-- tutup Button trigger modal edit -->
+                            @php $x=0; @endphp
+                            @foreach($detail_penjualan as $pp)
+                                @if($p->ID_PRODUK==$pp->ID_PRODUK)
+                                    @php $x=1; @endphp
+                                @endif
+                            @endforeach
+
+                            @foreach($detail_penerimaan_barang as $dp)
+                                @if($p->ID_PRODUK==$dp->ID_PRODUK)
+                                    @php $x=1; @endphp
+                                @endif
+                            @endforeach
+
+                            @if($x==0)
 
                                       <!-- Button trigger modal -->
                                       <button type="button" class="btn btn-outline-danger mb-1 ml-2" data-toggle="modal" 
                                         data-target="#delete1123{{ $p->ID_PRODUK }}">
                                         <i class="fas fa-trash-restore mr-1"></i>Hapus</button>
                                        
-
+                            @else
+                                    <button type="button" class="btn btn-outline-danger mb-1 ml-2" data-toggle="modal" 
+                                        data-target="#delete1123" onclick="tampil_cant_delete()">
+                                        <i class="fas fa-trash-restore mr-1"></i>Hapus</button>
+                            @endif
                                     <!-- Modal -->
                                     <div class="modal fade" id="delete1123{{ $p->ID_PRODUK }}" tabindex="0" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
@@ -445,6 +462,11 @@ function formatRupiah(angka, prefix){
 			rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
 			return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
 }
+
+function tampil_cant_delete(){
+ swal("Oops!","Data Produk Sedang Digunakan","error");
+}
+</script>
 </script>
 
 

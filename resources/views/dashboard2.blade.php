@@ -8,6 +8,7 @@
 
 <!-- rangepicker -->
 <link rel="stylesheet" href="vendors/datepicker/daterangepicker.css" type="text/css">
+
 @endsection
 
 @section('content')

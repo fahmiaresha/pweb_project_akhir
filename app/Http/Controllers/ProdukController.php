@@ -68,9 +68,12 @@ class ProdukController extends Controller
         $produk = DB::table('produk')->get();
         $kategori_produk = DB::table('kategori_produk')->get();
         $supplier = DB::table('supplier')->get();
+        $detail_penjualan = DB::table('detail_penjualan')->get();
+        $detail_penerimaan_barang = DB::table('detail_penerimaan_barang')->get();
+
         // dump($produk);
         return view('produk/data_produk',['produk'=>$produk,'kategori_produk'=>$kategori_produk
-        ,'supplier'=>$supplier]);
+        ,'supplier'=>$supplier,'detail_penjualan'=>$detail_penjualan,'detail_penerimaan_barang'=>$detail_penerimaan_barang]);
     }
 
     public function history_produk(){
