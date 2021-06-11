@@ -321,7 +321,7 @@
     <div class="row">
         <div class="col-md-12 text-right">
             <button type="button" onclick="klik_reset()" class="btn btn-danger mr-1">Reset</button>
-            <button type="submit"   onclick="event.preventDefault();submit_transaksi();" class="btn btn-warning">Simpan Transaksi</button>
+            <button type="submit" onclick="event.preventDefault();submit_transaksi();" class="btn btn-warning">Simpan Transaksi</button>
         </div>
     </div>
 </div>
@@ -423,6 +423,7 @@ var total_penjualan;
 var harga_produk_penjualan;
 var pilih_kategori_pelanggan;
 var pelanggan_kategori;
+var cash_uang;
 
 
 
@@ -772,6 +773,7 @@ function recount(id) {
             uang = uang.replace('.','');
           }
           console.log(uang);
+          cash_uang = uang;
           document.getElementById('change').value =(uang-total_penjualan);
           document.getElementById('change-val').innerHTML =money((uang-total_penjualan));
           document.getElementById('change-val').value =money((uang-total_penjualan));
@@ -846,18 +848,33 @@ function recount(id) {
     }    
     
 function submit_transaksi(){
-  let str = document.getElementById('cash').value;
-  var cash_uang = str.replace(".", "");
-  let total_bayar = document.getElementById('subtotal').value;
-  console.warn(cash_uang);
-  console.warn(total_bayar);
-  if(parseInt(cash_uang) >= parseInt(total_bayar)){
-      document.getElementById("submit_pos").submit();
+  let validate = document.getElementById('submit_pos').checkValidity();
+  // console.log(validate);
+  if(validate == false){
+    if(document.getElementById('cash').value == ""){
+      show_alert_cash_kosong();
+    }
+    else{
+      show_alert_melebihi_stok();
+    }
+    return false;
   }
   else{
-      show_alert_gagal_bayar();
+    // var cash_uang=0;
+    // var cash_uang = document.getElementById('cash').value;
+    //   for(let m=0;i<20;i++){
+    //     cash_uang = cash_uang.replace(".", "");
+    //   }
+      let total_bayar = document.getElementById('subtotal').value;
+      console.warn(cash_uang);
+      console.warn(total_bayar);
+      if(parseInt(cash_uang) >= parseInt(total_bayar)){
+          document.getElementById("submit_pos").submit();
+      }
+      else{
+          show_alert_gagal_bayar();
+      }
   }
- 
 }
 
 
@@ -985,6 +1002,48 @@ function submit_transaksi(){
         "hideMethod": "fadeOut"
         }
         toastr.error('Cash harus melebihi total bayar !'); 
+  }
+
+  function show_alert_cash_kosong(){
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "1000",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+        }
+        toastr.error('Cash harus di inputkan !'); 
+  }
+
+  function show_alert_melebihi_stok(){
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "1000",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+        }
+        toastr.error('Jumlah produk melebihi stok !'); 
   }
 </script>
 
