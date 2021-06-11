@@ -87,16 +87,18 @@ class SupplierController extends Controller
     }
 
     public function store_pesan_supplier(Request $request){
+        $string = trim(preg_replace('/\s+/', ' ', $request->deskripsi));
         DB::table('catatan_order_supplier')->insert(['ID_SUPPLIER' => $request->nama_supplier,
-        'DESKRIPSI_CATATAN_ORDER_SUPPLIER' => $request->deskripsi
+        'DESKRIPSI_CATATAN_ORDER_SUPPLIER' => $string
         ]);
         return redirect('/pesan-supplier')->with('insert','berhasil');
     }
 
     public function update_pesan_supplier(Request $request){
+        $string = trim(preg_replace('/\s+/', ' ', $request->deskripsi));
         DB::table('catatan_order_supplier')->where('ID_CATATAN_ORDER_SUPPLIER',$request->id)->update([
             'ID_SUPPLIER' => $request->nama_supplier,
-        'DESKRIPSI_CATATAN_ORDER_SUPPLIER' => $request->deskripsi
+        'DESKRIPSI_CATATAN_ORDER_SUPPLIER' => $string
         ]);
         return redirect('/pesan-supplier')->with('update','berhasil');
     }

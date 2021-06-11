@@ -53,6 +53,7 @@ class PelangganController extends Controller
     }
 
     public function store_pelanggan(Request $request){
+        
         DB::table('pelanggan')->insert(['ID_KATEGORI_PELANGGAN' => $request->kategori,
         'NAMA_PELANGGAN' => $request->nama,
         'ALAMAT_PELANGGAN' => $request->alamat,
@@ -170,16 +171,18 @@ class PelangganController extends Controller
     }
 
     public function store_pesanan_pelanggan(Request $request){
+        $string = trim(preg_replace('/\s+/', ' ', $request->deskripsi));
         DB::table('catatan_pre_order_pelanggan')->insert(['ID_PELANGGAN' => $request->nama_pelanggan,
-        'DESKRIPSI_CATATAN_PRE_ODER_PELANGGAN' => $request->deskripsi,
+        'DESKRIPSI_CATATAN_PRE_ODER_PELANGGAN' => $string,
         ]);
         return redirect('/pesanan-pelanggan')->with('insert','berhasil');
     }
 
     public function update_pesanan_pelanggan(Request $request){
+        $string = trim(preg_replace('/\s+/', ' ', $request->deskripsi));
         DB::table('catatan_pre_order_pelanggan')->where('ID_CATATAN_PRE_ORDER_PELANGGAN',$request->id)->update([
             'ID_PELANGGAN' => $request->nama_pelanggan,
-            'DESKRIPSI_CATATAN_PRE_ODER_PELANGGAN' => $request->deskripsi,
+            'DESKRIPSI_CATATAN_PRE_ODER_PELANGGAN' => $string,
         ]);
         return redirect('/pesanan-pelanggan')->with('update','berhasil');
     }

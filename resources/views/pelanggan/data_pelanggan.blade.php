@@ -204,7 +204,7 @@
                             @endforeach
 
                             @foreach($penjualan as $pp)
-                                @if($po->ID_PELANGGAN==$pp->ID_PELANGGAN)
+                                @if($pp->ID_PELANGGAN==$p->ID_PELANGGAN)
                                     @php $x=1; @endphp
                                 @endif
                             @endforeach

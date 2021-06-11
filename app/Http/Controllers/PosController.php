@@ -83,9 +83,11 @@ class PosController extends Controller
         $kategori_pelanggan = DB::table('kategori_pelanggan')->get();
         $id_penjualan= DB::table('penjualan')->max('ID_PENJUALAN');
         $kategori_produk = DB::table('kategori_produk')->get();
+        $supplier= DB::table('supplier')->get();
         return view('penjualan/point_of_sales',['penjualan'=>$penjualan
         ,'product'=>$product,'pelanggan'=>$pelanggan,'users'=>$users,'id_penjualan'=>$id_penjualan
-        ,'kategori_pelanggan'=>$kategori_pelanggan,'kategori_produk'=>$kategori_produk]);
+        ,'kategori_pelanggan'=>$kategori_pelanggan,'kategori_produk'=>$kategori_produk,
+        'supplier'=>$supplier]);
     }
 
     // public function loadData(Request $request)

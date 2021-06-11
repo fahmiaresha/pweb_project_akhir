@@ -57,7 +57,7 @@
                        
                         <label for="Nama" style="margin-top:10px;">Deskripsi</label>
                         <div class="form-group">
-                        <textarea class="demo-code-preview form-control mt-1" placeholder="Deskripsi Pesanan" name="deskripsi" id="message-text" value="{{ old('deskripsi') }}"></textarea>
+                        <textarea class="demo-code-preview form-control mt-1"  placeholder="Deskripsi Pesanan" name="deskripsi" id="message-text" value="{{ old('deskripsi') }}"></textarea>
                         </div>
 
                 </div>
@@ -147,7 +147,7 @@
 
                                 <label for="Nama" style="margin-top:10px;">Deskripsi</label>
                                 <div class="form-group">
-                                <textarea class="demo-code-preview form-control mt-1" placeholder="Deskripsi Pesanan" name="deskripsi" id="message-text" value="{{ $po->DESKRIPSI_CATATAN_PRE_ODER_PELANGGAN }}">{{ $po->DESKRIPSI_CATATAN_PRE_ODER_PELANGGAN }}</textarea>
+                                <textarea class="demo-code-preview form-control mt-1"  placeholder="Deskripsi Pesanan" name="deskripsi" id="message-text" value="{{ $po->DESKRIPSI_CATATAN_PRE_ODER_PELANGGAN }}">{{ $po->DESKRIPSI_CATATAN_PRE_ODER_PELANGGAN }}</textarea>
                                 </div>
                            
                                 

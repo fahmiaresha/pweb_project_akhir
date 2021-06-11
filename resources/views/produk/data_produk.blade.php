@@ -136,8 +136,8 @@
                         <tr>
                         <!-- <th>No</th> -->
                         <th>Tanggal Pembelian</th>
+                        <th>Supplier</th> 
                         <th>Kategori</th>
-                        <th>Supplier</th>     
                         <th>Nama</th>
                         <th>Stok</th>
                     
@@ -153,17 +153,21 @@
                     @foreach($produk as $p)
                     <tr>
                     <td>{{ $p->TANGGAL_PEMBELIAN_PRODUK }}</td>
-                    @foreach($kategori_produk as $kp)
-                        @if($kp->ID_KATEGORI_PRODUK==$p->ID_KATEGORI_PRODUK)
-                        <td>{{ $kp->NAMA_KATEGORI_PRODUK }}</td>
-                        @endif
-                    @endforeach
 
                     @foreach($supplier as $s)
                         @if($p->ID_SUPPLIER==$s->ID_SUPPLIER)
                         <td>{{$s->NAMA_SUPPLIER}} - {{$s->ALAMAT_SUPPLIER}}</td>
                         @endif
                     @endforeach
+
+                    
+                    @foreach($kategori_produk as $kp)
+                        @if($kp->ID_KATEGORI_PRODUK==$p->ID_KATEGORI_PRODUK)
+                        <td>{{ $kp->NAMA_KATEGORI_PRODUK }}</td>
+                        @endif
+                    @endforeach
+
+                    
                     <td>{{$p->NAMA_PRODUK}}</td>
                     <td>{{$p->STOK_PRODUK}}</td>
                     <td>Rp. {{number_format($p->HARGA_BELI_PRODUK)}}</td>

@@ -143,7 +143,7 @@
 
             <!-- .modal-lg -->
             <div class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" id="tambahModal">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                 <div class="modal-header">
                     <h6 class="modal-title">Penjualan</h6>
@@ -158,6 +158,7 @@
                         <tr>
                           <th width=1px scope="col">#</th>
                           <th scope="col">Tanggal Pembelian</th>
+                          <th scope="col">Supplier</th>
                           <th scope="col">Kategori</th>
                           <th scope="col">Nama</th>
                           <th scope="col" class="th_harga_reseller">Harga</th>
@@ -183,6 +184,12 @@
                           <td>
                           {{$pr->TANGGAL_PEMBELIAN_PRODUK}}
                           </td>
+                          @foreach($supplier as $s)
+                              @if($pr->ID_SUPPLIER==$s->ID_SUPPLIER)
+                              <td>{{$s->NAMA_SUPPLIER}} - {{$s->ALAMAT_SUPPLIER}}</td>
+                              @endif
+                          @endforeach
+
                           @foreach($kategori_produk as $kp)
                           
                           @if($pr->ID_KATEGORI_PRODUK==$kp->ID_KATEGORI_PRODUK)
@@ -424,7 +431,9 @@ $(".readonly").keydown(function(e){
 });
 
 $(document).ready(function (){
-    $('.mydatatable').DataTable();
+    $('.mydatatable').DataTable({
+        "order":[[2,"asc"]]
+    });
     $('.select2-example').select2();
     $('#select2').select2();
 
