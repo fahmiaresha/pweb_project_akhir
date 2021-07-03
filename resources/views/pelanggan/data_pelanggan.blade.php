@@ -9,9 +9,6 @@
 @endsection
 
 @section('content')
-
-
-
 <div class="page-header d-md-flex justify-content-between">
         <div>
             <h3>Pelanggan</h3>

@@ -15,9 +15,10 @@ class SupplierController extends Controller
 
     public function send_wa_pesan_supplier(Request $request){
         $nomor2 = $request->nomor_whatsapp;
-        $nomor3 = $nomor2[0];
-        $nomor = str_replace($nomor3,"62",$nomor2);
+        // $nomor3 = $nomor2[0];
+        // $nomor = str_replace($nomor3,"62",$nomor2);
         // echo $nomor;
+        $nomor = substr_replace($nomor2,"62",0,1);
         $pesan = $request->pesan_whatsapp;
 
         // $url_wa ='https://api.whatsapp.com/send?phone=+$nomor&text=$pesan&source=&data=';

@@ -295,9 +295,9 @@ $(document).ready(function (){
 
     const x = document.getElementsByClassName('post0');
     for(let i=0;i<x.length;i++){
-    x[i].addEventListener('click',function(){
-        x[i].submit();
-    });
+        x[i].addEventListener('click',function(){
+            x[i].submit();
+        });
     }
 
 });

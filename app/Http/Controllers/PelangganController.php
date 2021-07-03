@@ -15,9 +15,15 @@ class PelangganController extends Controller
     
 
     public function send_wa_pesanan_pelanggan(Request $request){
+        // dd($request->all());
+        
         $nomor2 = $request->nomor_whatsapp;
-        $nomor3 = $nomor2[0];
-        $nomor = str_replace($nomor3,"62",$nomor2);
+        // $nomor3 = $nomor2[0];
+        // $nomor3 = substr($nomor2,0,1);
+
+        // $nomor = str_replace($nomor3,"62",$nomor2);
+        $nomor = substr_replace($nomor2,"62",0,1);
+        // dd($nomor);
         // echo $nomor;
         $pesan = $request->pesan_whatsapp;
 
