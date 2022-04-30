@@ -7,7 +7,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="keywords" content="Halaman Login Toko Bagus" />
-<link rel="shortcut icon" href="{{ url('assets/media/image/favicon.ico') }}"/>
+<link rel="shortcut icon" href="{{ url('assets/media/image/stronger.png') }}"/>
 
 	 <script>
         addEventListener("load", function () {
@@ -166,7 +166,7 @@
         <!-- copyright -->
         
 		<div class="copyright animate__animated animate__fadeInUp" style=" animation-duration: 3s;">
-			<p>© {{ date('Y') }} Toko Bagus . All rights reserved</p>
+			<p>© {{ date('Y') }} Stronger . All rights reserved</p>
 		</div>
 		<!-- //copyright --> 
 	</div>

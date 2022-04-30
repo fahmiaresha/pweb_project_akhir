@@ -9,7 +9,7 @@
 
     <!-- <title>{{ config('app.name', 'Laravel') }}</title> -->
     <!-- <title>Toko Bagus</title> -->
-    <link rel="shortcut icon" href="{{ url('assets/media/image/favicon.ico') }}"/>
+    <link rel="shortcut icon" href="{{ url('assets/media/image/stronger.png') }}"/>
     <title>@yield('title')</title>
 
     <!-- Scripts -->
@@ -28,7 +28,7 @@
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     <!-- {{ config('app.name', 'Toko Bagus') }} -->
-                   Toko Bagus
+                   Stronger
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
