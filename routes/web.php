@@ -31,16 +31,20 @@ Route::post('/store-tipe-customer', 'TipeCustomerController@store_tipe_customer'
 Route::post('/update-tipe-customer', 'TipeCustomerController@update_tipe_customer');
 Route::get('/delete-tipe-customer/{id}', 'TipeCustomerController@delete_tipe_customer');
 
-//pembayaran
-Route::get('/pembayaran', 'ShowController@tampil_dashboard')->name('pembayaran');
-
 //waktu
-Route::get('/waktu', 'ShowController@tampil_dashboard')->name('waktu');
+Route::get('/waktu', 'WaktuController@tampil_waktu')->name('waktu');
+Route::post('/store-waktu', 'WaktuController@store_waktu');
+Route::post('/update-waktu', 'WaktuController@update_waktu');
+Route::get('/delete-waktu/{id}', 'WaktuController@delete_waktu');
 
+//pembayaran
+Route::get('/pembayaran', 'PembayaranController@tampil_pembayaran')->name('pembayaran');
+Route::post('/store-pembayaran', 'PembayaranController@store_pembayaran');
+Route::post('/update-pembayaran', 'PembayaranController@update_pembayaran');
+Route::get('/delete-pembayaran/{id}', 'PembayaranController@delete_pembayaran');
 
 //pemesanan
 Route::get('/pemesanan', 'ShowController@tampil_dashboard')->name('pemesanan');
-
 
 //penjadwalan
 Route::get('/penjadwalan', 'ShowController@tampil_dashboard')->name('penjadwalan');

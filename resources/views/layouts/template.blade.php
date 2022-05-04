@@ -88,7 +88,7 @@
                             <!-- <img class="logo" src="{{ url('assets/media/image/logo.png') }}" alt="logo"> -->
                             <img class="logo" src="{{ url('assets/media/image/stronger.png') }}" width="80px"
                                 height="80px" alt="logo">
-                            <h4 class="logo mt-3 ml-2" style="color:white">Stronger</h4>
+                            <h4 class=" mt-3" style="color:white">Stronger</h4>
                         </a>
                     </div>
                 </div>
@@ -316,11 +316,11 @@
 
                         <li onclick="tampil_logout()">
                             <a @if(request()->segment(1) == 'logout') class="active" @endif >
-                            <span>
-                                <i class="fa-solid fa-right-from-bracket"></i>
-                               
-                            </span>
-                            <span style="margin-left:15px; cursor:pointer;">Logout</span>
+                                <span>
+                                    <i class="fa-solid fa-right-from-bracket"></i>
+
+                                </span>
+                                <span style="margin-left:15px; cursor:pointer;">Logout</span>
                             </a>
 
                         </li>
@@ -352,7 +352,7 @@
 
                 <!-- Footer -->
                 <footer class="content-footer">
-                    <div>© {{ date('Y') }} - Stronger . All rights reserved</div>
+                    <div style=" font-weight: bold;">© {{ date('Y') }} - Stronger . All rights reserved</div>
                     <!-- <div>
                     <nav class="nav">
                         <a href="https://themeforest.net/licenses/standard" class="nav-link">Licenses</a>
